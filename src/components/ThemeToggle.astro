@@ -1,0 +1,38 @@
+---
+---
+<button
+	id="theme-toggle"
+	type="button"
+	class="p-2 rounded-full hover:bg-surface-container transition-all active:scale-90"
+	aria-label="Toggle theme"
+>
+	<span id="sun-icon" class="material-symbols-outlined text-on-surface hidden">light_mode</span>
+	<span id="moon-icon" class="material-symbols-outlined text-on-surface hidden">dark_mode</span>
+</button>
+
+<script>
+	const themeToggle = document.getElementById('theme-toggle');
+	const sunIcon = document.getElementById('sun-icon');
+	const moonIcon = document.getElementById('moon-icon');
+
+	const updateIcons = (theme: string) => {
+		if (theme === 'dark') {
+			sunIcon?.classList.remove('hidden');
+			moonIcon?.classList.add('hidden');
+		} else {
+			sunIcon?.classList.add('hidden');
+			moonIcon?.classList.remove('hidden');
+		}
+	};
+
+	let currentTheme = localStorage.getItem('theme') || 'light';
+	updateIcons(currentTheme);
+
+	themeToggle?.addEventListener('click', () => {
+		const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+		document.documentElement.classList.toggle('dark');
+		localStorage.setItem('theme', newTheme);
+		currentTheme = newTheme;
+		updateIcons(newTheme);
+	});
+</script>

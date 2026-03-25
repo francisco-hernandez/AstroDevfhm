@@ -1,0 +1,53 @@
+---
+const faqs = [
+	{
+		question: '¿Por qué "El Perezoso"?',
+		answer: 'No es pereza, es eficiencia extrema. Los perezosos conservan energía para lo que realmente importa. En el desarrollo, eso significa escribir código tan sólido y escalable que no requiera mantenimiento constante ni retrabajo.'
+	},
+	{
+		question: '¿Cuál es tu stack favorito?',
+		answer: 'Actualmente, mi "sweet spot" es React con Next.js para aplicaciones complejas, y Astro para sitios enfocados en contenido y SEO impecable. Todo potenciado con Tailwind CSS.'
+	},
+	{
+		question: '¿Trabajas con equipos grandes?',
+		answer: 'Funciono mejor como consultor boutique o líder técnico de equipos ágiles. Mi valor reside en la curación estratégica y en establecer cimientos técnicos que permitan al equipo escalar sin fricciones.'
+	},
+	{
+		question: '¿Cómo empiezo un proyecto contigo?',
+		answer: 'Escríbeme en la sección de abajo. Me gusta empezar con una charla informal sobre tus objetivos antes de entrar en detalles técnicos. Busco proyectos con alma y visión.'
+	}
+];
+---
+
+<section id="faq" class="section-padding bg-surface dark:bg-dark-bg">
+	<div class="max-w-4xl mx-auto">
+		<div class="mb-20 text-center">
+			<span class="text-primary font-black tracking-widest uppercase text-xs">Curiosidades & Dudas</span>
+			<h2 class="text-5xl md:text-7xl font-black mt-6 tracking-tighter">
+				Preguntas <br/> <span class="text-gradient">Frecuentes</span>
+			</h2>
+		</div>
+
+		<div class="space-y-6">
+			{faqs.map((faq) => (
+				<details class="group bg-surface-container-low dark:bg-slate-900/50 rounded-[2rem] p-8 cursor-pointer border-l-[6px] border-transparent open:border-primary transition-all shadow-ambient">
+					<summary class="flex justify-between items-center font-headline font-black text-2xl list-none">
+						{faq.question}
+						<span class="material-symbols-outlined transition-transform duration-500 group-open:rotate-180 text-primary">
+							expand_more
+						</span>
+					</summary>
+					<div class="mt-6 text-xl text-on-surface-variant dark:text-on-surface-variant/80 leading-relaxed font-medium">
+						{faq.answer}
+					</div>
+				</details>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	details summary::-webkit-details-marker {
+		display: none;
+	}
+</style>

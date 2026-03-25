@@ -1,0 +1,21 @@
+# dependencies
+/node_modules
+/.pnpm-store
+
+# build output
+/dist
+/chunks
+
+# runtime data
+/scripts
+/tmp
+
+# dotfiles
+.env
+.DS_Store
+
+# astro
+.astro
+package-lock.json
+pnpm-lock.yaml
+yarn.lock

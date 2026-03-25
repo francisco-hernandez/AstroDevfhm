@@ -1,0 +1,44 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Hero from '../../components/sections/Hero.astro';
+import BentoServices from '../../components/sections/BentoServices.astro';
+import About from '../../components/sections/About.astro';
+import Projects from '../../components/sections/Projects.astro';
+import BlogPreview from '../../components/sections/BlogPreview.astro';
+import FAQ from '../../components/sections/FAQ.astro';
+import Contact from '../../components/sections/Contact.astro';
+
+const lang = 'en';
+---
+
+<MainLayout title="devfhm.com - The Sloth Developer" lang={lang}>
+	<Navbar />
+	<main>
+		<Hero />
+		<BentoServices />
+		<About />
+		<Projects />
+		<BlogPreview />
+		<FAQ />
+		<Contact />
+	</main>
+	<footer class="w-full rounded-t-[4rem] bg-surface-container-low dark:bg-slate-900 py-20 px-12 mt-20">
+		<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+			<div>
+				<div class="text-2xl font-black text-primary mb-4">devfhm.com</div>
+				<p class="text-on-surface-variant text-sm max-w-xs leading-relaxed">
+					Curating digital experiences with energy, clarity and a touch of technological audacity.
+				</p>
+			</div>
+			<div class="flex gap-10">
+				<a href="#" class="text-on-surface-variant hover:text-primary transition-all font-bold uppercase tracking-widest text-xs">GitHub</a>
+				<a href="#" class="text-on-surface-variant hover:text-primary transition-all font-bold uppercase tracking-widest text-xs">LinkedIn</a>
+				<a href="#" class="text-on-surface-variant hover:text-primary transition-all font-bold uppercase tracking-widest text-xs">Twitter</a>
+			</div>
+			<p class="text-on-surface-variant opacity-50 text-xs font-black uppercase tracking-widest">
+				© 2024 devfhm.com - The Energetic Curator
+			</p>
+		</div>
+	</footer>
+</MainLayout>

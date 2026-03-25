@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 0 64 223;
+    --primary-container: 45 91 255;
+    --secondary-container: 184 243 0;
+    --surface: 250 248 255;
+    --on-surface: 7 23 71;
+  }
+
+  .dark {
+    --primary: 184 195 255;
+    --primary-container: 45 91 255;
+    --secondary-container: 163 216 0;
+    --surface: 1 4 9;
+    --on-surface: 239 240 255;
+  }
+
+  html {
+    @apply scroll-smooth antialiased;
+  }
+
+  body {
+    @apply bg-surface text-on-surface font-body selection:bg-primary/20;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline tracking-tighter;
+  }
+}
+
+@layer components {
+  .glass-nav {
+    @apply bg-surface-container-lowest/70 backdrop-blur-2xl;
+  }
+
+  .section-padding {
+    @apply py-24 md:py-32 px-8 max-w-7xl mx-auto;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white px-10 py-4 rounded-5xl font-headline font-extrabold text-lg 
+           shadow-premium hover:-translate-y-1 transition-all active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary-container text-on-surface px-10 py-4 rounded-5xl font-headline font-extrabold text-lg 
+           hover:bg-secondary-fixed transition-all active:scale-95;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-tr from-primary to-primary-container bg-clip-text text-transparent;
+  }
+}

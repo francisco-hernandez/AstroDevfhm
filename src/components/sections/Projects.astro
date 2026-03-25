@@ -1,0 +1,70 @@
+---
+const projects = [
+	{
+		title: 'Luminal Design System',
+		category: 'Arquitectura UI & Escalamiento',
+		year: '2024',
+		image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD_T7s_ZbdXcNqoEpdjKbDfMRnq6BagBK_e92C1xIkJNGC4u5sfTM0vFZvNTz98XIgXaCznIivn_CxNwORTC3ZAlZhcuJZ82yZ_9JnvtbV3yV054xNKA1HQavXJiQ2Kyv8KFyk0SwpD2CE94QlJfUeLML0fnTIJs7RNiShVb-d1Hkbjc_5EtsvG2Rms_SD_wqYWkXtN7h_wBek3ohWo-RsdAeWt--pEe47opDVWfCnU3gFPVySRT3tDPJeS1eyNp-gHVWtVBRX6JlwU',
+		class: 'md:col-span-8'
+	},
+	{
+		title: 'Vortex Analytics',
+		category: 'Web Application & Real-time Data',
+		year: '2024',
+		image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDHba0BfwrObCC7_IbhQIIi-uOPDC6_WcfZ5gjnu0pRnQNM2BY-5ZQR07N3HyxSekE0YC86mWAp4-wtO8I8ADwpt6iK0uqgUpeSZ1dWSZsJFlASO0H6pQP1oXoDbSBvh9xzSedmW-lcSTkEVN3_Sjb0ISfQvpL-QgZ8dxZ5ZVWQ7T-8Sr3wFYd2K9AenWBoUGrScCOLIx-MEzsqc4A0MeSHkBYhZSmjvXoiFfyMSRlHMhao3zp3E_8p07IB-yqYt9nXHyFLKE2PPmWy',
+		class: 'md:col-span-4 row-span-2'
+	},
+	{
+		title: 'Aura Mobile App',
+		category: 'Lifestyle Tracking',
+		year: '2023',
+		image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAxcKi8Cuh8n2G7FMDTdZyfdzVj2SDdMXkT-BPVAc4CTmTGBP6jttjn6fLaq7wpftE10hOAgU1riTf58eIm6bk5qBrENlP5johZeNxFOciRjFcQH_EBrw6BZZUTcobf8vNz0eOSIyyjZMyxmaV1NfixoTP40p8YBr-ctXnj9RqAU_04_eWjNMzuhwOyWVNejcUOLcew66UrrWtZf95LaLajYIW8oScxN8WfU5sv2J5cWfjyUj2w2g8sLO9m7sUEIbBA3PFdyc6xVQqr',
+		class: 'md:col-span-4'
+	},
+	{
+		title: 'Geek Sloth Studio',
+		category: 'Brand Identity',
+		year: '2023',
+		image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCpQ3zrAnhnsMgNV5SjDBh_nOkgNU3lrPYWRG4idVJ2_vzxnt9-qtO4-m1h1uLsH6pEqitlMQvIBk62llPmB784wcBYHH1KY1e09duOeWjtNHOtxp1IWluy_if3zhTJRVLPfdEu0IusEIbPlxZYO4Q_NPCRZo2IAGzyzQzMqXs2vlRIWzc67eF2fTIXmtc8kLHUofgr34NhyQkjG-vGmQ--31MyxbG-C5SIKy0QoozaOz-BB54URmyowIO6DxXqUvVXtbof66rrQ29w',
+		class: 'md:col-span-4'
+	}
+];
+---
+
+<section id="proyectos" class="section-padding bg-surface-container-low dark:bg-slate-900/30 rounded-[3.5rem] my-32">
+	<div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+		<div>
+			<h2 class="text-5xl md:text-6xl font-black mb-4">Portfolio <span class="text-primary italic">Dinámico</span></h2>
+			<p class="text-on-surface-variant text-xl">Una selección de visiones convertidas en realidad digital.</p>
+		</div>
+		<a href="#" class="text-primary font-headline font-black flex items-center gap-2 group hover:gap-4 transition-all uppercase tracking-widest text-sm">
+			Explorar todo el archivo <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+		</a>
+	</div>
+
+	<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+		{projects.map((project) => (
+			<div class={`group cursor-pointer ${project.class}`}>
+				<div class="overflow-hidden rounded-[2.5rem] bg-white dark:bg-slate-800 aspect-video mb-8 shadow-ambient relative">
+					<img 
+						src={project.image} 
+						alt={project.title} 
+						class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+					/>
+					<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+						<span class="btn-primary py-3 px-8 text-sm">Ver Detalle</span>
+					</div>
+				</div>
+				<div class="flex justify-between items-start px-4">
+					<div>
+						<h3 class="font-headline font-black text-3xl mb-1">{project.title}</h3>
+						<p class="text-on-surface-variant font-medium text-lg uppercase tracking-tight opacity-70">{project.category}</p>
+					</div>
+					<span class="bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-dim px-5 py-2 rounded-full text-xs font-black">
+						{project.year}
+					</span>
+				</div>
+			</div>
+		))}
+	</div>
+</section>

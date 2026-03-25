@@ -1,0 +1,49 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import ThemeToggle from './ThemeToggle.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const navItems = [
+	{ title: t('nav.inicio'), href: '#inicio' },
+	{ title: t('nav.servicios'), href: '#servicios' },
+	{ title: t('nav.sobre-mi'), href: '#sobre-mi' },
+	{ title: t('nav.proyectos'), href: '#proyectos' },
+	{ title: t('nav.blog'), href: '#blog' },
+];
+---
+
+<nav class="fixed top-0 w-full z-50 transition-all duration-300 glass-nav shadow-ambient">
+	<div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
+		<a href="/" class="text-2xl font-black tracking-tighter text-primary font-headline uppercase">
+			DEVFHM
+		</a>
+
+		<div class="hidden md:flex items-center gap-8">
+			{navItems.map((item) => (
+				<a
+					href={item.href}
+					class="font-headline font-bold text-on-surface-variant hover:text-primary transition-colors text-sm uppercase tracking-wide"
+				>
+					{item.title}
+				</a>
+			))}
+		</div>
+
+		<div class="flex items-center gap-4">
+			<div class="flex items-center gap-2 mr-2">
+				<a
+					href={lang === 'es' ? '/en/' : '/'}
+					class="text-xs font-black px-3 py-1 rounded-full bg-surface-container-high hover:bg-primary/10 transition-colors uppercase"
+				>
+					{lang === 'es' ? 'EN' : 'ES'}
+				</a>
+			</div>
+			<ThemeToggle />
+			<a href="#contacto" class="hidden sm:block btn-primary py-2 px-6 text-sm">
+				{t('nav.contacto')}
+			</a>
+		</div>
+	</div>
+</nav>

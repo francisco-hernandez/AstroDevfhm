@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blog de Notas - devfhm.com</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#747688",
+              "surface-bright": "#faf8ff",
+              "on-primary-fixed": "#001355",
+              "tertiary": "#913a00",
+              "surface-container-highest": "#dce1ff",
+              "primary-container": "#2d5bff",
+              "on-tertiary-fixed": "#351000",
+              "inverse-surface": "#202d5d",
+              "on-surface-variant": "#434656",
+              "on-secondary-fixed-variant": "#394e00",
+              "surface": "#faf8ff",
+              "tertiary-fixed-dim": "#ffb693",
+              "primary": "#0040df",
+              "surface-container-high": "#e4e7ff",
+              "secondary": "#4c6700",
+              "on-secondary-container": "#506c00",
+              "background": "#faf8ff",
+              "on-primary-fixed-variant": "#0035bd",
+              "secondary-container": "#b8f300",
+              "on-error": "#ffffff",
+              "on-background": "#071747",
+              "inverse-primary": "#b8c3ff",
+              "surface-container-low": "#f3f2ff",
+              "surface-container": "#ebedff",
+              "tertiary-fixed": "#ffdbcc",
+              "secondary-fixed": "#baf600",
+              "surface-variant": "#dce1ff",
+              "on-tertiary": "#ffffff",
+              "tertiary-container": "#b84b00",
+              "on-secondary-fixed": "#151f00",
+              "on-tertiary-fixed-variant": "#7a3000",
+              "error-container": "#ffdad6",
+              "surface-tint": "#104af0",
+              "outline-variant": "#c4c5d9",
+              "secondary-fixed-dim": "#a3d800",
+              "on-error-container": "#93000a",
+              "surface-dim": "#d1d8ff",
+              "on-primary-container": "#efefff",
+              "on-primary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#eff0ff",
+              "on-tertiary-container": "#ffece5",
+              "error": "#ba1a1a",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#dde1ff",
+              "primary-fixed-dim": "#b8c3ff",
+              "on-surface": "#071747"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #faf8ff;
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, #f3f2ff 0%, #faf8ff 100%);
+        }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl shadow-[0_24px_48px_-12px_rgba(0,0,0,0.06)]">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-extrabold text-[#2D5BFF] tracking-tighter font-['Epilogue']">devfhm.com</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#2D5BFF] transition-colors duration-300" href="#">Inicio</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#2D5BFF] transition-colors duration-300" href="#">Servicios</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#2D5BFF] transition-colors duration-300" href="#">Sobre mi</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#2D5BFF] transition-colors duration-300" href="#">Proyectos</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#2D5BFF] transition-colors duration-300" href="#">FAQ</a>
+<a class="text-[#2D5BFF] border-b-2 border-[#2D5BFF] pb-1 font-['Epilogue'] font-extrabold tracking-tight" href="#">Blog</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#2D5BFF] transition-colors duration-300" href="#">Contacto</a>
+</div>
+<div class="flex items-center gap-6">
+<span class="text-sm font-bold text-primary tracking-widest">ES/EN</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-full surface-container-low text-on-surface-variant hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="light_mode">light_mode</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 min-h-screen">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-8 mb-24 relative">
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+<div class="absolute top-48 -right-24 w-80 h-80 bg-secondary-container/20 rounded-full blur-3xl -z-10"></div>
+<div class="max-w-3xl">
+<h1 class="text-6xl md:text-8xl font-extrabold font-headline text-on-surface tracking-tighter mb-8 leading-[0.9]">
+                    Blog de <span class="text-primary italic">Notas</span>
+</h1>
+<p class="text-xl md:text-2xl text-on-surface-variant leading-relaxed font-body max-w-2xl">
+                    Pensamientos curados sobre el nexo entre el desarrollo de software, el diseño boutique y la optimización de flujos de trabajo.
+                </p>
+</div>
+</section>
+<!-- Filters Section -->
+<section class="max-w-7xl mx-auto px-8 mb-16">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 bg-surface-container-low p-8 rounded-xl">
+<div class="flex flex-wrap gap-4">
+<button class="px-8 py-3 rounded-full bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:translate-y-[-2px] transition-transform">Todos</button>
+<button class="px-8 py-3 rounded-full bg-surface-container-lowest text-on-surface-variant font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-colors">Tech</button>
+<button class="px-8 py-3 rounded-full bg-surface-container-lowest text-on-surface-variant font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-colors">Design</button>
+<button class="px-8 py-3 rounded-full bg-surface-container-lowest text-on-surface-variant font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-colors">Productivity</button>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined">calendar_today</span>
+<select class="bg-transparent border-none focus:ring-0 cursor-pointer appearance-none pr-8">
+<option>Más recientes</option>
+<option>Más antiguos</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Article Grid -->
+<section class="max-w-7xl mx-auto px-8 pb-24">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+<!-- Article Card 1: Feature Float Style -->
+<div class="group relative lg:col-span-2">
+<div class="absolute inset-0 bg-secondary-container rounded-xl translate-x-4 translate-y-4 -z-10 transition-transform group-hover:translate-x-6 group-hover:translate-y-6"></div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-xl flex flex-col md:flex-row">
+<div class="md:w-1/2 h-80 md:h-auto overflow-hidden">
+<img alt="Tech workspace" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Modern minimalist workspace with high-end tech gear, soft blue ambient lighting, and clean geometric lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKwH7gkZU7jQybBqZ8-TxXrCd5mBsGERZ4nna6a8Zl4Xqq0IEOTDrocKvTxCbjHsazxNH7u-RuYCu6I7LtKia2O33Low3xU2Ies9gMdUO-E93Je8nPzCogcpeeYKqvVnNwDdo0le0YDkETgWsumC_HET93vmQ3db3izDj_AXeGrVw3cmYqIOLmWDQbR9JO70iTQJUey59jKKahh3S4gu2LdCvbFeY_-MU-vI0Dd2vkLcIblxAkm7CJGXUmHO00d5FKByY40QlOp7W3"/>
+</div>
+<div class="p-10 md:w-1/2 flex flex-col justify-center">
+<span class="text-xs font-black tracking-widest text-primary mb-4 block">TECH</span>
+<h2 class="text-3xl font-extrabold font-headline mb-4 leading-tight">La Arquitectura del Mañana: Micro-frontends y más</h2>
+<p class="text-on-surface-variant mb-8 line-clamp-3">Exploramos cómo las estructuras desacopladas están permitiendo a los equipos de producto escalar sin fricciones técnicas innecesarias.</p>
+<a class="flex items-center gap-2 text-primary font-bold group/link" href="#">
+                                Leer Más 
+                                <span class="material-symbols-outlined transition-transform group-hover/link:translate-x-2">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Article Card 2 -->
+<div class="group flex flex-col">
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-6 h-64">
+<img alt="Design aesthetics" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Abstract vibrant orange and blue fluid shapes with glassmorphism texture and elegant soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHmFJL9O5HHjSyB9QkY7BsRZz_t2DoSjBksLZ0gllB0p4G-Mg4D1HeD9zbWom63zMIHQeqr-XbTXZT0MZGNFH0jAk3uUhpwdH2KCVWw7xJIWApZmX4A_EM4nhbnYUKyG5aLT7Um7GsDFN59GNgarL5sqIN3mkYIhMI5zAD6eVcQpkBiK4ejMGb2VqHuXDFlRqyg_IMPNx9NP6hid5-Xq0hV-ZhGXqNWYnnxYHkLa4FlHbFtZL19UUp-e94h64kXpXuPIvxZWz8EABu"/>
+</div>
+<span class="text-xs font-black tracking-widest text-on-tertiary-fixed-variant mb-2">DESIGN</span>
+<h3 class="text-2xl font-extrabold font-headline mb-4">Menos es el nuevo Más: Minimalismo Boutique</h3>
+<p class="text-on-surface-variant mb-6 flex-grow">Por qué el diseño minimalista no significa aburrido, sino una curaduría energética de elementos visuales.</p>
+<a class="flex items-center gap-2 text-primary font-bold group/link" href="#">
+                        Leer Más 
+                        <span class="material-symbols-outlined transition-transform group-hover/link:translate-x-2">arrow_forward</span>
+</a>
+</div>
+<!-- Article Card 3 -->
+<div class="group flex flex-col">
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-6 h-64">
+<img alt="Productivity journal" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Top down view of a notebook with elegant handwriting, a luxury fountain pen, and a single green leaf on white marble" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQp-oAs3SoZ5kNvY4z_91lPggqFysdwYeM2JNQ3exML3kaBELH4Xbk08HFWRp4GGT0V2WDF5qpS8jgeBhgJ5AKur-DJ3c0RLvY0w32chXQ8oPpbB0e-m_0vkoJir6l8W3fbqLgO-Rrt-riY8xAAg-StnxC_j1-4YoH8ar57t7VIIrckfIvVwJbncM1rPOnAw07J-KEX9cWyaRl2zs-gUNdbfsfORcxE1FAdUwvjuDdG52QT-cVZVZAQuY9rbHpm-hfU8N6b3rCA-t9"/>
+</div>
+<span class="text-xs font-black tracking-widest text-secondary mb-2">PRODUCTIVITY</span>
+<h3 class="text-2xl font-extrabold font-headline mb-4">Deep Work en un mundo de notificaciones</h3>
+<p class="text-on-surface-variant mb-6 flex-grow">Estrategias prácticas para recuperar el enfoque y producir trabajo de alta calidad en la era de la distracción.</p>
+<a class="flex items-center gap-2 text-primary font-bold group/link" href="#">
+                        Leer Más 
+                        <span class="material-symbols-outlined transition-transform group-hover/link:translate-x-2">arrow_forward</span>
+</a>
+</div>
+<!-- Article Card 4 -->
+<div class="group flex flex-col">
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-6 h-64">
+<img alt="Coding scene" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="MacBook screen showing clean code editor with vibrant syntax highlighting in a moody dark room with neon accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUs2hxCgzkBV7luRY_EH2fVZtz8AnKsZhZCaMTVhMWcrFc03MjRzKFEPGjmDLbtuzU2HWV8kqrTw1MAQARGk0UkUMlubG9lGRLnhSgHr7GPslPNdnfXEGvaspiLnd-b_Ow0f5oMhxHInbP66FP05Ss8xJmzm4Oi9NQ97UumRaS06baN1MCIy25xqHu8fpVXfzTohrFVkx3b3gUJnkuC8iXsnyRMbqh6rPQsU_lMRRMvq279X1hFpKSCJuhS5dnkTZqblTK8MFy0udj"/>
+</div>
+<span class="text-xs font-black tracking-widest text-primary mb-2">TECH</span>
+<h3 class="text-2xl font-extrabold font-headline mb-4">Tailwind CSS: El fin de las hojas de estilo gigantes</h3>
+<p class="text-on-surface-variant mb-6 flex-grow">Cómo el enfoque utility-first ha cambiado mi manera de prototipar y lanzar interfaces en tiempo récord.</p>
+<a class="flex items-center gap-2 text-primary font-bold group/link" href="#">
+                        Leer Más 
+                        <span class="material-symbols-outlined transition-transform group-hover/link:translate-x-2">arrow_forward</span>
+</a>
+</div>
+<!-- Article Card 5 -->
+<div class="group flex flex-col">
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-6 h-64">
+<img alt="Abstract prism" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close up of a glass prism reflecting rainbow light onto a white surface with clean sharp shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkpHHjYf7bN1zIaUdMpq2FhQPiuG39Ch0aSWe_ifoFUr1ADu8wdmquFxpuAuc3k0ocf3ajkMW2LYfWg5D0qSKTryetM2SxHuhGP6n5WlmU9qfWsnEbL8mmxYz2Ry4GerBZoOIdiXCOhjPhTgx0HNCUkxN6FFvmCpJdg31Two6STve0geWziY6eWPP8BEp68CZdJTXlm5crxjT6LhtEJ2knYPBEbw4c_HA3mbEsFgZwc6M2eFjnzpMFcgpxeJRK60jnfPwe3y5x_a1p"/>
+</div>
+<span class="text-xs font-black tracking-widest text-on-tertiary-fixed-variant mb-2">DESIGN</span>
+<h3 class="text-2xl font-extrabold font-headline mb-4">Psicología del Color en el Software B2B</h3>
+<p class="text-on-surface-variant mb-6 flex-grow">No todo es azul. Cómo usar paletas vibrantes para mejorar la retención de usuarios y el branding emocional.</p>
+<a class="flex items-center gap-2 text-primary font-bold group/link" href="#">
+                        Leer Más 
+                        <span class="material-symbols-outlined transition-transform group-hover/link:translate-x-2">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Newsletter Subscription -->
+</main>
+<!-- Footer -->
+<footer class="w-full rounded-t-[3rem] mt-24 bg-[#f3f2ff] dark:bg-slate-900">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-12 py-16 max-w-7xl mx-auto">
+<div class="mb-8 md:mb-0">
+<div class="text-xl font-black text-[#2D5BFF] mb-4">devfhm.com</div>
+<p class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm leading-relaxed max-w-xs">
+                    Curando experiencias digitales con energía, claridad y un toque de audacia tecnológica.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 md:gap-12">
+<a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm hover:text-orange-500 hover:translate-y-[-2px] transition-all" href="#">Twitter</a>
+<a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm hover:text-orange-500 hover:translate-y-[-2px] transition-all" href="#">GitHub</a>
+<a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm hover:text-orange-500 hover:translate-y-[-2px] transition-all" href="#">LinkedIn</a>
+<a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm hover:text-orange-500 hover:translate-y-[-2px] transition-all" href="#">Privacy Policy</a>
+</div>
+<div class="mt-12 md:mt-0 text-slate-400 text-xs font-medium">
+                © 2024 devfhm.com - The Energetic Curator
+            </div>
+</div>
+</footer>
+</body></html>

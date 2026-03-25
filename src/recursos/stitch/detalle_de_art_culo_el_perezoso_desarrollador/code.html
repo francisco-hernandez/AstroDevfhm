@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Artículo Detalle | El Perezoso</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed-variant": "#394e00",
+              "inverse-on-surface": "#eff0ff",
+              "outline-variant": "#c4c5d9",
+              "on-background": "#071747",
+              "tertiary": "#913a00",
+              "surface-container": "#ebedff",
+              "secondary-fixed-dim": "#a3d800",
+              "secondary-container": "#b8f300",
+              "primary-fixed": "#dde1ff",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-container": "#506c00",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#7a3000",
+              "on-secondary-fixed": "#151f00",
+              "tertiary-fixed-dim": "#ffb693",
+              "tertiary-container": "#b84b00",
+              "surface-container-high": "#e4e7ff",
+              "outline": "#747688",
+              "surface-container-highest": "#dce1ff",
+              "surface": "#faf8ff",
+              "on-error-container": "#93000a",
+              "primary-fixed-dim": "#b8c3ff",
+              "on-primary-fixed-variant": "#0035bd",
+              "background": "#faf8ff",
+              "surface-variant": "#dce1ff",
+              "on-tertiary": "#ffffff",
+              "on-surface-variant": "#434656",
+              "primary": "#0040df",
+              "on-primary": "#ffffff",
+              "on-surface": "#071747",
+              "inverse-surface": "#202d5d",
+              "on-tertiary-fixed": "#351000",
+              "inverse-primary": "#b8c3ff",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#efefff",
+              "surface-container-low": "#f3f2ff",
+              "surface-bright": "#faf8ff",
+              "secondary-fixed": "#baf600",
+              "on-tertiary-container": "#ffece5",
+              "tertiary-fixed": "#ffdbcc",
+              "surface-tint": "#104af0",
+              "secondary": "#4c6700",
+              "primary-container": "#2d5bff",
+              "surface-dim": "#d1d8ff",
+              "on-primary-fixed": "#001355",
+              "error-container": "#ffdad6",
+              "error": "#ba1a1a"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopNavBar Shell -->
+<nav class="fixed top-0 w-full z-50 glass-nav shadow-[0_24px_48px_-12px_rgba(0,0,0,0.06)]">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 py-6">
+<div class="text-2xl font-extrabold tracking-tighter text-slate-900 font-headline">EL PEREZOSO</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-headline font-extrabold tracking-tight text-slate-600 hover:text-[#2D5BFF] transition-all duration-300" href="#">Inicio</a>
+<a class="font-headline font-extrabold tracking-tight text-slate-600 hover:text-[#2D5BFF] transition-all duration-300" href="#">Servicios</a>
+<a class="font-headline font-extrabold tracking-tight text-slate-600 hover:text-[#2D5BFF] transition-all duration-300" href="#">Sobre mi</a>
+<a class="font-headline font-extrabold tracking-tight text-slate-600 hover:text-[#2D5BFF] transition-all duration-300" href="#">Proyectos</a>
+<a class="font-headline font-extrabold tracking-tight text-[#2D5BFF] border-b-2 border-[#2D5BFF] pb-1" href="#">Blog</a>
+</div>
+<div class="flex items-center gap-6">
+<span class="text-sm font-bold text-primary cursor-pointer hover:opacity-80 transition-all">ES/EN</span>
+<span class="material-symbols-outlined cursor-pointer text-slate-600 hover:text-primary transition-all">dark_mode</span>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
+<!-- Article Header -->
+<header class="mb-16">
+<div class="flex items-center gap-4 mb-8">
+<span class="bg-secondary-container text-on-secondary-container px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase">Desarrollo Web</span>
+<span class="text-outline text-sm font-medium">8 min de lectura</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-black font-headline text-on-surface leading-[1.1] tracking-tighter mb-12 max-w-5xl">
+                La calma como motor de la <span class="text-primary">creatividad digital</span> de alto impacto.
+            </h1>
+<!-- Hero Image -->
+<div class="relative w-full aspect-[21/9] rounded-xl overflow-hidden shadow-[0_24px_48px_-12px_rgba(7,23,71,0.12)]">
+<img class="w-full h-full object-cover" data-alt="high-end minimalist workspace with a sleek laptop, a small green plant, and soft morning light entering through a large window" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuL0TTs6ImIpJKyqah_htnaTkozOd2dm0HK9Drz4bQi6RTAviz4vVy3JkrwpAo62Kg2RfhbpSUPnVnRAdYdkEWfrVNumTn1EDln_FA86CccVmVweCrSXjjrh1dSUPVFIXvKCShBXSF3SjjOiZ1LzIUtXahJ9R-L7FPgQIWZf0brO5GczYYd6u2QQw-eYIo7RxG4YiTBShiVbkZgBmGYGMJfs-5xLy4SDKeyNmezbJK63DXAccWmObm0SFnwg3MOt_K-2inYt1f8eTS"/>
+</div>
+</header>
+<!-- Article Content (Mixed layout) -->
+<article class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+<!-- Sidebar Meta (Asymmetric) -->
+<aside class="lg:col-span-3 space-y-12 order-2 lg:order-1">
+<div class="p-8 rounded-xl bg-surface-container-low">
+<div class="w-16 h-16 rounded-full bg-primary-container mb-4 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a creative developer with a friendly expression in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdp5cCPjA76dEMvgj5u5DwJ0gHa1efuHUrqSyZfDXzJRDfVggQN0n2586mNlzkviq5v6pKo64t3diJY4nsQ164Nnk9zNfwsKgePe9AvAXZvkN-WX7mgwuB7UXSrKf5RRU-aHqH1wU5SwDqgbJXWuwCXpZfpRYK_arOhRpc7-0yY-5VHy5q8ew-6XBXk0gzH5IpasbngtJ84C9Bkpq67F473BePKTvYic3fGOaA2CPEwROB7ab3bU4kYz3O81sZzj4B_Tv9JzpxLXrB"/>
+</div>
+<p class="font-headline font-bold text-on-surface">El Perezoso</p>
+<p class="text-sm text-outline-variant mb-4">Lead Developer &amp; Curator</p>
+<button class="text-primary text-sm font-bold flex items-center gap-2 hover:translate-x-1 transition-transform">
+                        Seguir autor <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<p class="text-xs font-bold uppercase tracking-widest text-outline">Compartir</p>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined">share</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined">link</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Body Text -->
+<div class="lg:col-span-9 space-y-12 text-lg leading-relaxed text-on-surface-variant order-1 lg:order-2">
+<p class="text-2xl font-medium text-on-surface font-body leading-snug">
+                    En un mundo obsesionado con la velocidad, decidimos que la pausa es nuestra mayor ventaja competitiva. El desarrollo de software no se trata solo de escribir código, sino de curar experiencias que respiren.
+                </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8">
+<div>
+<p>La arquitectura de un proyecto digital exitoso comienza mucho antes de abrir el editor de código. Empieza con la comprensión profunda del usuario y la eliminación de todo el ruido innecesario que suele contaminar las interfaces modernas.</p>
+</div>
+<div>
+<p>Adoptamos el concepto de "Vibrant Clarity": una filosofía que busca el equilibrio entre el minimalismo más puro y la energía necesaria para captar la atención en menos de tres segundos.</p>
+</div>
+</div>
+<!-- Featured Quote -->
+<blockquote class="relative py-12 px-8 md:px-16 border-l-8 border-primary bg-surface-container-low rounded-r-xl">
+<span class="material-symbols-outlined text-6xl text-primary/20 absolute top-4 left-4" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<p class="text-3xl font-headline font-extrabold text-on-surface italic relative z-10 leading-tight">
+                        "El código limpio no es el que tiene menos líneas, sino el que permite que el usuario respire entre cada interacción."
+                    </p>
+</blockquote>
+<h3 class="text-3xl font-headline font-black text-on-surface pt-8">Implementando Sistemas de Diseño Vibrantes</h3>
+<p>Cuando trabajamos con marcas boutique, el color no es un relleno, es una herramienta de navegación. Usamos acentos como el "Digital Lime" para guiar el ojo sin necesidad de bordes intrusivos.</p>
+<!-- Code Block -->
+<div class="bg-inverse-surface text-inverse-on-surface p-8 rounded-xl font-mono text-sm overflow-x-auto shadow-xl">
+<div class="flex gap-2 mb-4">
+<div class="w-3 h-3 rounded-full bg-red-500"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+<div class="w-3 h-3 rounded-full bg-green-500"></div>
+</div>
+<pre><code><span class="text-secondary-fixed">const</span> <span class="text-primary-fixed">designSystem</span> = {
+  philosophy: <span class="text-secondary-container">'Vibrant Clarity'</span>,
+  rules: [
+    <span class="text-secondary-container">'No borders'</span>,
+    <span class="text-secondary-container">'Intentional asymmetry'</span>,
+    <span class="text-secondary-container">'High-contrast energy'</span>
+  ],
+  spacing: <span class="text-tertiary-fixed">8.5rem</span> <span class="text-outline">// spacing-24</span>
+};</code></pre>
+</div>
+<!-- Video Placeholder -->
+<div class="relative aspect-video rounded-xl overflow-hidden group bg-surface-container-highest flex items-center justify-center cursor-pointer">
+<img class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-105" data-alt="cinematic shot of an abstract 3D digital landscape with flowing neon lines and deep blue gradients" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZZJD3LlRHs59WeefC2GryII1Z_ck9lZfCGOYLywJ89Ne_c8mbQ40MwDUnE0NyDVY0Q8IXsqXrdsqIfA2rfrxzqhHRCxuIV5N_f5WZQKeH9BwM244wPGrZ3aEmWhwee07Bal0Ug1nmwVW55tTctHKaY1cs8sm916yMRX5sHVaJrk5muOLUkowUer5QRvtdtSXRW3mU7rCnH0lniR6yrT2VTwRwOVvW1VHfNR3CAu16Gkas8LcDFKGywL5MEkv0yeM6jDG9rIqzT9aE"/>
+<div class="relative z-10 w-20 h-20 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center shadow-2xl transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<div class="absolute bottom-6 left-6 text-white font-bold tracking-tight">
+                        Ver Workshop: Curaduría Digital
+                    </div>
+</div>
+<p>Al final del día, la tecnología debe estar al servicio de la calma. Si una interfaz genera ansiedad, hemos fallado como diseñadores. La claridad no es aburrida; es el mayor lujo de la era moderna.</p>
+<!-- Interactive Tags -->
+<footer class="pt-16 border-t border-surface-container-high">
+<p class="text-xs font-bold uppercase tracking-widest text-outline mb-6">Explora más</p>
+<div class="flex flex-wrap gap-3">
+<a class="px-6 py-3 bg-surface-container-high text-on-surface font-bold rounded-full hover:bg-primary hover:text-white transition-all" href="#">#UXDesign</a>
+<a class="px-6 py-3 bg-surface-container-high text-on-surface font-bold rounded-full hover:bg-primary hover:text-white transition-all" href="#">#CleanCode</a>
+<a class="px-6 py-3 bg-surface-container-high text-on-surface font-bold rounded-full hover:bg-primary hover:text-white transition-all" href="#">#BoutiqueStudio</a>
+<a class="px-6 py-3 bg-surface-container-high text-on-surface font-bold rounded-full hover:bg-primary hover:text-white transition-all" href="#">#Productivity</a>
+</div>
+</footer>
+</div>
+</article>
+<!-- Related Articles Grid -->
+<section class="mt-32">
+<h2 class="text-4xl font-headline font-black text-on-surface mb-12">Artículos Relacionados</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/3] rounded-xl overflow-hidden mb-6 shadow-sm group-hover:shadow-2xl transition-all duration-500">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="minimalist modern office interior with large windows and a clean white desk setup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD09-_Q51T5v6lABIvg8pZO3wJ3laSJVcqRANLXo_FPQ-Fsu6sn5lptL5UZ_ADgH3mUL0d-HasmKZHdfiCBr9B6Yo9p62qIrW7krq5KY9PkLcMfmvDc1rVRZ3NEkLrzpmVfQaxuU0dHEVE1ehmOIGyhPdHtyTlE_icQMHbsEqv-_yD837jesEfiATFxONmg-fLvD5EEhwUIqbhMvwsnJrEYIEthi2FpzaaTXqavZIY-vRR0zAvJa56AZRYCdRGrCDVVPl2KJvhk73q"/>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface leading-tight mb-2 group-hover:text-primary transition-colors">
+                        Sistemas de diseño que escalan sin perder el alma
+                    </h3>
+<p class="text-sm text-outline-variant">Estrategia • 5 min</p>
+</div>
+<!-- Card 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/3] rounded-xl overflow-hidden mb-6 shadow-sm group-hover:shadow-2xl transition-all duration-500">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="aesthetic close-up of high-quality code displayed on a clean monitor in a dark room with blue ambient light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFGWbKo8fS4yHs_uhtf2uvvv9QvgACXxkI4JrtDgEzPt5gqztkJHNmqGIevWuUW3z7b_I4zO0zA1tr4_I66ARMSWkhNPEWZ-MtPIFjIDDGZHMzkIQQw7kUcgjTC01uZLkeKNx0glLKBql8-6valUji5cAntOrgIrjcVz-KLmebkylVlcunI-x7W0R6sXatzBA5_xmCuLNN24UukXzgQB-RBp2cHtjKrQEPRiAZJlQePeyplcygK1p69muMmOnZx5nf6M4abND42Lu9"/>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface leading-tight mb-2 group-hover:text-primary transition-colors">
+                        TypeScript y la arquitectura de la confianza
+                    </h3>
+<p class="text-sm text-outline-variant">Desarrollo • 12 min</p>
+</div>
+<!-- Card 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/3] rounded-xl overflow-hidden mb-6 shadow-sm group-hover:shadow-2xl transition-all duration-500">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="top view of a professional designer sketching on a tablet with clean design elements visible on screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB31AT3Lv8GEtSODPXTUwhrmdc61foCf4lbz45LGHtGZbfeGCDIiXas_V8_3nRevYyfH7OJireS9JsJ-63C8WP9GPrSytKNWX-SS_A06-e6bhsB34ZaQBHUNpJnbP2PQUuCoeyI_o1HByxO-keJY8wg_ssZrET2-0mp6k1vNIOwNJZkSH8UByplXYKj9d4_3UXSCyxQkFQ3mYX7KTyKM_aIKAtoDc_q-r4b3MRYjma1Sa4dXoL39UHXkCWtjU8H8btU6YgeU7SW11sB"/>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface leading-tight mb-2 group-hover:text-primary transition-colors">
+                        Por qué el minimalismo no es "vacío"
+                    </h3>
+<p class="text-sm text-outline-variant">Diseño • 7 min</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="w-full rounded-t-[3rem] mt-24 bg-[#f3f2ff] dark:bg-slate-900">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-12 py-16 max-w-7xl mx-auto">
+<div class="mb-8 md:mb-0">
+<div class="text-xl font-black text-[#2D5BFF] mb-4">devfhm.com</div>
+<p class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm leading-relaxed max-w-xs">
+                    Curando experiencias digitales con energía, claridad y un toque de audacia tecnológica.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 md:gap-12">
+<a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm hover:text-orange-500 hover:translate-y-[-2px] transition-all" href="#">Twitter</a>
+<a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm hover:text-orange-500 hover:translate-y-[-2px] transition-all" href="#">GitHub</a>
+<a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm hover:text-orange-500 hover:translate-y-[-2px] transition-all" href="#">LinkedIn</a>
+<a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm hover:text-orange-500 hover:translate-y-[-2px] transition-all" href="#">Privacy Policy</a>
+</div>
+<div class="mt-12 md:mt-0 text-slate-400 text-xs font-medium">
+                © 2024 devfhm.com - The Energetic Curator
+            </div>
+</div>
+</footer>
+</body></html>

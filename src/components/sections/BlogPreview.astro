@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const posts = (await getCollection('blog'))
+	.filter(post => post.slug.startsWith(`${lang}/`))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+---
+
+<section id="blog" class="section-padding">
+	<div class="text-center mb-24">
+		<h2 class="text-5xl md:text-7xl font-black mb-8 tracking-tighter">
+			Bloc de <span class="text-secondary-container bg-on-surface dark:bg-primary-container px-6 py-2 rounded-2xl text-on-surface-container-lowest">Notas</span>
+		</h2>
+		<p class="text-on-surface-variant text-xl">Pensamientos sobre código, diseño y la vida slow-tech.</p>
+	</div>
+
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-20">
+		{posts.map((post) => (
+			<article class="bg-surface-container-low dark:bg-slate-900/40 rounded-[2.5rem] overflow-hidden hover:bg-surface-container dark:hover:bg-slate-800 transition-all group shadow-ambient">
+				<div class="h-64 overflow-hidden relative">
+					<img 
+						src={post.data.image} 
+						alt={post.data.title} 
+						class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+					/>
+					<div class="absolute top-6 left-6">
+						<span class="text-[10px] font-black uppercase tracking-widest bg-primary text-white px-4 py-2 rounded-full">
+							{post.data.category}
+						</span>
+					</div>
+				</div>
+				<div class="p-10">
+					<h3 class="font-headline font-black text-2xl mb-6 leading-tight group-hover:text-primary transition-colors">
+						{post.data.title}
+					</h3>
+					<p class="text-on-surface-variant dark:text-on-surface-variant/80 text-lg mb-10 line-clamp-3 leading-relaxed">
+						{post.data.description}
+					</p>
+					<a href={`/blog/${post.slug.split('/')[1]}`} class="inline-flex items-center gap-3 text-primary font-black uppercase tracking-widest text-xs group/link">
+						Leer más 
+						<span class="material-symbols-outlined text-sm group-hover/link:translate-x-2 transition-transform">
+							arrow_forward
+						</span>
+					</a>
+				</div>
+			</article>
+		))}
+	</div>
+
+	<div class="text-center">
+		<a href="/blog" class="inline-block border-[3px] border-surface-container-high dark:border-slate-800 px-12 py-5 rounded-full font-headline font-black text-on-surface dark:text-white hover:bg-surface-container-high dark:hover:bg-slate-800 transition-all uppercase tracking-widest text-sm">
+			Ver todos los artículos
+		</a>
+	</div>
+</section>
