@@ -8,14 +8,14 @@ const t = useTranslations(lang);
 const slothImg = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpQ3zrAnhnsMgNV5SjDBh_nOkgNU3lrPYWRG4idVJ2_vzxnt9-qtO4-m1h1uLsH6pEqitlMQvIBk62llPmB784wcBYHH1KY1e09duOeWjtNHOtxp1IWluy_if3zhTJRVLPfdEu0IusEIbPlxZYO4Q_NPCRZo2IAGzyzQzMqXs2vlRIWzc67eF2fTIXmtc8kLHUofgr34NhyQkjG-vGmQ--31MyxbG-C5SIKy0QoozaOz-BB54URmyowIO6DxXqUvVXtbof66rrQ29w";
 ---
 
-<section id="inicio" class="relative pt-48 pb-32 overflow-hidden min-h-screen flex items-center bg-surface dark:bg-dark-bg/50">
+<section id="inicio" class="relative pt-48 pb-32 overflow-hidden min-h-screen flex items-center bg-surface dark:bg-dark-bg">
 	<!-- Background blobs -->
 	<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
 	<div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-secondary-container/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
 	<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 		<div class="z-10" data-aos="fade-up">
-			<h1 class="font-headline tracking-tighter mb-8 text-on-surface dark:text-white">
+			<h1 class="font-headline tracking-tighter mb-8 text-on-surface dark:text-on-surface">
 				<span class="block text-6xl md:text-8xl font-black leading-[0.85] mb-2">{t('hero.title.1')}</span>
 				<span class="block text-6xl md:text-8xl font-black leading-[0.85] text-gradient">{t('hero.title.2')}</span>
 				<span class="block text-4xl md:text-5xl font-light mt-6 flex flex-wrap items-center gap-4">
@@ -23,7 +23,7 @@ const slothImg = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpQ3zrAnhn
 				</span>
 			</h1>
 			
-			<p class="text-xl md:text-2xl text-on-surface-variant dark:text-on-surface-variant/80 max-w-xl mb-12 leading-relaxed">
+			<p class="text-xl md:text-2xl text-on-surface-variant dark:text-on-surface-variant max-w-xl mb-12 leading-relaxed">
 				{t('hero.subtitle')}
 			</p>
 
@@ -48,13 +48,13 @@ const slothImg = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpQ3zrAnhn
 				/>
 
 				<!-- Floating Elements -->
-				<div class="absolute top-10 left-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md p-4 rounded-3xl shadow-ambient motion-safe:animate-bounce" style="animation-duration: 4s;">
+				<div class="absolute top-10 left-0 bg-white/80 dark:bg-surface-container-high/80 backdrop-blur-md p-4 rounded-3xl shadow-ambient motion-safe:animate-bounce" style="animation-duration: 4s;">
 					<span class="material-symbols-outlined text-4xl text-primary">terminal</span>
 				</div>
-				<div class="absolute bottom-20 right-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md p-5 rounded-3xl shadow-ambient motion-safe:animate-bounce" style="animation-duration: 5s;">
+				<div class="absolute bottom-20 right-0 bg-white/80 dark:bg-surface-container-high/80 backdrop-blur-md p-5 rounded-3xl shadow-ambient motion-safe:animate-bounce" style="animation-duration: 5s;">
 					<span class="material-symbols-outlined text-4xl text-tertiary-container">code_blocks</span>
 				</div>
-				<div class="absolute top-1/2 -left-12 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md p-3 rounded-full shadow-ambient motion-safe:animate-pulse">
+				<div class="absolute top-1/2 -left-12 bg-white/80 dark:bg-surface-container-high/80 backdrop-blur-md p-3 rounded-full shadow-ambient motion-safe:animate-pulse">
 					<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
 						<span class="material-symbols-outlined text-2xl text-on-surface">electric_bolt</span>
 					</div>

@@ -6,44 +6,545 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const navItems = [
-	{ title: t('nav.inicio'), href: '#inicio' },
-	{ title: t('nav.servicios'), href: '#servicios' },
-	{ title: t('nav.sobre-mi'), href: '#sobre-mi' },
-	{ title: t('nav.proyectos'), href: '#proyectos' },
-	{ title: t('nav.blog'), href: '#blog' },
+	{ title: t('nav.inicio'), href: '#inicio', icon: 'home', gradient: 'from-primary to-primary-container' },
+	{ title: t('nav.servicios'), href: '#servicios', icon: 'handyman', gradient: 'from-secondary to-secondary-container' },
+	{ title: t('nav.sobre-mi'), href: '#sobre-mi', icon: 'person', gradient: 'from-tertiary to-tertiary-container' },
+	{ title: t('nav.proyectos'), href: '#proyectos', icon: 'work', gradient: 'from-primary to-secondary-container' },
+	{ title: t('nav.blog'), href: '#blog', icon: 'article', gradient: 'from-secondary to-tertiary-container' },
 ];
 ---
 
-<nav class="fixed top-0 w-full z-50 transition-all duration-300 glass-nav shadow-ambient">
-	<div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
-		<a href="/" class="text-2xl font-black tracking-tighter text-primary font-headline uppercase">
-			DEVFHM
+<!-- Navbar moderna 2026 con glassmorphism y efectos avanzados -->
+<nav class="fixed top-0 w-full z-[100] transition-all duration-500 backdrop-blur-xl bg-white/10 dark:bg-black/10 border-b border-white/20 dark:border-white/10 shadow-2xl">
+	<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+		<!-- Logo con efecto holográfico -->
+		<a href="/" class="group relative">
+			<div class="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-xl blur-lg opacity-0 group-hover:opacity-70 transition-all duration-500 animate-gradient"></div>
+			<div class="relative bg-gradient-to-r from-on-surface to-on-surface-variant dark:from-white dark:to-surface-dim bg-clip-text text-transparent text-2xl font-black tracking-tighter font-headline uppercase px-3 py-1">
+				DEVFHM
+				<span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
+			</div>
 		</a>
 
-		<div class="hidden md:flex items-center gap-8">
-			{navItems.map((item) => (
+		<!-- Menú Desktop inspirado en móvil -->
+		<div class="hidden md:flex items-center gap-4">
+			{navItems.map((item, index) => (
 				<a
 					href={item.href}
-					class="font-headline font-bold text-on-surface-variant hover:text-primary transition-colors text-sm uppercase tracking-wide"
+					class="desktop-nav-link group relative overflow-hidden rounded-2xl p-4 transition-all duration-500 hover:scale-[1.02]"
+					data-index={index}
+					data-gradient={item.gradient}
 				>
-					{item.title}
+					<!-- Background effect -->
+					<div class="absolute inset-0 rounded-2xl bg-gradient-to-r opacity-0 group-hover:opacity-15 transition-all duration-500"
+						 style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end))"></div>
+					
+					<!-- Content -->
+					<div class="relative z-10 flex items-center gap-3">
+						<div class="w-10 h-10 rounded-xl bg-gradient-to-r flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-6"
+							 style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end))">
+							<span class="material-symbols-outlined text-white text-lg">{item.icon}</span>
+						</div>
+						<div class="flex flex-col">
+							<h3 class="text-sm font-black mb-1 transition-all duration-300 relative">
+								<span class="nav-text-base text-on-surface dark:text-white">{item.title}</span>
+								<span class="nav-text-fill absolute inset-0 transition-all duration-500 overflow-hidden"
+									  style="background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); -webkit-background-clip: text; background-clip: text; color: transparent; width: 0%;">
+									{item.title}
+								</span>
+							</h3>
+							<div class="h-0.5 w-0 bg-gradient-to-r rounded-full transition-all duration-500 group-hover:w-full"
+								 style="background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end))"></div>
+						</div>
+					</div>
+					
+					<!-- Floating particles -->
+					<div class="absolute top-2 right-2 w-2 h-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
+						 style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end))"></div>
 				</a>
 			))}
 		</div>
 
-		<div class="flex items-center gap-4">
-			<div class="flex items-center gap-2 mr-2">
+		<!-- Controles modernos -->
+		<div class="flex items-center gap-3">
+			<!-- Botón hamburguesa futurista -->
+			<button 
+				id="mobile-menu-toggle" 
+				class="md:hidden relative group"
+				aria-label="Toggle mobile menu"
+			>
+				<div class="relative w-10 h-10 rounded-xl bg-gradient-to-r from-primary to-secondary flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:rotate-90">
+					<span class="material-symbols-outlined text-white text-xl group-hover:scale-110 transition-transform duration-300">apps</span>
+					<div class="absolute inset-0 rounded-xl bg-gradient-to-r from-secondary to-tertiary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+				</div>
+				<!-- Pulse effect -->
+				<span class="absolute -inset-2 rounded-xl bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500"></span>
+			</button>
+
+			<!-- Selector de idioma moderno -->
+			<div class="hidden md:flex items-center gap-2">
 				<a
 					href={lang === 'es' ? '/en/' : '/'}
-					class="text-xs font-black px-3 py-1 rounded-full bg-surface-container-high hover:bg-primary/10 transition-colors uppercase"
+					class="relative group px-3 py-1.5 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-gradient-to-r hover:from-surface-container hover:to-surface-container-high dark:hover:from-surface-dim dark:hover:to-surface-container"
 				>
-					{lang === 'es' ? 'EN' : 'ES'}
+					<span class="relative z-10 text-xs font-black uppercase tracking-wider text-on-surface dark:text-white transition-colors duration-300 group-hover:text-on-surface dark:group-hover:text-on-surface">{lang === 'es' ? 'EN' : 'ES'}</span>
+					<div class="absolute inset-0 rounded-lg bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
 				</a>
 			</div>
-			<ThemeToggle />
-			<a href="#contacto" class="hidden sm:block btn-primary py-2 px-6 text-sm">
-				{t('nav.contacto')}
+			
+			<!-- Theme toggle modernizado -->
+			<div class="hidden md:block">
+				<ThemeToggle />
+			</div>
+			
+			<!-- Botón contacto con efecto holográfico -->
+			<a href="#contacto" class="hidden sm:block relative group">
+				<div class="relative px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary to-secondary transition-all duration-300 hover:scale-105 hover:shadow-xl">
+					<span class="relative z-10 text-white text-sm font-black uppercase tracking-wider">{t('nav.contacto')}</span>
+					<div class="absolute inset-0 rounded-xl bg-gradient-to-r from-secondary to-tertiary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+					<div class="absolute inset-0 rounded-xl bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-50 blur-lg transition-all duration-500"></div>
+				</div>
 			</a>
 		</div>
 	</div>
 </nav>
+
+<!-- Menú móvil con diseño inmersivo 2026 -->
+<div id="mobile-menu" class="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-2xl pt-20 px-6 transform -translate-x-full transition-transform duration-700 md:hidden">
+	<!-- Background animado -->
+	<div class="absolute inset-0">
+		<div class="absolute top-0 left-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+		<div class="absolute bottom-0 right-0 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s"></div>
+		<div class="absolute top-1/2 left-1/2 w-96 h-96 bg-tertiary/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s"></div>
+	</div>
+	
+	<div class="flex flex-col gap-6 mt-20 relative z-10 h-full overflow-y-auto">
+		<!-- Header del menú móvil -->
+		<div class="text-center mb-8">
+			<div class="inline-block">
+				<h2 class="text-3xl font-black bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent animate-gradient">
+					Menú
+				</h2>
+				<div class="h-1 w-20 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-2"></div>
+			</div>
+		</div>
+		
+		<!-- Navegación principal -->
+		<div class="flex flex-col gap-4">
+			{navItems.map((item, index) => (
+				<a
+					href={item.href}
+					class="mobile-nav-link group relative overflow-hidden rounded-2xl p-4 transition-all duration-500 hover:scale-[1.02]"
+					data-index={index}
+					data-gradient={item.gradient}
+				>
+					<!-- Background effect -->
+					<div class="absolute inset-0 rounded-2xl bg-gradient-to-r opacity-0 group-hover:opacity-20 transition-all duration-500"
+						 style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end))"></div>
+					
+					<!-- Content -->
+					<div class="relative z-10 flex items-center gap-4">
+						<div class="w-12 h-12 rounded-xl bg-gradient-to-r flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-6"
+							 style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end))">
+							<span class="material-symbols-outlined text-white text-xl">{item.icon}</span>
+						</div>
+						<div class="flex-1">
+							<h3 class="text-xl font-black text-white mb-1">{item.title}</h3>
+							<div class="h-0.5 w-0 bg-gradient-to-r rounded-full transition-all duration-500 group-hover:w-full"
+								 style="background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end))"></div>
+						</div>
+						<span class="material-symbols-outlined text-white/60 text-xl transition-transform duration-300 group-hover:translate-x-2">arrow_forward</span>
+					</div>
+					
+					<!-- Floating particles -->
+					<div class="absolute top-2 right-2 w-2 h-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
+						 style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end))"></div>
+				</a>
+			))}
+		</div>
+		
+		<!-- Controles -->
+		<div class="mt-auto pt-8 border-t border-white/20">
+			<div class="flex flex-col gap-4">
+				<a
+					href={lang === 'es' ? '/en/' : '/'}
+					class="flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 border border-white/20"
+				>
+					<span class="material-symbols-outlined text-white text-xl">language</span>
+					<span class="text-white font-black uppercase tracking-wider text-lg">{lang === 'es' ? 'EN' : 'ES'}</span>
+				</a>
+				
+				<div class="flex justify-center py-2">
+					<ThemeToggle />
+				</div>
+				
+				<a href="#contacto" class="relative group">
+					<div class="relative px-6 py-4 rounded-xl bg-gradient-to-r from-primary to-secondary transition-all duration-300 hover:scale-105 hover:shadow-xl">
+						<span class="relative z-10 text-white font-black uppercase tracking-wider text-lg">{t('nav.contacto')}</span>
+						<div class="absolute inset-0 rounded-xl bg-gradient-to-r from-secondary to-tertiary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	@keyframes gradient {
+		0%, 100% { background-position: 0% 50%; }
+		50% { background-position: 100% 50%; }
+	}
+	
+	.animate-gradient {
+		background-size: 200% 200%;
+		animation: gradient 3s ease infinite;
+	}
+	
+	.nav-item-container {
+		--gradient-start: #3b82f6;
+		--gradient-end: #8b5cf6;
+	}
+	
+	.desktop-nav-link:nth-child(1) { --gradient-start: #0040df; --gradient-end: #2d5bff; }
+	.desktop-nav-link:nth-child(2) { --gradient-start: #4c6700; --gradient-end: #b8f300; }
+	.desktop-nav-link:nth-child(3) { --gradient-start: #913a00; --gradient-end: #b84b00; }
+	.desktop-nav-link:nth-child(4) { --gradient-start: #0040df; --gradient-end: #b8f300; }
+	.desktop-nav-link:nth-child(5) { --gradient-start: #4c6700; --gradient-end: #b84b00; }
+	
+	.mobile-nav-link:nth-child(1) { --gradient-start: #0040df; --gradient-end: #2d5bff; }
+	.mobile-nav-link:nth-child(2) { --gradient-start: #4c6700; --gradient-end: #b8f300; }
+	.mobile-nav-link:nth-child(3) { --gradient-start: #913a00; --gradient-end: #b84b00; }
+	.mobile-nav-link:nth-child(4) { --gradient-start: #0040df; --gradient-end: #b8f300; }
+	.mobile-nav-link:nth-child(5) { --gradient-start: #4c6700; --gradient-end: #b84b00; }
+</style>
+
+<script>
+	import { gsap } from 'gsap';
+
+	// Configuración inicial para animaciones avanzadas
+	const desktopNavLinks = document.querySelectorAll('.desktop-nav-link');
+	const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+	
+	// Animación inicial del navbar con efecto de revelado
+	gsap.set('.desktop-nav-link', {
+		opacity: 0,
+		y: -30,
+		rotationX: -15,
+		transformPerspective: 1000
+	});
+
+	// Timeline de revelado escalonado con efecto elástico
+	const revealTimeline = gsap.timeline({ paused: true });
+	
+	revealTimeline
+		.to('.desktop-nav-link', {
+			opacity: 1,
+			y: 0,
+			rotationX: 0,
+			duration: 1,
+			stagger: 0.2,
+			ease: "back.out(1.7)"
+		});
+
+	// Iniciar animación después de la carga
+	setTimeout(() => {
+		revealTimeline.play();
+	}, 800);
+
+	// Hover effects avanzados en desktop
+	desktopNavLinks.forEach((link, index) => {
+		const icon = link.querySelector('.material-symbols-outlined');
+		const underline = link.querySelector('.h-0\\.5');
+		const iconContainer = link.querySelector('.w-10');
+		const textFill = link.querySelector('.nav-text-fill');
+		const textBase = link.querySelector('.nav-text-base');
+		
+		link.addEventListener('mouseenter', () => {
+			// Efecto 3D avanzado
+			gsap.to(link, {
+				scale: 1.02,
+				y: -2,
+				rotationZ: Math.random() * 2 - 1,
+				duration: 0.4,
+				ease: "power3.out"
+			});
+			
+			// Revelado del texto con color
+			gsap.to(textFill, {
+				width: '100%',
+				duration: 0.5,
+				ease: "power3.out"
+			});
+			
+			// Ocultar texto base gradualmente
+			gsap.to(textBase, {
+				opacity: 0,
+				duration: 0.3,
+				ease: "power2.out"
+			});
+			
+			// Icono con efecto rebote
+			gsap.to(iconContainer, {
+				scale: 1.1,
+				rotation: 6,
+				duration: 0.4,
+				ease: "back.out(1.7)"
+			});
+			
+			// Subrayado animado
+			gsap.to(underline, {
+				width: '100%',
+				duration: 0.5,
+				ease: "power3.out"
+			});
+			
+			// Crear partículas flotantes
+			createParticles(link);
+		});
+
+		link.addEventListener('mouseleave', () => {
+			// Restaurar estado 3D
+			gsap.to(link, {
+				scale: 1,
+				y: 0,
+				rotationZ: 0,
+				duration: 0.4,
+				ease: "power2.out"
+			});
+			
+			// Ocultar texto con color
+			gsap.to(textFill, {
+				width: '0%',
+				duration: 0.3,
+				ease: "power2.out"
+			});
+			
+			// Mostrar texto base nuevamente
+			gsap.to(textBase, {
+				opacity: 1,
+				duration: 0.2,
+				ease: "power2.out"
+			});
+			
+			// Icono retrocede
+			gsap.to(iconContainer, {
+				scale: 1,
+				rotation: 0,
+				duration: 0.4,
+				ease: "power2.out"
+			});
+			
+			// Subrayado retrocede
+			gsap.to(underline, {
+				width: '0%',
+				duration: 0.3,
+				ease: "power2.out"
+			});
+		});
+	});
+
+	// Función para crear partículas flotantes
+	function createParticles(container) {
+		for (let i = 0; i < 3; i++) {
+			const particle = document.createElement('span');
+			particle.className = 'absolute w-1 h-1 rounded-full pointer-events-none';
+			particle.style.background = `linear-gradient(135deg, ${getComputedStyle(container).getPropertyValue('--gradient-start')}, ${getComputedStyle(container).getPropertyValue('--gradient-end')})`;
+			
+			container.appendChild(particle);
+			
+			// Animación de partícula
+			gsap.fromTo(particle, {
+				x: 0,
+				y: 0,
+				opacity: 1,
+				scale: 0
+			}, {
+				x: Math.random() * 100 - 50,
+				y: Math.random() * -50 - 20,
+				opacity: 0,
+				scale: 1,
+				duration: 1.5,
+				ease: "power2.out",
+				onComplete: () => particle.remove()
+			});
+		}
+	}
+
+	// Menú móvil con animaciones cinematográficas
+	const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+	const mobileMenu = document.getElementById('mobile-menu');
+	let isMobileMenuOpen = false;
+
+	mobileMenuToggle?.addEventListener('click', () => {
+		if (isMobileMenuOpen) {
+			// Cerrar con efecto de película
+			gsap.to(mobileNavLinks, {
+				x: -100,
+				opacity: 0,
+				scale: 0.8,
+				rotationY: 90,
+				duration: 0.5,
+				stagger: 0.1,
+				ease: "power3.in"
+			});
+			
+			gsap.to(mobileMenu, {
+				x: '-100%',
+				opacity: 0,
+				duration: 0.6,
+				ease: "power3.inOut",
+				onComplete: () => {
+					mobileMenu.classList.add('-translate-x-full');
+					gsap.set(mobileMenu, { opacity: 1 });
+				}
+			});
+			isMobileMenuOpen = false;
+		} else {
+			mobileMenu.classList.remove('-translate-x-full');
+			gsap.set(mobileMenu, { x: '-100%', opacity: 0 });
+			
+			// Apertura con efecto dramático
+			gsap.to(mobileMenu, {
+				x: '0%',
+				opacity: 1,
+				duration: 0.6,
+				ease: "power3.inOut"
+			});
+			
+			// Animación de enlaces con efecto 3D
+			gsap.fromTo(mobileNavLinks, 
+				{ 
+					opacity: 0, 
+					x: -100, 
+					scale: 0.5,
+					rotationY: -90,
+					transformPerspective: 1000
+				},
+				{ 
+					opacity: 1, 
+					x: 0, 
+					scale: 1,
+					rotationY: 0,
+					duration: 0.8, 
+					stagger: 0.15, 
+					ease: "back.out(1.7)", 
+					delay: 0.3
+				}
+			);
+			
+			isMobileMenuOpen = true;
+		}
+	});
+
+	// Hover effects en menú móvil con efectos avanzados
+	mobileNavLinks.forEach((link, index) => {
+		const icon = link.querySelector('.material-symbols-outlined');
+		const underline = link.querySelector('.h-0\\.5');
+		
+		link.addEventListener('mouseenter', () => {
+			gsap.to(link, {
+				x: 8,
+				scale: 1.02,
+				rotationZ: 1,
+				duration: 0.4,
+				ease: "power3.out"
+			});
+			
+			gsap.to(icon, {
+				rotation: 360,
+				scale: 1.2,
+				duration: 0.6,
+				ease: "back.out(1.7)"
+			});
+			
+			gsap.to(underline, {
+				width: '100%',
+				duration: 0.5,
+				ease: "power3.out"
+			});
+			
+			// Efecto de brillo
+			gsap.to(link, {
+				filter: 'brightness(1.2)',
+				duration: 0.3,
+				ease: "power2.out"
+			});
+		});
+
+		link.addEventListener('mouseleave', () => {
+			gsap.to(link, {
+				x: 0,
+				scale: 1,
+				rotationZ: 0,
+				duration: 0.4,
+				ease: "power2.out"
+			});
+			
+			gsap.to(icon, {
+				rotation: 0,
+				scale: 1,
+				duration: 0.4,
+				ease: "power2.out"
+			});
+			
+			gsap.to(underline, {
+				width: '0%',
+				duration: 0.3,
+				ease: "power2.out"
+			});
+			
+			gsap.to(link, {
+				filter: 'brightness(1)',
+				duration: 0.3,
+				ease: "power2.out"
+			});
+		});
+	});
+
+	// Cerrar menú móvil con efectos
+	mobileNavLinks.forEach(link => {
+		link.addEventListener('click', () => {
+			gsap.to(mobileNavLinks, {
+				x: -100,
+				opacity: 0,
+				scale: 0.8,
+				duration: 0.4,
+				stagger: 0.08,
+				ease: "power3.in"
+			});
+			
+			gsap.to(mobileMenu, {
+				x: '-100%',
+				duration: 0.5,
+				ease: "power3.inOut",
+				onComplete: () => {
+					mobileMenu.classList.add('-translate-x-full');
+				}
+			});
+			isMobileMenuOpen = false;
+		});
+	});
+
+	// Cerrar con Escape
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && isMobileMenuOpen) {
+			gsap.to(mobileNavLinks, {
+				x: -100,
+				opacity: 0,
+				duration: 0.3,
+				stagger: 0.05,
+				ease: "power2.in"
+			});
+			
+			gsap.to(mobileMenu, {
+				x: '-100%',
+				duration: 0.4,
+				ease: "power2.inOut",
+				onComplete: () => {
+					mobileMenu.classList.add('-translate-x-full');
+				}
+			});
+			isMobileMenuOpen = false;
+		}
+	});
+</script>

@@ -19,7 +19,7 @@ const faqs = [
 ];
 ---
 
-<section id="faq" class="section-padding bg-surface dark:bg-dark-bg">
+<section id="faq" class="section-padding bg-surface dark:bg-dark-bg mt-12 mb-12">
 	<div class="max-w-4xl mx-auto">
 		<div class="mb-20 text-center">
 			<span class="text-primary font-black tracking-widest uppercase text-xs">Curiosidades & Dudas</span>
@@ -30,7 +30,7 @@ const faqs = [
 
 		<div class="space-y-6">
 			{faqs.map((faq) => (
-				<details class="group bg-surface-container-low dark:bg-slate-900/50 rounded-[2rem] p-8 cursor-pointer border-l-[6px] border-transparent open:border-primary transition-all shadow-ambient">
+				<details class="group bg-surface-container-low dark:bg-surface-container-low rounded-[2rem] p-8 cursor-pointer border-l-[6px] border-transparent open:border-primary transition-all shadow-ambient">
 					<summary class="flex justify-between items-center font-headline font-black text-2xl list-none">
 						{faq.question}
 						<span class="material-symbols-outlined transition-transform duration-500 group-open:rotate-180 text-primary">
