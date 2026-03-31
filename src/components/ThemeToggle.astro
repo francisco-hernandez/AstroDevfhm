@@ -3,11 +3,11 @@
 <button
 	id="theme-toggle"
 	type="button"
-	class="p-2 rounded-full hover:bg-surface-container transition-all active:scale-90"
+	class="p-2 rounded-full bg-white/20 dark:bg-white/10 hover:bg-surface-container transition-all active:scale-90"
 	aria-label="Toggle theme"
 >
-	<span id="sun-icon" class="material-symbols-outlined text-on-surface hidden">light_mode</span>
-	<span id="moon-icon" class="material-symbols-outlined text-on-surface hidden">dark_mode</span>
+	<span id="sun-icon" class="material-symbols-outlined text-on-surface dark:text-white hidden">light_mode</span>
+	<span id="moon-icon" class="material-symbols-outlined text-on-surface dark:text-white hidden">dark_mode</span>
 </button>
 
 <script>
@@ -19,9 +19,11 @@
 		if (theme === 'dark') {
 			sunIcon?.classList.remove('hidden');
 			moonIcon?.classList.add('hidden');
+			document.documentElement.setAttribute('data-theme', 'dark');
 		} else {
 			sunIcon?.classList.add('hidden');
 			moonIcon?.classList.remove('hidden');
+			document.documentElement.setAttribute('data-theme', 'light');
 		}
 	};
 

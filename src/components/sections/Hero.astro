@@ -1,35 +1,49 @@
 ---
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { Image } from 'astro:assets';
+import HeroSlooth from '../../recursos/HeroSlooth.png';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-// Illustración URL de referencia del diseño previo
-const slothImg = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpQ3zrAnhnsMgNV5SjDBh_nOkgNU3lrPYWRG4idVJ2_vzxnt9-qtO4-m1h1uLsH6pEqitlMQvIBk62llPmB784wcBYHH1KY1e09duOeWjtNHOtxp1IWluy_if3zhTJRVLPfdEu0IusEIbPlxZYO4Q_NPCRZo2IAGzyzQzMqXs2vlRIWzc67eF2fTIXmtc8kLHUofgr34NhyQkjG-vGmQ--31MyxbG-C5SIKy0QoozaOz-BB54URmyowIO6DxXqUvVXtbof66rrQ29w";
 ---
 
-<section id="inicio" class="relative pt-48 pb-32 overflow-hidden min-h-screen flex items-center bg-surface dark:bg-dark-bg">
+<section id="inicio" class="relative pt-32 pb-16 md:pt-48 md:pb-24 overflow-hidden min-h-[80vh] md:min-h-screen flex items-center bg-surface dark:bg-dark-bg">
 	<!-- Background blobs -->
 	<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
 	<div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-secondary-container/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
-	<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-		<div class="z-10" data-aos="fade-up">
-			<h1 class="font-headline tracking-tighter mb-8 text-on-surface dark:text-on-surface">
-				<span class="block text-6xl md:text-8xl font-black leading-[0.85] mb-2">{t('hero.title.1')}</span>
-				<span class="block text-6xl md:text-8xl font-black leading-[0.85] text-gradient">{t('hero.title.2')}</span>
-				<span class="block text-4xl md:text-5xl font-light mt-6 flex flex-wrap items-center gap-4">
-					{t('hero.title.3')} <span class="font-black text-tertiary-container italic underline decoration-secondary-container decoration-4 underline-offset-8">{t('hero.title.4')}</span> {t('hero.title.5')}
+	<div class="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+		<div class="hero-content z-10 order-2 lg:order-1">
+			<div class="hero-pretitle-wrapper overflow-hidden mb-4">
+				<span class="hero-pretitle inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold uppercase tracking-wider">
+					{t('hero.pretitle') || 'Desarrollador Full Stack'}
+				</span>
+			</div>
+			
+			<h1 class="hero-headline font-headline tracking-tighter mb-8 text-on-surface dark:text-on-surface">
+				<span class="hero-title-line block text-6xl md:text-8xl font-black leading-[0.85] mb-2">
+					<span class="inline-block">{t('hero.title.1')}</span>
+				</span>
+				<span class="hero-title-line block text-6xl md:text-8xl font-black leading-[0.85]" style="color: #0040df;">
+					<span class="inline-block">{t('hero.title.2')}</span>
+				</span>
+				<span class="hero-title-line block text-4xl md:text-5xl font-light mt-6 flex flex-wrap items-center gap-4">
+					<span class="inline-block">con la <span class="font-black text-tertiary italic underline decoration-secondary decoration-4 underline-offset-8">pausa</span> necesaria</span>
 				</span>
 			</h1>
 			
-			<p class="text-xl md:text-2xl text-on-surface-variant dark:text-on-surface-variant max-w-xl mb-12 leading-relaxed">
-				{t('hero.subtitle')}
-			</p>
+			<div class="hero-subtitle">
+				<p class="text-xl md:text-2xl text-on-surface-variant max-w-xl mb-12 leading-relaxed">
+					{t('hero.subtitle')}
+				</p>
+			</div>
 
-			<div class="flex flex-wrap gap-6">
+			<div class="hero-buttons flex flex-wrap gap-6 mt-8">
 				<a href="#contacto" class="btn-primary">
-					{t('hero.cta.primary')}
+					<span class="flex items-center gap-2">
+						{t('hero.cta.primary')}
+						<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+					</span>
 				</a>
 				<a href="#proyectos" class="btn-secondary">
 					{t('hero.cta.secondary')}
@@ -37,27 +51,59 @@ const slothImg = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpQ3zrAnhn
 			</div>
 		</div>
 
-		<div class="relative flex justify-center items-center">
-			<div class="relative z-10 w-full aspect-square max-w-xl group">
-				<div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent rounded-full scale-90 blur-2xl"></div>
+		<div class="hero-image-section relative flex justify-center items-center order-1 lg:order-2">
+			<div class="hero-image-wrapper relative z-10 w-full aspect-square max-w-4xl">
+				<!-- Círculos decorativos animados -->
+				<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+					<div class="hero-ring absolute w-[110%] h-[110%] border-2 border-dashed border-primary/20 rounded-full" style="animation: spin 20s linear infinite;"></div>
+					<div class="hero-ring absolute w-[130%] h-[130%] border border-secondary/15 rounded-full" style="animation: spin 30s linear infinite reverse;"></div>
+				</div>
 				
-				<img 
-					src={slothImg} 
-					alt="TechSloth Illustration" 
-					class="w-full h-full object-contain drop-shadow-[0_45px_45px_rgba(0,0,0,0.15)] relative z-10 motion-safe:animate-[bounce_6s_ease-in-out_infinite]"
-				/>
+				<div class="hero-image-container relative">
+					<Image 
+						src={HeroSlooth} 
+						alt="TechSloth Illustration" 
+						class="hero-image w-full h-full object-contain drop-shadow-[0_45px_45px_rgba(0,0,0,0.15)] relative z-10"
+						width={1200}
+						height={1200}
+					/>
+				</div>
 
-				<!-- Floating Elements -->
-				<div class="absolute top-10 left-0 bg-white/80 dark:bg-surface-container-high/80 backdrop-blur-md p-4 rounded-3xl shadow-ambient motion-safe:animate-bounce" style="animation-duration: 4s;">
-					<span class="material-symbols-outlined text-4xl text-primary">terminal</span>
+				<!-- Floating Elements con efecto 3D -->
+				<div class="hero-float hero-float-3d absolute top-10 left-0 bg-white dark:bg-surface-container-high p-6 rounded-2xl shadow-[0_15px_60px_rgba(0,0,0,0.25)] transform-gpu" data-speed="1.5">
+					<span class="material-symbols-outlined text-6xl text-primary drop-shadow-lg" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.3);">terminal</span>
 				</div>
-				<div class="absolute bottom-20 right-0 bg-white/80 dark:bg-surface-container-high/80 backdrop-blur-md p-5 rounded-3xl shadow-ambient motion-safe:animate-bounce" style="animation-duration: 5s;">
-					<span class="material-symbols-outlined text-4xl text-tertiary-container">code_blocks</span>
+				<div class="hero-float hero-float-3d absolute bottom-20 right-0 bg-white dark:bg-surface-container-high p-8 rounded-2xl shadow-[0_15px_60px_rgba(0,0,0,0.25)] transform-gpu" data-speed="2">
+					<span class="material-symbols-outlined text-6xl text-tertiary drop-shadow-lg" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.3);">code_blocks</span>
 				</div>
-				<div class="absolute top-1/2 -left-12 bg-white/80 dark:bg-surface-container-high/80 backdrop-blur-md p-3 rounded-full shadow-ambient motion-safe:animate-pulse">
-					<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
-						<span class="material-symbols-outlined text-2xl text-on-surface">electric_bolt</span>
+				<div class="hero-float hero-float-3d absolute top-1/2 -left-16 bg-white dark:bg-surface-container-high p-5 rounded-full shadow-[0_15px_60px_rgba(0,0,0,0.25)] transform-gpu" data-speed="1">
+					<div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center shadow-lg">
+						<span class="material-symbols-outlined text-4xl text-white drop-shadow-md" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">electric_bolt</span>
 					</div>
+				</div>
+				
+				<!-- Elementos adicionales con efecto 3D -->
+				<div class="hero-float hero-float-3d absolute top-20 right-10 bg-white dark:bg-surface-container-high px-6 py-3 rounded-full shadow-[0_15px_60px_rgba(0,0,0,0.25)] transform-gpu flex items-center gap-3" data-speed="1.8">
+					<span class="material-symbols-outlined text-3xl text-primary drop-shadow-md" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">star</span>
+					<span class="text-lg font-bold">React</span>
+				</div>
+				<div class="hero-float hero-float-3d absolute bottom-32 left-10 bg-white dark:bg-surface-container-high px-6 py-3 rounded-full shadow-[0_15px_60px_rgba(0,0,0,0.25)] transform-gpu flex items-center gap-3" data-speed="2.5">
+					<span class="material-symbols-outlined text-3xl text-secondary drop-shadow-md" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">rocket_launch</span>
+					<span class="text-lg font-bold">Astro</span>
+				</div>
+				
+				<!-- Nuevos elementos HTML5, CSS3, WordPress con efecto 3D -->
+				<div class="hero-float hero-float-3d absolute top-0 right-1/4 bg-white dark:bg-surface-container-high px-6 py-3 rounded-full shadow-[0_15px_60px_rgba(0,0,0,0.25)] transform-gpu flex items-center gap-3" data-speed="1.2">
+					<span class="material-symbols-outlined text-3xl text-orange-500 drop-shadow-md" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">code</span>
+					<span class="text-lg font-bold text-orange-600">HTML5</span>
+				</div>
+				<div class="hero-float hero-float-3d absolute bottom-10 right-1/4 bg-white dark:bg-surface-container-high px-6 py-3 rounded-full shadow-[0_15px_60px_rgba(0,0,0,0.25)] transform-gpu flex items-center gap-3" data-speed="2">
+					<span class="material-symbols-outlined text-3xl text-blue-500 drop-shadow-md" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">style</span>
+					<span class="text-lg font-bold text-blue-600">CSS3</span>
+				</div>
+				<div class="hero-float hero-float-3d absolute top-1/3 right-0 bg-white dark:bg-surface-container-high px-6 py-3 rounded-full shadow-[0_15px_60px_rgba(0,0,0,0.25)] transform-gpu flex items-center gap-3" data-speed="1.6">
+					<span class="material-symbols-outlined text-3xl text-blue-700 drop-shadow-md" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">web</span>
+					<span class="text-lg font-bold text-blue-800">WordPress</span>
 				</div>
 			</div>
 		</div>
@@ -65,8 +111,181 @@ const slothImg = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpQ3zrAnhn
 </section>
 
 <style>
-	@keyframes bounce {
-		0%, 100% { transform: translateY(0); }
-		50% { transform: translateY(-20px); }
+	@keyframes spin {
+		from { transform: rotate(0deg); }
+		to { transform: rotate(360deg); }
+	}
+	
+	@keyframes float {
+		0%, 100% { transform: translateY(0px); }
+		50% { transform: translateY(-15px); }
+	}
+	
+	/* Efecto 3D para elementos flotantes */
+	.hero-float-3d {
+		transform-style: preserve-3d;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		will-change: transform;
+	}
+	
+	.hero-float-3d:hover {
+		transform: translateZ(20px) scale(1.1);
+		box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+	}
+	
+	.hero-float-3d .material-symbols-outlined {
+		transform: translateZ(10px);
+	}
+	
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.hero-float {
+			transform: scale(0.8);
+		}
+	}
+	
+	@media (max-width: 768px) {
+		.hero-float {
+			transform: scale(0.7);
+		}
 	}
 </style>
+
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	
+	gsap.registerPlugin(ScrollTrigger);
+
+	// Timeline de entrada del Hero
+	const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+	
+	// Pre-título
+	heroTl.from(".hero-pretitle", {
+		y: 30,
+		opacity: 0,
+		duration: 0.8
+	});
+	
+	// Líneas del título con stagger y efecto 3D
+	heroTl.from(".hero-title-line span", {
+		y: 100,
+		opacity: 0,
+		duration: 1.2,
+		stagger: 0.15,
+		ease: "back.out(1.7)"
+	}, "-=0.4");
+	
+	// Subtítulo
+	heroTl.from(".hero-subtitle p", {
+		y: 30,
+		opacity: 0,
+		duration: 0.8
+	}, "-=0.6");
+	
+	// Botones
+	heroTl.from(".hero-btn", {
+		y: 40,
+		opacity: 0,
+		duration: 0.6,
+		stagger: 0.15,
+		ease: "back.out(1.7)"
+	}, "-=0.4");
+	
+	// Stats
+	heroTl.from(".hero-stat", {
+		y: 30,
+		opacity: 0,
+		duration: 0.6,
+		stagger: 0.1
+	}, "-=0.3");
+	
+	// Imagen
+	heroTl.from(".hero-image-container", {
+		scale: 0.8,
+		opacity: 0,
+		duration: 1.2,
+		ease: "back.out(1.7)"
+	}, 0.2);
+	
+	// Anillos
+	heroTl.from(".hero-ring", {
+		scale: 0,
+		opacity: 0,
+		duration: 1.5,
+		stagger: 0.2,
+		ease: "power2.out"
+	}, 0.5);
+	
+	// Elementos flotantes
+	heroTl.from(".hero-float", {
+		y: 50,
+		x: (i) => i % 2 === 0 ? -30 : 30,
+		opacity: 0,
+		duration: 0.8,
+		stagger: 0.15,
+		ease: "back.out(1.7)"
+	}, 0.8);
+	
+	// Animación continua de flotación
+	gsap.utils.toArray(".hero-float").forEach((el, i) => {
+		const speed = parseFloat(el.dataset.speed) || 1;
+		gsap.to(el, {
+			y: "-=15",
+			duration: 2 * speed,
+			ease: "sine.inOut",
+			yoyo: true,
+			repeat: -1,
+			delay: i * 0.3
+		});
+		gsap.to(el, {
+			x: "+=10",
+			duration: 3 * speed,
+			ease: "sine.inOut",
+			yoyo: true,
+			repeat: -1,
+			delay: i * 0.5
+		});
+	});
+	
+	// Efecto de flotación para la imagen
+	gsap.to(".hero-image", {
+		y: "-=20",
+		duration: 3,
+		ease: "sine.inOut",
+		yoyo: true,
+		repeat: -1
+	});
+	
+	// Efecto de pulso para el glow
+	gsap.to(".hero-glow", {
+		scale: 1.1,
+		opacity: 0.6,
+		duration: 2,
+		ease: "sine.inOut",
+		yoyo: true,
+		repeat: -1
+	});
+	
+	// Parallax en scroll
+	gsap.to(".hero-image-container", {
+		yPercent: -15,
+		ease: "none",
+		scrollTrigger: {
+			trigger: "#inicio",
+			start: "top top",
+			end: "bottom top",
+			scrub: true
+		}
+	});
+	
+	// Efecto hover en botones
+	document.querySelectorAll(".hero-btn").forEach(btn => {
+		btn.addEventListener("mouseenter", () => {
+			gsap.to(btn, { scale: 1.05, duration: 0.3, ease: "power2.out" });
+		});
+		btn.addEventListener("mouseleave", () => {
+			gsap.to(btn, { scale: 1, duration: 0.3, ease: "power2.out" });
+		});
+	});
+</script>

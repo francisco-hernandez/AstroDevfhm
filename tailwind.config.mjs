@@ -25,6 +25,7 @@ export default {
           DEFAULT: '#faf8ff',
           bright: '#faf8ff',
           dim: '#d1d8ff',
+          dark: '#1a1a2e',
           container: {
             lowest: '#ffffff',
             low: '#f3f2ff',
