@@ -1,0 +1,307 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Página no encontrada (404) | DEVFHM" description="Parece que el perezoso se ha quedado dormido. La página que buscas no existe en DEVFHM.">
+    
+    <!-- TopNavBar -->
+    <nav
+      class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl rounded-full bg-white/80 dark:bg-zinc-950/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-white/20 dark:border-zinc-800/50 transition-all duration-300"
+    >
+      <div class="flex items-center justify-between px-8 py-3">
+        <!-- Logo -->
+        <a href="/" class="flex flex-row items-center gap-2 group">
+          <div
+            class="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-primary-fixed-dim flex items-center justify-center text-white font-bold group-hover:scale-110 transition-transform"
+          >
+            D
+          </div>
+          <span
+            class="text-2xl font-black font-headline tracking-tighter text-on-surface"
+            >DEVFHM</span
+          >
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a
+            href="/"
+            class="text-lg font-bold font-headline text-primary nav-link nav-link-active"
+            >Inicio</a
+          >
+          <a
+            href="/#servicios"
+            class="text-lg font-bold font-headline text-on-surface-variant hover:text-primary transition-colors duration-300 nav-link"
+            >Servicios</a
+          >
+          <a
+            href="/#sobre-mi"
+            class="text-lg font-bold font-headline text-on-surface-variant hover:text-primary transition-colors duration-300 nav-link"
+            >Sobre mi</a
+          >
+          <a
+            href="/#proyectos"
+            class="text-lg font-bold font-headline text-on-surface-variant hover:text-primary transition-colors duration-300 nav-link"
+            >Proyectos</a
+          >
+          <a
+            href="/#faq"
+            class="text-lg font-bold font-headline text-on-surface-variant hover:text-primary transition-colors duration-300 nav-link"
+            >FAQ</a
+          >
+          <a
+            href="/blog"
+            class="text-lg font-bold font-headline text-on-surface-variant hover:text-primary transition-colors duration-300 nav-link"
+            >Blog</a
+          >
+        </div>
+
+        <!-- Right Side: Actions -->
+        <div class="flex items-center gap-4">
+          <div class="hidden md:flex gap-3">
+            <button
+              class="material-symbols-outlined opacity-60 hover:opacity-100 hover:scale-110 transition-all"
+            >
+              language
+            </button>
+            <button
+              class="material-symbols-outlined opacity-60 hover:opacity-100 hover:scale-110 transition-all"
+            >
+              dark_mode
+            </button>
+          </div>
+          <a
+            href="/#contact"
+            class="hidden md:flex relative px-8 py-3 rounded-full font-extrabold text-lg text-white group overflow-hidden transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/40 shadow-lg shadow-primary/20 active:scale-95 border border-primary-container"
+          >
+            <span
+              class="absolute inset-0 w-full h-full bg-gradient-to-br from-primary via-[#2D5BFF] to-primary transition-all duration-300 group-hover:bg-gradient-to-tl"
+            ></span>
+            <span
+              class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-20 rotate-12 group-hover:-translate-x-40 ease"
+            ></span>
+            <span
+              class="relative z-10 flex items-center gap-2 tracking-wide font-headline"
+              >Contacto
+              <span class="material-symbols-outlined text-xl"
+                >arrow_forward_ios</span
+              ></span
+            >
+          </a>
+          <!-- Mobile Toggle -->
+          <button
+            id="mobile-menu-btn" aria-label="Abrir Menú" aria-expanded="false" aria-controls="mobile-menu"
+            class="hidden max-md:block material-symbols-outlined text-3xl cursor-pointer"
+          >
+            menu
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+      id="mobile-menu"
+      class="fixed inset-0 z-40 bg-background/95 backdrop-blur-3xl hidden flex-col items-center justify-center gap-8 md:hidden transition-opacity duration-300 opacity-0"
+    >
+      <a
+        href="/"
+        class="mobile-link text-3xl font-black font-headline text-primary"
+        >Inicio</a
+      >
+      <a
+        href="/#servicios"
+        class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100"
+        >Servicios</a
+      >
+      <a
+        href="/#sobre-mi"
+        class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100"
+        >Sobre mi</a
+      >
+      <a
+        href="/#proyectos"
+        class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100"
+        >Proyectos</a
+      >
+      <a
+        href="/#faq"
+        class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100"
+        >FAQ</a
+      >
+      <a
+        href="/blog"
+        class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100"
+        >Blog</a
+      >
+
+      <div class="flex gap-6 mt-8">
+        <button
+          class="material-symbols-outlined text-3xl p-3 bg-surface-container rounded-full hover:scale-110 transition-transform"
+        >
+          language
+        </button>
+        <button
+          class="material-symbols-outlined text-3xl p-3 bg-surface-container rounded-full hover:scale-110 transition-transform"
+        >
+          dark_mode
+        </button>
+      </div>
+      <a
+        href="/#contact"
+        class="relative overflow-hidden px-8 py-4 mt-4 rounded-full font-black text-2xl w-3/4 text-center text-white group transition-transform shadow-[0_0_40px_rgba(45,91,255,0.4)] hover:scale-105 border border-primary-container"
+      >
+        <span
+          class="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-[#2D5BFF]"
+        ></span>
+        <span
+          class="absolute right-0 w-12 h-40 -mt-12 transition-all duration-700 transform translate-x-12 bg-white opacity-20 rotate-12 group-hover:-translate-x-60 ease"
+        ></span>
+        <span class="relative z-10 font-headline uppercase tracking-wider"
+          >Contacto</span
+        >
+      </a>
+    </div>
+    
+    <main class="relative min-h-screen flex items-center justify-center pt-40 md:pt-48 pb-24 px-6">
+<!-- Background Elements -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none">
+<div class="absolute top-1/4 left-10 opacity-20 transform -rotate-12">
+<span class="material-symbols-outlined text-7xl text-primary">terminal</span>
+</div>
+<div class="absolute bottom-1/4 right-10 opacity-20 transform rotate-12">
+<span class="material-symbols-outlined text-7xl text-secondary">coffee</span>
+</div>
+<div class="absolute top-1/3 right-20 opacity-10">
+<span class="material-symbols-outlined text-9xl text-tertiary">rocket_launch</span>
+</div>
+<div class="absolute bottom-20 left-1/4 opacity-15">
+<span class="material-symbols-outlined text-6xl text-primary">code_off</span>
+</div>
+</div>
+<section class="max-w-4xl w-full text-center relative z-10">
+<!-- Large Outlined 404 -->
+<div class="relative mb-4 md:mb-8 z-0">
+<h1 class="font-headline font-black text-[8rem] md:text-[20rem] leading-none text-outline-digital select-none opacity-20 tracking-tighter">
+                404
+            </h1>
+</div>
+<!-- Central 3D Illustration Container -->
+<div class="relative flex flex-col items-center justify-center">
+<div class="w-64 h-64 md:w-96 md:h-96 relative z-20 group">
+<!-- Subtle Glow -->
+<div class="absolute inset-0 bg-primary/10 blur-[60px] rounded-full scale-110"></div>
+<!-- The "Geek Sloth" -->
+<img loading="lazy" alt="Geek Sloth sleeping" class="w-full h-full object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500" data-alt="3D stylized illustration of a cute, fluffy sloth wearing oversized tech glasses, sleeping soundly over a high-tech glowing laptop, soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtSae_HYgpJfVbS8Ip13Qp85ypg3wz5kOxgiy-q8s0--AnmcRvuTcYsnQxDcV8aCO_P5ykfZtM-jkVK4ILI-WY7l9opRSCeARsGlVvDgpatOVFXyn_Bk2tdgJbFRoWqdnPKmkmDvZJ3rrjjtNj-avEa1K6vwgPsh4WTBLg-OQ7wazHLFDpMym2zYgT61CfkzsbQeuPs8c2foShBR7w78ujEDyyFyhH3DbB5eV9Kq9UwfZkfCB2k2nhpiIKfEGuI_3AD8tCSIwiCuka"/>
+<!-- Confused Icons Floating -->
+<div class="absolute -top-4 -right-4 bg-white p-3 rounded-2xl shadow-xl border border-outline-variant/20 transform rotate-12">
+<span class="material-symbols-outlined text-tertiary text-4xl" data-weight="fill">question_mark</span>
+</div>
+</div>
+<!-- Messaging -->
+<div class="mt-16 md:mt-20 space-y-6 relative z-30">
+<h2 class="font-headline font-extrabold text-3xl md:text-5xl text-on-surface tracking-tight">
+                    ¡Vaya! Parece que el perezoso se ha quedado dormido en esta página.
+                </h2>
+<p class="font-body text-lg md:text-xl text-outline-digital max-w-xl mx-auto leading-relaxed">
+                    No te preocupes, incluso los mejores disruptores necesitan una siesta. Vamos a llevarte de vuelta a la acción.
+                </p>
+</div>
+<!-- CTA -->
+<div class="mt-12 md:mt-16 flex flex-col sm:flex-row gap-4 items-center justify-center relative z-30">
+<a class="group relative px-10 py-5 bg-primary text-on-primary rounded-full font-headline font-bold text-lg shadow-[0_20px_40px_rgba(0,64,223,0.2)] hover:scale-105 active:scale-95 transition-all duration-200" href="/">
+<span class="relative z-10 flex items-center gap-3">
+<span class="material-symbols-outlined">home</span>
+                        Volver a la Home
+                    </span>
+</a>
+<a href="mailto:conta@devfhm.com" class="px-8 py-5 bg-surface-container-low text-on-surface-variant border border-outline-variant/30 rounded-full font-headline font-bold text-lg hover:bg-surface-container-high transition-colors">
+                    Reportar error
+                </a>
+</div>
+</div>
+</section>
+</main>
+    <section class="px-6 pb-10" aria-label="Recuperacion">
+      <div class="premium-value-strip">
+        <div>
+          <strong>Ruta Rápida</strong>
+          <p>Puedes volver al inicio y retomar navegación en segundos.</p>
+        </div>
+        <div>
+          <strong>Soporte Directo</strong>
+          <p>Reporta errores para fortalecer la experiencia del sitio.</p>
+        </div>
+        <div>
+          <strong>Continuidad</strong>
+          <p>El contenido principal y el blog permanecen disponibles.</p>
+        </div>
+      </div>
+    </section>
+    <Footer />
+    <script is:inline>
+      // Hero Animations
+      gsap.from(".hero-badge", {
+        opacity: 0,
+        y: -20,
+        duration: 1,
+        ease: "power3.out",
+      });
+      gsap.from(".hero-title", {
+        opacity: 0,
+        x: -50,
+        duration: 1.2,
+        delay: 0.2,
+        ease: "power4.out",
+      });
+      gsap.from(".hero-p", {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        delay: 0.5,
+        ease: "power2.out",
+      });
+      gsap.from(".hero-btns", {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        delay: 0.8,
+        ease: "back.out(1.7)",
+      });
+      gsap.from(".hero-image", {
+        opacity: 0,
+        scale: 0.8,
+        duration: 1.5,
+        delay: 0.2,
+        ease: "expo.out",
+      });
+      /* Iconos flotantes eliminados del script */
+
+      // Subtle Mouse Parallax Effect
+      document.addEventListener("mousemove", (e) => {
+        const mouseX = (e.clientX / window.innerWidth - 0.5) * 15;
+        const mouseY = (e.clientY / window.innerHeight - 0.5) * 15;
+
+        gsap.to(".hero-image", {
+          x: mouseX,
+          y: mouseY,
+          duration: 1.5,
+          ease: "power2.out",
+        });
+
+        gsap.to(".floating-icon", {
+          x: (i) => mouseX * (1.2 + i * 0.05),
+          y: (i) => mouseY * (1.2 + i * 0.05),
+          duration: 2,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      });
+
+    </script>
+  
+    
+  
+</Layout>

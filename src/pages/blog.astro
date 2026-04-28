@@ -1,0 +1,253 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+const blogEntries = await getCollection('blog');
+
+// Function to process posts for a specific language
+const processPosts = (lang) => {
+  const filtered = blogEntries.filter(entry => (entry.data.lang || 'es') === lang);
+  const sorted = filtered.sort((a, b) => {
+    const dateA = a.data.pubDate?.valueOf() || 0;
+    const dateB = b.data.pubDate?.valueOf() || 0;
+    return dateB - dateA;
+  });
+  return {
+    featured: sorted[0],
+    regular: sorted.slice(1)
+  };
+};
+
+const es = processPosts('es');
+const en = processPosts('en');
+---
+
+<Layout title="Tecnología, Diseño y Código (Blog) | DEVFHM" description="Bloc de notas de DEVFHM. Artículos, tutoriales y manifiestos sobre el mundo del código, IA, diseño web avanzado y nuevas metodologías de desarrollo tecnológico.">
+    
+    <Navbar />
+
+    <main class="pt-40 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
+      <!-- Header Section -->
+      <header class="mb-20">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between gap-8"
+        >
+          <div class="max-w-2xl">
+            <div
+              class="inline-block px-4 py-1 mb-6 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold uppercase tracking-widest font-label"
+              style="width: fit-content"
+              data-key="blog.badge"
+            >
+              BLOG / 01
+            </div>
+            <h1
+              class="font-headline font-extrabold text-6xl md:text-8xl tracking-tighter leading-none text-on-surface mb-6"
+              data-key="blog.title"
+            >
+              Bloc de
+              <span style="background-color: rgb(184, 243, 0)">Notas</span>
+            </h1>
+            <p
+              class="text-on-surface-variant text-lg md:text-xl font-medium leading-relaxed max-w-lg"
+              data-key="blog.desc"
+            >
+              Explorando la intersección del diseño disruptivo, la estrategia
+              digital y la tecnología de vanguardia.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+             <!-- Dynamic categories could go here -->
+             <button class="bg-primary text-on-primary px-6 py-2 rounded-full font-headline font-bold text-xs tracking-widest uppercase transition-all hover:scale-105">All</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Featured Post (ES) -->
+      {es.featured && (
+        <section class="mb-24" data-lang="es">
+          <a href={`/blog/${es.featured.id}`} class="block">
+            <div class="relative group cursor-pointer overflow-hidden rounded-3xl md:rounded-[3.5rem] bg-surface-container-low shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)]">
+              <div class="flex flex-col lg:flex-row">
+                <div class="relative lg:w-3/5 h-[400px] lg:h-[600px] overflow-hidden">
+                  <img
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    src={es.featured.data.image}
+                  />
+                  <div class="absolute top-8 left-8">
+                    <span class="bg-secondary-container text-on-secondary-container font-headline font-bold text-[10px] tracking-widest uppercase px-4 py-2 rounded-full">
+                      {es.featured.data.category}
+                    </span>
+                  </div>
+                </div>
+                <div class="lg:w-2/5 p-10 lg:p-16 flex flex-col justify-center">
+                  <span
+                    class="text-primary font-headline font-bold text-xs tracking-[0.2em] uppercase mb-4"
+                    data-key="blog.featured_badge"
+                  >
+                    Post Destacado
+                  </span>
+                  <h2 class="font-headline font-bold text-4xl md:text-5xl tracking-tight text-on-surface mb-6 leading-tight">
+                    {es.featured.data.title}
+                  </h2>
+                  <p class="text-on-surface-variant text-lg mb-10 leading-relaxed">
+                    {es.featured.data.description}
+                  </p>
+                  <div>
+                    <span
+                      class="bg-[#C1FF00] text-[#151f00] px-8 py-4 rounded-full font-headline font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-lg shadow-[#C1FF00]/20"
+                      data-key="blog.featured_cta"
+                    >
+                      Leer Manifiesto
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </section>
+      )}
+
+      <!-- Featured Post (EN) -->
+      {en.featured && (
+        <section class="mb-24" data-lang="en" style="display: none;">
+          <a href={`/blog/${en.featured.id}`} class="block">
+            <div class="relative group cursor-pointer overflow-hidden rounded-3xl md:rounded-[3.5rem] bg-surface-container-low shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)]">
+              <div class="flex flex-col lg:flex-row">
+                <div class="relative lg:w-3/5 h-[400px] lg:h-[600px] overflow-hidden">
+                  <img
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    src={en.featured.data.image}
+                  />
+                  <div class="absolute top-8 left-8">
+                    <span class="bg-secondary-container text-on-secondary-container font-headline font-bold text-[10px] tracking-widest uppercase px-4 py-2 rounded-full">
+                      {en.featured.data.category}
+                    </span>
+                  </div>
+                </div>
+                <div class="lg:w-2/5 p-10 lg:p-16 flex flex-col justify-center">
+                  <span
+                    class="text-primary font-headline font-bold text-xs tracking-[0.2em] uppercase mb-4"
+                    data-key="blog.featured_badge"
+                  >
+                    Featured Post
+                  </span>
+                  <h2 class="font-headline font-bold text-4xl md:text-5xl tracking-tight text-on-surface mb-6 leading-tight">
+                    {en.featured.data.title}
+                  </h2>
+                  <p class="text-on-surface-variant text-lg mb-10 leading-relaxed">
+                    {en.featured.data.description}
+                  </p>
+                  <div>
+                    <span
+                      class="bg-[#C1FF00] text-[#151f00] px-8 py-4 rounded-full font-headline font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-lg shadow-[#C1FF00]/20"
+                      data-key="blog.featured_cta"
+                    >
+                      Read Manifesto
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </section>
+      )}
+
+      <!-- Article Grid (ES) -->
+      <section
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"
+        data-lang="es"
+      >
+        {es.regular.map((post, index) => (
+          <article class="group">
+            <a href={`/blog/${post.id}`} class="block">
+              <div class="relative aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-surface-container-highest">
+                <img
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  src={post.data.image}
+                />
+                <div class="absolute top-6 left-6">
+                  <span class="bg-white/90 backdrop-blur-md text-primary font-headline font-bold text-[10px] tracking-widest uppercase px-3 py-1.5 rounded-full">
+                    {post.data.category}
+                  </span>
+                </div>
+              </div>
+              <h3 class="font-headline font-bold text-2xl tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">
+                {post.data.title}
+              </h3>
+              <p class="text-on-surface-variant font-body mb-6 line-clamp-2">
+                {post.data.description}
+              </p>
+              <span
+                class="inline-flex items-center text-primary font-headline font-bold text-xs tracking-widest uppercase group/link"
+                data-key="blog.read_more"
+              >
+                Leer más
+                <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-2">
+                  arrow_forward
+                </span>
+              </span>
+            </a>
+          </article>
+        ))}
+      </section>
+
+      <!-- Article Grid (EN) -->
+      <section
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"
+        data-lang="en"
+        style="display: none;"
+      >
+        {en.regular.map((post, index) => (
+          <article class="group">
+            <a href={`/blog/${post.id}`} class="block">
+              <div class="relative aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-surface-container-highest">
+                <img
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  src={post.data.image}
+                />
+                <div class="absolute top-6 left-6">
+                  <span class="bg-white/90 backdrop-blur-md text-primary font-headline font-bold text-[10px] tracking-widest uppercase px-3 py-1.5 rounded-full">
+                    {post.data.category}
+                  </span>
+                </div>
+              </div>
+              <h3 class="font-headline font-bold text-2xl tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">
+                {post.data.title}
+              </h3>
+              <p class="text-on-surface-variant font-body mb-6 line-clamp-2">
+                {post.data.description}
+              </p>
+              <span
+                class="inline-flex items-center text-primary font-headline font-bold text-xs tracking-widest uppercase group/link"
+                data-key="blog.read_more"
+              >
+                Read more
+                <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-2">
+                  arrow_forward
+                </span>
+              </span>
+            </a>
+          </article>
+        ))}
+      </section>
+
+      <section class="premium-value-strip mt-16" aria-label="Blog premium notes">
+        <div>
+          <strong>Contenido Curado</strong>
+          <p>Publicaciones enfocadas en impacto real de producto, diseño y negocio.</p>
+        </div>
+        <div>
+          <strong>Lectura Clara</strong>
+          <p>Formato editorial optimizado para escaneo, comprensión y retención.</p>
+        </div>
+        <div>
+          <strong>Actualización Continua</strong>
+          <p>Repositorio vivo de ideas prácticas para equipos digitales exigentes.</p>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+</Layout>

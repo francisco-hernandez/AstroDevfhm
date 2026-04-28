@@ -1,0 +1,326 @@
+---
+---
+<nav
+  class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl rounded-full bg-white/88 dark:bg-black/90 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-outline-variant/30 dark:border-white/10 transition-all duration-300"
+>
+  <div class="flex items-center justify-between px-8 py-3">
+    <!-- Logo -->
+    <a href="/" class="flex flex-row items-center gap-2 group">
+      <div
+        class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold group-hover:scale-110 transition-transform"
+      >
+        D
+      </div>
+      <span
+        class="text-2xl font-black font-headline tracking-tighter text-on-surface dark:text-white"
+        >DEVFHM</span
+      >
+    </a>
+
+    <!-- Desktop Links -->
+    <div class="hidden md:flex items-center gap-8">
+      <a
+        href="/"
+        class="text-lg font-bold font-headline text-on-surface-variant dark:text-white/80 hover:text-primary dark:hover:text-white transition-colors duration-300 nav-link"
+        data-key="nav.home">Inicio</a
+      >
+      <a
+        href="/#servicios"
+        class="text-lg font-bold font-headline text-on-surface-variant dark:text-white/80 hover:text-primary dark:hover:text-white transition-colors duration-300 nav-link"
+        data-key="nav.services">Servicios</a
+      >
+      <a
+        href="/#sobre-mi"
+        class="text-lg font-bold font-headline text-on-surface-variant dark:text-white/80 hover:text-primary dark:hover:text-white transition-colors duration-300 nav-link"
+        data-key="nav.about">Sobre mi</a
+      >
+      <a
+        href="/#proyectos"
+        class="text-lg font-bold font-headline text-on-surface-variant dark:text-white/80 hover:text-primary dark:hover:text-white transition-colors duration-300 nav-link"
+        data-key="nav.projects">Proyectos</a
+      >
+      <a
+        href="/#faq"
+        class="text-lg font-bold font-headline text-on-surface-variant dark:text-white/80 hover:text-primary dark:hover:text-white transition-colors duration-300 nav-link"
+        data-key="nav.faq">FAQ</a
+      >
+      <a
+        href="/blog"
+        class="text-lg font-bold font-headline text-on-surface-variant dark:text-white/80 hover:text-primary dark:hover:text-white transition-colors duration-300 nav-link"
+        data-key="nav.blog">Blog</a
+      >
+    </div>
+
+    <!-- Right Side: Actions -->
+    <div class="flex items-center gap-4">
+      <div class="flex gap-3">
+        <!-- Language Toggle -->
+        <button
+          id="lang-toggle"
+          class="flex items-center justify-center w-10 h-10 rounded-full bg-surface-container-low dark:bg-white/10 hover:bg-surface-container-high dark:hover:bg-white/20 transition-all font-headline font-black text-xs tracking-tighter dark:text-white"
+        >
+          EN
+        </button>
+        <!-- Theme Toggle -->
+        <button
+          id="theme-toggle"
+          class="material-symbols-outlined w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low dark:bg-white/10 hover:bg-surface-container-high dark:hover:bg-white/20 hover:scale-110 transition-all opacity-60 hover:opacity-100 dark:text-white"
+        >
+          dark_mode
+        </button>
+      </div>
+      <a
+        href="/#contact"
+        class="hidden md:flex relative px-8 py-3 rounded-full font-extrabold text-lg text-white group overflow-hidden transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/40 shadow-lg shadow-primary/20 active:scale-95 border border-primary"
+      >
+        <span
+          class="absolute inset-0 w-full h-full bg-primary"
+        ></span>
+        <span
+          class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-20 rotate-12 group-hover:-translate-x-40 ease"
+        ></span>
+        <span
+          class="relative z-10 flex items-center gap-2 tracking-wide font-headline"
+          data-key="nav.contact">Contacto
+          <span class="material-symbols-outlined text-xl"
+            >arrow_forward_ios</span
+          ></span
+        >
+      </a>
+      <!-- Mobile Toggle -->
+      <button
+        id="mobile-menu-btn" aria-label="Abrir Menú" aria-expanded="false" aria-controls="mobile-menu"
+        class="hidden max-md:block material-symbols-outlined text-3xl cursor-pointer"
+      >
+        menu
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 bg-background/95 dark:bg-black/95 backdrop-blur-3xl hidden flex-col items-center justify-center gap-8 md:hidden transition-opacity duration-300 opacity-0"
+>
+  <a
+    href="/"
+    class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100 dark:text-white dark:opacity-80 dark:hover:opacity-100"
+    data-key="nav.home">Inicio</a
+  >
+  <a
+    href="/#servicios"
+    class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100 dark:text-white dark:opacity-80 dark:hover:opacity-100"
+    data-key="nav.services">Servicios</a
+  >
+  <a
+    href="/#sobre-mi"
+    class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100 dark:text-white dark:opacity-80 dark:hover:opacity-100"
+    data-key="nav.about">Sobre mi</a
+  >
+  <a
+    href="/#proyectos"
+    class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100 dark:text-white dark:opacity-80 dark:hover:opacity-100"
+    data-key="nav.projects">Proyectos</a
+  >
+  <a
+    href="/#faq"
+    class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100 dark:text-white dark:opacity-80 dark:hover:opacity-100"
+    data-key="nav.faq">FAQ</a
+  >
+  <a
+    href="/blog"
+    class="mobile-link text-3xl font-black font-headline opacity-60 hover:opacity-100 dark:text-white dark:opacity-80 dark:hover:opacity-100"
+    data-key="nav.blog">Blog</a
+  >
+
+  <a
+    href="/#contact"
+    class="relative overflow-hidden px-8 py-4 mt-4 rounded-full font-black text-2xl w-3/4 text-center text-white group transition-transform shadow-[0_0_40px_rgba(45,91,255,0.4)] hover:scale-105 border border-primary-container"
+  >
+    <span
+      class="absolute inset-0 w-full h-full bg-primary"
+    ></span>
+    <span
+      class="absolute right-0 w-12 h-40 -mt-12 transition-all duration-700 transform translate-x-12 bg-white opacity-20 rotate-12 group-hover:-translate-x-60 ease"
+    ></span>
+    <span class="relative z-10 font-headline uppercase tracking-wider"
+      data-key="nav.contact">Contacto</span
+    >
+  </a>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Language Logic
+    const translations = {
+      es: {
+        "nav.home": "Inicio", "nav.services": "Servicios", "nav.about": "Sobre mi", "nav.projects": "Proyectos", "nav.faq": "FAQ", "nav.blog": "Blog", "nav.contact": "Contacto",
+        "hero.badge": "IDENTIDAD / 01", "hero.title": "Curando el <br /> Futuro <span class='text-outline-digital ml-2'>Digital</span>", "hero.desc": "Diseño UX/UI de alto impacto con alma disruptiva.", "hero.cta": "Comenzar Proyecto", "hero.portfolio": "Ver Portafolio",
+        "stack.badge": "Stack Tecnológico", "stack.title": "<span class='text-on-background text-[1.15em] font-black'>Experiencia</span> <span style='background-color: rgb(184, 243, 0); padding: 0 10px;'>Tecnológica</span>", "stack.desc": "Utilizamos las herramientas más potentes del ecosistema.", "stack.cta": "Ver Proyectos Realizados",
+        "services.badge": "SERVICIOS / 02", "services.title": "Soluciones sin <span class='bg-primary-container/20 px-2 italic'>límites</span>",
+        "services.s1_title": "Páginas web empresariales", "services.s1_desc": "Arquitectura robusta para corporaciones que buscan liderazgo digital y estabilidad.",
+        "services.s2_title": "Tiendas en línea o Ecommerce", "services.s2_desc": "Convertimos visitantes en clientes fieles con embudos de venta optimizados.",
+        "services.s3_title": "Servicios profesionales", "services.s3_desc": "La vitrina digital perfecta para consultores y creativos que exigen distinción.",
+        "services.s4_title": "Landing Page", "services.s4_desc": "Estructuras de alto impacto diseñadas para campañas y resultados inmediatos.",
+        "services.s5_title": "SEO & SEM", "services.s5_desc": "Estrategias de visibilidad para atraer tráfico cualificado y maximizar conversiones.",
+        "services.s6_title": "Email Marketing", "services.s6_desc": "Campañas automatizadas diseñadas para activar audiencias y aumentar ventas.",
+        "about.badge": "SOBRE MI / 03", "about.title": "No hacemos webs. <br /> Creamos <span style='background-color: rgb(184, 243, 0); padding: 0 10px;'>Experiencias</span>.", "about.desc": "En devfhm.com, cada píxel tiene un propósito.",
+        "about.stat1_val": "+10", "about.stat1_label": "AÑOS DE EXPERIENCIA",
+        "about.stat2_val": "99.9%", "about.stat2_label": "Uptime Garantizado",
+        "about.stat3_label": "Creatividad impulsada por el código.",
+        "projects.title": "Proyectos con <span class='text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg'>Impacto</span>",
+        "projects.explore": "Explorar Proyecto", "projects.p1_desc": "Rediseño completo de la experiencia de compra de lujo.",
+        "faq.badge": "FAQ / 05", "faq.title": "Dudas <span class='text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg'>Comunes</span>",
+        "faq.desc": "Resolvemos tus inquietudes para que demos el siguiente paso con total confianza.",
+        "faq.q1": "¿Cuánto tiempo toma desarrollar un sitio web?", "faq.a1": "El tiempo de desarrollo varía según el tamaño y la complejidad del proyecto. Para sitios web simples, el proceso puede tardar entre 2 y 4 semanas. En cambio, proyectos más complejos, como aquellos que incluyen integraciones de CRM o desarrollos personalizados, pueden requerir de 6 a 12 semanas. Lo más importante es que colaboramos contigo para establecer un cronograma claro desde el principio, asegurando que estés informado en cada etapa del proceso.",
+        "faq.q2": "¿Ofrecen soporte después de lanzar el sitio web?", "faq.a2": "Sí, ofrecemos soporte post-lanzamiento para asegurar que tu sitio web funcione sin problemas. Los paquetes de soporte incluyen mantenimiento, actualizaciones y soporte técnico. También ofrecemos planes personalizados según tus necesidades.",
+        "faq.q3": "¿El sitio web será responsivo y compatible con dispositivos móviles?", "faq.a3": "Absolutamente. Todos nuestros sitios web están diseñados para ser totalmente responsivos, lo que significa que se adaptarán y funcionarán perfectamente en cualquier dispositivo, ya sea una computadora de escritorio, una tablet o un teléfono móvil.",
+        "faq.q4": "¿Puedo actualizar el contenido de mi sitio web por mi cuenta?", "faq.a4": "Sí, ofrecemos sitios web con sistemas de gestión de contenido (CMS) como WordPress, que permiten que edites y actualices el contenido de tu sitio web fácilmente, sin necesidad de conocimientos técnicos. Proporcionamos capacitación para que puedas administrar tu sitio de manera efectiva.",
+        "faq.q5": "¿Cómo manejan la seguridad del sitio web?", "faq.a5": "En nuestros sitios web, priorizamos la seguridad implementando las mejores prácticas y tecnologías actuales. Utilizamos certificados SSL para encriptar la información, lo que asegura que los datos entre el usuario y el servidor estén protegidos. Además, implementamos firewalls, autenticación robusta y herramientas de monitoreo para prevenir accesos no autorizados y ataques maliciosos. También mantenemos nuestros sistemas y plugins actualizados, y aplicamos medidas de respaldo regular para garantizar la integridad de los datos. Tu sitio web estará protegido frente a amenazas comunes en la red.",
+        "blog_home.badge": "BLOG / 06", "blog_home.title": "Bloc de <span class='text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg'>Notas</span>", "blog_home.view_all": "Ver todas las entradas", "blog_home.read_more": "Leer más",
+        "contact.badge": "CONTACTO / 07", "contact.title": "¿Listo para <br /> <span class='text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg'>innovar?</span>",
+        "contact.desc": "Cuéntanos tu visión. Estamos listos para transformarla en una realidad digital impecable.",
+        "contact.label_name": "Nombre Completo(*)", "contact.placeholder_name": "Ej. Juan Pérez",
+        "contact.label_email": "Email Corporativo", "contact.placeholder_email": "tu@empresa.com",
+        "contact.label_project": "Tipo de Proyecto", "contact.placeholder_project": "Ej. Ecommerce",
+        "contact.label_message": "Mensaje(*)", "contact.placeholder_message": "Cuéntanos sobre tu proyecto...",
+        "contact.submit": "Enviar Mensaje",
+        "blog.badge": "BLOG / 01", "blog.title": "Bloc de <span style='background-color: rgb(184, 243, 0)'>Notas</span>", "blog.desc": "Explorando la intersección del diseño y la tecnología.", "blog.featured_badge": "Post Destacado", "blog.featured_cta": "Leer Manifiesto", "blog.read_more": "Leer más",
+        "article.title": "Curando el <br /> <span class='text-primary italic'>Futuro</span> <span class='text-stroke text-primary'>Digital</span>", "article.intro": "La intersección entre la estética editorial y la ingeniería...", "article.p1": "Vivimos en una era donde el usuario habita experiencias.", "article.p2": "Al eliminar las líneas de cuadrícula tradicionales...", "article.h2": "La Ingeniería del Caos Controlado", "article.p3": "El código anterior illustrates our approach...", "article.h3": "El Legado de la Estética", "article.p4": "Finalmente, debemos considerar el impacto emocional...",
+        "article.related_title": "Artículos Relacionados", "article.view_all": "Ver todos",
+        "footer.github": "Github", "footer.terms": "Términos y Condiciones", "footer.privacy": "Política de Privacidad", "footer.social": "RRSS", "footer.copyright": "© 2026 DEVFHM. Todos los derechos reservados.", "footer.designed": "Diseñado por y para la web"
+      },
+      en: {
+        "nav.home": "Home", "nav.services": "Services", "nav.about": "About", "nav.projects": "Projects", "nav.faq": "FAQ", "nav.blog": "Blog", "nav.contact": "Contact",
+        "hero.badge": "IDENTITY / 01", "hero.title": "Curating the <br /> Future <span class='text-outline-digital ml-2'>Digital</span>", "hero.desc": "High-impact UX/UI design with a disruptive soul.", "hero.cta": "Start Project", "hero.portfolio": "View Portfolio",
+        "stack.badge": "Tech Stack", "stack.title": "<span class='text-on-background text-[1.15em] font-black'>Tech</span> <span style='background-color: rgb(184, 243, 0); padding: 0 10px;'>Experience</span>", "stack.desc": "We use the most powerful tools in the ecosystem.", "stack.cta": "View Completed Projects",
+        "services.badge": "SERVICES / 02", "services.title": "Limitless <span class='bg-primary-container/20 px-2 italic'>Solutions</span>",
+        "services.s1_title": "Enterprise Web Pages", "services.s1_desc": "Robust architecture for corporations seeking digital leadership and stability.",
+        "services.s2_title": "Online Stores or Ecommerce", "services.s2_desc": "We convert visitors into loyal customers with optimized sales funnels.",
+        "services.s3_title": "Professional Services", "services.s3_desc": "The perfect digital showcase for consultants and creatives demanding distinction.",
+        "services.s4_title": "Landing Page", "services.s4_desc": "High-impact structures designed for campaigns and immediate results.",
+        "services.s5_title": "SEO & SEM", "services.s5_desc": "Visibility strategies to attract qualified traffic and maximize conversions.",
+        "services.s6_title": "Email Marketing", "services.s6_desc": "Automated campaigns designed to engage audiences and increase sales.",
+        "about.badge": "ABOUT ME / 03", "about.title": "We don't make webs. <br /> We create <span style='background-color: rgb(184, 243, 0); padding: 0 10px;'>Experiences</span>.", "about.desc": "At devfhm.com, every pixel has a purpose.",
+        "about.stat1_val": "+10", "about.stat1_label": "YEARS OF EXPERIENCE",
+        "about.stat2_val": "99.9%", "about.stat2_label": "Guaranteed Uptime",
+        "about.stat3_label": "Creativity driven by code.",
+        "projects.title": "Projects with <span class='text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg'>Impact</span>",
+        "projects.explore": "Explore Project", "projects.p1_desc": "Full redesign of the luxury shopping experience.",
+        "faq.badge": "FAQ / 05", "faq.title": "Common <span class='text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg'>Questions</span>",
+        "faq.desc": "We resolve your doubts so we can take the next step with full confidence.",
+        "faq.q1": "How long does it take to develop a website?", "faq.a1": "Development time varies depending on the size and complexity of the project. For simple websites, the process can take between 2 and 4 weeks. Conversely, more complex projects, such as those including CRM integrations or custom developments, may require 6 to 12 weeks. Most importantly, we collaborate with you to establish a clear timeline from the start, ensuring you are informed at every stage of the process.",
+        "faq.q2": "Do you offer support after the website is launched?", "faq.a2": "Yes, we offer post-launch support to ensure your website runs smoothly. Support packages include maintenance, updates, and technical support. We also offer custom plans based on your specific needs.",
+        "faq.q3": "Will the website be responsive and mobile-friendly?", "faq.a3": "Absolutely. All our websites are designed to be fully responsive, meaning they will adapt and function perfectly on any device, whether it's a desktop, a tablet, or a mobile phone.",
+        "faq.q4": "Can I update my website's content on my own?", "faq.a4": "Yes, we provide websites with content management systems (CMS) like WordPress, which allow you to easily edit and update your site's content without needing technical knowledge. We provide training so you can manage your site effectively.",
+        "faq.q5": "How do you handle website security?", "faq.a5": "On our websites, we prioritize security by implementing current best practices and technologies. We use SSL certificates to encrypt information, ensuring that data between the user and the server is protected. Additionally, we implement firewalls, robust authentication, and monitoring tools to prevent unauthorized access and malicious attacks. We also keep our systems and plugins up to date and apply regular backup measures to guarantee data integrity. Your website will be protected against common online threats.",
+        "blog_home.badge": "BLOG / 06", "blog_home.title": "Notebook <span class='text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg'>Entries</span>", "blog_home.view_all": "View all entries", "blog_home.read_more": "Read more",
+        "contact.badge": "CONTACT / 07", "contact.title": "Ready to <br /> <span class='text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg'>innovate?</span>",
+        "contact.desc": "Tell us your vision. We are ready to transform it into an impeccable digital reality.",
+        "contact.label_name": "Full Name(*)", "contact.placeholder_name": "e.g. John Doe",
+        "contact.label_email": "Corporate Email", "contact.placeholder_email": "your@company.com",
+        "contact.label_project": "Project Type", "contact.placeholder_project": "e.g. Ecommerce",
+        "contact.label_message": "Message(*)", "contact.placeholder_message": "Tell us about your project...",
+        "contact.submit": "Send Message",
+        "blog.badge": "BLOG / 01", "blog.title": "Notebook <span style='background-color: rgb(184, 243, 0)'>Entries</span>", "blog.desc": "Exploring the intersection of design and technology.", "blog.featured_badge": "Featured Post", "blog.featured_cta": "Read Manifesto", "blog.read_more": "Read more",
+        "article.title": "Curating the <br /> <span class='text-primary italic'>Future</span> <span class='text-stroke text-primary'>Digital</span>", "article.intro": "The intersection between editorial aesthetics and software engineering...", "article.p1": "We live in an era where the user inhabits experiences.", "article.p2": "By eliminating traditional grid lines...", "article.h2": "The Engineering of Controlled Chaos", "article.p3": "The code above illustrates our approach...", "article.h3": "The Legacy of Aesthetics", "article.p4": "Finally, we must consider the emotional impact...",
+        "article.related_title": "Related Articles", "article.view_all": "View all",
+        "footer.github": "Github", "footer.terms": "Terms & Conditions", "footer.privacy": "Privacy Policy", "footer.social": "Socials", "footer.copyright": "© 2026 DEVFHM. All rights reserved.", "footer.designed": "Designed by and for the web"
+      }
+    };
+
+    const langToggle = document.getElementById('lang-toggle');
+    // If on an article page, use the article's own lang as the current language
+    const articleLang = document.body.getAttribute('data-article-lang');
+    let currentLang = articleLang || localStorage.getItem('lang') || 'es';
+
+    function updateLanguage() {
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[currentLang] && translations[currentLang][key]) {
+          const content = translations[currentLang][key];
+          if (content.includes('<br') || content.includes('<span')) {
+            el.innerHTML = content;
+          } else {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+              el.setAttribute('placeholder', content);
+            } else {
+              const icon = el.querySelector('.material-symbols-outlined');
+              el.innerText = content;
+              if (icon) el.appendChild(icon);
+            }
+          }
+        }
+      });
+
+      // Show/Hide elements based on language
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        const elLang = el.getAttribute('data-lang');
+        if (elLang === currentLang) {
+          el.style.removeProperty('display');
+        } else {
+          el.style.setProperty('display', 'none', 'important');
+        }
+      });
+
+      if (langToggle) langToggle.innerText = currentLang === 'es' ? 'EN' : 'ES';
+      document.documentElement.lang = currentLang;
+      localStorage.setItem('lang', currentLang);
+    }
+
+    if (langToggle) {
+      langToggle.addEventListener('click', () => {
+        // Check if we're on an article page with a translation available
+        const translationSlug = document.body.getAttribute('data-translation-slug');
+
+        if (articleLang && translationSlug) {
+          // We're on a translated article — navigate to the paired article
+          window.location.href = `/blog/${translationSlug}`;
+          return;
+        }
+
+        if (articleLang && !translationSlug) {
+          // Article exists but has no translation — just toggle i18n texts on the page
+          currentLang = currentLang === 'es' ? 'en' : 'es';
+          updateLanguage();
+          return;
+        }
+
+        // Default: we're on the main site, just toggle i18n
+        currentLang = currentLang === 'es' ? 'en' : 'es';
+        updateLanguage();
+      });
+    }
+
+    // Initial language update
+    updateLanguage();
+
+    // Theme Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    // Check system preference and saved theme
+    let currentTheme = localStorage.getItem('theme') || 'light';
+
+    function updateTheme() {
+      if (currentTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        if (themeToggle) themeToggle.innerText = 'light_mode';
+      } else {
+        document.documentElement.classList.remove('dark');
+        if (themeToggle) themeToggle.innerText = 'dark_mode';
+      }
+      localStorage.setItem('theme', currentTheme);
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+        updateTheme();
+      });
+    }
+
+    // Initial theme update
+    updateTheme();
+  });
+</script>

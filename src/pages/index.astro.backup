@@ -1,0 +1,1553 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+const allPosts = await getCollection("blog");
+const sortedPosts = allPosts.sort((a, b) => {
+  const dateA = a.data.pubDate?.valueOf() || 0;
+  const dateB = b.data.pubDate?.valueOf() || 0;
+  return dateB - dateA;
+});
+const latestPostsEs = sortedPosts.filter(p => (p.data.lang || 'es') === 'es').slice(0, 3);
+const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
+---
+
+<Layout
+  title="DEVFHM | Desarrollador UX/UI & Experiencias Web Disruptivas"
+  description="Portfolio de talento digital especializado en interfaces interactivas, Arquitectura Frontend, Bento UI y diseños premium de alto impacto. Código con alma disruptiva."
+>
+  <Navbar />
+  <!-- Hero Section -->
+  <section id="inicio" class="pt-32 pb-16 px-6 overflow-hidden relative bg-slate-50 dark:bg-black">
+    <!-- Animated Gradient & Blob Background -->
+    <div
+      class="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-slate-50 dark:bg-black"
+    >
+      <div
+        class="absolute inset-0 opacity-20 animate-pulse transition-opacity duration-1000"
+        style="
+            background-image: radial-gradient(var(--hero-dots) 1px, transparent 1px);
+            background-size: 30px 30px;
+          "
+      >
+      </div>
+      <div
+        class="absolute top-[5%] left-[10%] w-[60vw] h-[60vw] max-w-[500px] max-h-[500px] bg-primary rounded-full mix-blend-multiply filter blur-[100px] opacity-30"
+        style="animation: blob 8s infinite alternate ease-in-out"
+      >
+      </div>
+      <div
+        class="absolute top-[20%] right-[5%] w-[50vw] h-[50vw] max-w-[400px] max-h-[400px] bg-[#C1FF00] rounded-full mix-blend-multiply filter blur-[100px] opacity-20"
+        style="
+            animation: blob 10s infinite alternate-reverse ease-in-out;
+            animation-delay: 2s;
+          "
+      >
+      </div>
+      <div
+        class="absolute -bottom-[10%] left-[30%] w-[70vw] h-[70vw] max-w-[600px] max-h-[600px] bg-[#2D5BFF] rounded-full mix-blend-multiply filter blur-[120px] opacity-20"
+        style="
+            animation: blob 12s infinite alternate ease-in-out;
+            animation-delay: 4s;
+          "
+      >
+      </div>
+    </div>
+    <style>
+      @keyframes blob {
+        0% {
+          transform: translate(0px, 0px) scale(1);
+        }
+        33% {
+          transform: translate(30px, -50px) scale(1.1);
+        }
+        66% {
+          transform: translate(-20px, 20px) scale(0.9);
+        }
+        100% {
+          transform: translate(0px, 0px) scale(1);
+        }
+      }
+      .hero-title span {
+        position: relative;
+        z-index: 20;
+      }
+      .text-outline-digital {
+        position: relative;
+        z-index: 10;
+        -webkit-text-stroke: 2px #0040df;
+        color: transparent;
+      }
+      /* Nav Link Hover Effect */
+      .nav-link {
+        position: relative;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        color: #434656;
+        font-family: "Epilogue", sans-serif;
+        letter-spacing: -0.02em;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 3px;
+        bottom: -8px;
+        left: 50%;
+        background: linear-gradient(90deg, #0040df, #2d5bff);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transform: translateX(-50%);
+        border-radius: 99px;
+      }
+      .nav-link:hover {
+        transform: translateY(-2px) scale(1.05);
+        color: #0040df !important;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      .nav-link-active {
+        color: #0040df !important;
+      }
+      .nav-link-active::after {
+        width: 80%;
+      }
+
+      /* Tech Carousel (Logo Marquee) - Refined Design */
+      .marquee-container {
+        padding: 6rem 0;
+        padding: 8rem 0;
+        background: #f9f9f9;
+        position: relative;
+        text-align: center;
+        overflow: hidden;
+        perspective: 1000px; /* For 3D depth */
+      }
+      :global(.dark) .marquee-container {
+        background: #000000;
+      }
+      .marquee-viewport {
+        max-width: 880px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+      }
+      /* Extra-wide fades for the narrow 880px viewport */
+      .marquee-viewport::before,
+      .marquee-viewport::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 250px;
+        height: 100%;
+        z-index: 20;
+        pointer-events: none;
+      }
+      .marquee-viewport::before {
+        left: 0;
+        background: linear-gradient(to right, #f9f9f9 40%, transparent);
+      }
+      :global(.dark) .marquee-viewport::before {
+        background: linear-gradient(to right, #000000 40%, transparent);
+      }
+      .marquee-viewport::after {
+        right: 0;
+        background: linear-gradient(to left, #f9f9f9 40%, transparent);
+      }
+      :global(.dark) .marquee-viewport::after {
+        background: linear-gradient(to left, #000000 40%, transparent);
+      }
+      .marquee-header {
+        max-width: 600px;
+        margin: 0 auto 4rem;
+      }
+      .marquee-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 16px;
+        border: 1px solid #e2e2e2;
+        border-radius: 99px;
+        background: white;
+        color: #747688;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        font-family: "Epilogue", sans-serif;
+      }
+      :global(.dark) .marquee-badge {
+        background: #1a1a1a;
+        border-color: #434656;
+        color: #c4c5d9;
+      }
+      .marquee-title {
+        margin-bottom: 2rem;
+      }
+      .marquee-subtitle {
+        color: #747688;
+        line-height: 1.6;
+        font-size: 1.1rem;
+      }
+      .marquee-content {
+        display: flex;
+        gap: 100px;
+        width: max-content;
+        animation: scroll 35s linear infinite;
+        padding: 25px 0;
+      }
+      .marquee-item {
+        width: 150px;
+        height: 150px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+      }
+      :global(.dark) .marquee-item {
+        background: #1a1a1a;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+      }
+      .marquee-item i {
+        font-size: 5rem;
+        transition: transform 0.4s ease;
+      }
+      .marquee-item:hover {
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
+        z-index: 50;
+      }
+      :global(.dark) .marquee-item:hover {
+        box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+      }
+      /* Offset animations for organic look */
+      .marquee-item:nth-child(even) {
+        animation-delay: -2s;
+      }
+      .marquee-item:nth-child(3n) {
+        animation-delay: -1s;
+      }
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      @keyframes scroll-reverse {
+        0% {
+          transform: translateX(-50%);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+      .marquee-content-reverse {
+        animation: scroll-reverse 35s linear infinite;
+      }
+      .marquee-row {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+      }
+    </style>
+
+    <div class="max-w-7xl mx-auto relative mt-16 md:mt-24 z-10">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div
+          class="lg:col-span-7 z-20 text-center lg:text-left h-full flex flex-col justify-center"
+        >
+          <div
+            class="hero-badge inline-block px-4 py-1 mb-6 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold uppercase tracking-widest font-label mx-auto lg:mx-0"
+            style="width: fit-content"
+            data-key="hero.badge"
+          >
+            IDENTIDAD / 01
+          </div>
+          <h1
+            class="hero-title text-5xl md:text-7xl lg:text-[7rem] font-black font-headline tracking-tighter leading-[1.2] md:leading-[1.1] lg:leading-[1.05] text-on-background mb-8 pl-4 py-4"
+            data-key="hero.title"
+          >
+            Curando el <br />
+            Futuro
+            <span
+              class="text-outline-digital block lg:inline-block mt-4 lg:mt-0 lg:ml-6 isolate"
+              style="font-size: 1.4em; line-height: 1"
+            >
+              Digital
+            </span>
+          </h1>
+          <p
+            class="hero-p text-lg lg:text-xl text-on-surface-variant max-w-xl mb-10 leading-relaxed mx-auto lg:mx-0 font-medium"
+            data-key="hero.desc"
+          >
+            Diseño UX/UI de alto impacto con alma disruptiva. Arquitectura
+            digital para marcas que no temen destacar.
+          </p>
+          <div
+            class="hero-btns flex flex-wrap gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="#contact"
+              class="bg-primary-container text-on-primary dark:bg-[#a1a1aa] dark:text-white dark-hero-cta px-8 py-4 rounded-full font-epilogue font-bold text-lg hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20"
+              data-key="hero.cta"
+            >
+              Comenzar Proyecto
+            </a>
+            <a
+              href="#proyectos"
+              class="bg-surface-container-lowest border-2 border-outline-variant/15 px-8 py-4 rounded-full font-epilogue font-bold text-lg hover:bg-surface-container-low transition-all"
+              data-key="hero.portfolio"
+            >
+              Ver Portafolio
+            </a>
+          </div>
+        </div>
+        <div
+          class="lg:col-span-5 relative flex items-center justify-center pt-20 lg:pt-0"
+        >
+          <div
+            class="hero-image-container relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] flex items-center justify-center lg:-ml-12"
+          >
+            <!-- Hero Image only -->
+            <img
+              class="hero-image w-full max-w-none h-auto object-contain z-0 transform lg:filter lg:drop-shadow-[0_0_50px_rgba(45,91,255,0.2)]"
+              src="/SloothDev.png"
+              alt="Slooth Developer"
+            />
+
+            <!-- Responsive offsets for mobile -->
+            <style>
+              @media (max-width: 768px) {
+                .floating-icon {
+                  width: 35px;
+                  height: 35px;
+                  font-size: 1.1rem;
+                }
+                .hero-image-container {
+                  width: 250px;
+                  height: 250px;
+                }
+                .hero-image {
+                  width: 350px !important;
+                  transform: none;
+                }
+              }
+            </style>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack / Integrations Carousel -->
+  <section class="marquee-container">
+    <div class="marquee-header" data-aos="fade-up">
+      <div
+        class="marquee-badge inline-block px-4 py-1 mb-6 bg-surface-variant text-on-surface-variant rounded-full text-xs font-bold uppercase tracking-widest font-label"
+        data-key="stack.badge"
+      >
+        <span class="material-symbols-outlined !text-sm">bolt</span>
+        Stack Tecnológico
+      </div>
+      <h2
+        class="marquee-title text-5xl md:text-6xl font-black font-headline tracking-tighter leading-tight"
+        data-key="stack.title"
+      >
+        <span class="text-on-background text-[1.15em] font-black"
+          >Experiencia</span
+        >
+        <span style="background-color: #a1a1aa; color: white; padding: 0 10px;"
+          >Tecnológica</span
+        >
+      </h2>
+      <p class="marquee-subtitle" data-key="stack.desc">
+        Utilizamos las herramientas más potentes del ecosistema para construir
+        soluciones escalables, rápidas y visualmente impactantes.
+      </p>
+    </div>
+
+    <div class="marquee-viewport">
+      <div class="marquee-row">
+        <!-- Row 1: Left Scroll -->
+        <div class="marquee-content">
+          <div class="marquee-item">
+            <i class="devicon-html5-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-javascript-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-tailwindcss-original colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-figma-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-nextjs-plain" style="color: #000"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-github-original" style="color: #000"></i>
+          </div>
+          <!-- Duplicates -->
+          <div class="marquee-item">
+            <i class="devicon-html5-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-javascript-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-tailwindcss-original colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-figma-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-nextjs-plain" style="color: #000"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-github-original" style="color: #000"></i>
+          </div>
+        </div>
+
+        <!-- Row 2: Right Scroll -->
+        <div class="marquee-content marquee-content-reverse">
+          <div class="marquee-item">
+            <i class="devicon-css3-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-bootstrap-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-wordpress-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-react-original colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-nodejs-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-sass-original colored"></i>
+          </div>
+          <!-- Duplicates -->
+          <div class="marquee-item">
+            <i class="devicon-css3-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-bootstrap-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-wordpress-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-react-original colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-nodejs-plain colored"></i>
+          </div>
+          <div class="marquee-item">
+            <i class="devicon-sass-original colored"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16">
+      <a
+        href="#proyectos"
+        class="bg-primary-container text-on-primary px-10 py-4 rounded-full font-epilogue font-bold text-lg hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20 inline-flex items-center gap-2"
+        data-key="stack.cta"
+      >
+        Ver Proyectos Realizados
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="py-24 px-6 bg-surface-container-low">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16">
+        <div
+          class="inline-block px-4 py-1 mb-6 bg-tertiary-container text-on-tertiary-container rounded-full text-xs font-bold uppercase tracking-widest font-label mx-auto lg:mx-0"
+          style="width: fit-content"
+          id="servicios"
+          data-key="services.badge"
+        >
+          SERVICIOS / 02
+        </div>
+        <h2
+          class="text-4xl md:text-5xl font-black font-headline tracking-tight"
+          data-key="services.title"
+        >
+          Soluciones sin&nbsp;<span class="bg-primary-container/20 px-2 italic"
+            >limites</span
+          >
+        </h2>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-6 auto-rows-[250px]"
+      >
+        <div
+          class="md:col-span-2 md:row-span-2 bg-[#1A1C1C] text-white p-8 rounded-3xl shadow-sm group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
+        >
+          <span
+            class="absolute -top-6 -right-6 text-[12rem] font-black text-white/5 font-headline pointer-events-none transition-all duration-300 group-hover:text-white/30 group-hover:scale-125 group-hover:-translate-x-8 group-hover:translate-y-8"
+            style="">01</span
+          >
+          <div>
+            <span
+              class="material-symbols-outlined text-primary-fixed-dim text-5xl mb-4 block"
+              >domain</span
+            >
+            <h3
+              class="text-2xl font-bold mb-3 font-headline"
+              data-key="services.s1_title"
+            >
+              Páginas web empresariales
+            </h3>
+            <p
+              class="text-white/80 text-lg mb-4 leading-relaxed"
+              data-key="services.s1_desc"
+            >
+              Arquitectura robusta para corporaciones que buscan liderazgo
+              digital y estabilidad.
+            </p>
+          </div>
+          <img
+            class="w-full h-28 object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity mt-2"
+            data-alt="High-end 3D architectural web interface mockup"
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&crop=entropy"
+            style=""
+          />
+        </div>
+        <div
+          class="md:col-span-2 md:row-span-3 bg-[#2D5BFF] text-on-primary p-8 rounded-3xl shadow-lg group hover:scale-[1.02] transition-all relative overflow-hidden flex flex-col"
+        >
+          <span
+            class="absolute -top-10 -right-10 text-[12rem] font-black text-white/10 font-headline pointer-events-none transition-all duration-500 group-hover:text-white/40 group-hover:scale-125 group-hover:-translate-x-12 group-hover:translate-y-8"
+            style="">02</span
+          >
+          <div class="flex-grow">
+            <span
+              class="material-symbols-outlined text-white text-5xl mb-6 block"
+              style="">shopping_bag</span
+            >
+            <h3
+              class="text-3xl font-bold mb-6 font-headline"
+              data-key="services.s2_title"
+            >
+              Tiendas en línea o Ecommerce
+            </h3>
+            <p
+              class="text-white/80 text-lg mb-8 leading-relaxed"
+              data-key="services.s2_desc"
+            >
+              Convertimos visitantes en clientes fieles con embudos de venta
+              optimizados.
+            </p>
+          </div>
+          <img
+            class="w-full h-56 object-cover rounded-2xl opacity-70 group-hover:opacity-100 transition-opacity"
+            data-alt="Modern isometric ecommerce illustration"
+            src="https://images.unsplash.com/photo-1557821552-17105176677c?w=800photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800h=600photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800fit=cropphoto-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800crop=entropy"
+            style=""
+          />
+        </div>
+        <div
+          class="md:col-span-2 md:row-span-2 bg-[#C1FF00] p-8 rounded-3xl group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
+        >
+          <span
+            class="absolute -top-6 -right-6 text-[12rem] font-black text-on-secondary-fixed/5 font-headline pointer-events-none transition-all duration-300 group-hover:text-on-secondary-fixed/40 group-hover:scale-125 group-hover:-translate-x-8 group-hover:translate-y-8"
+            style="">03</span
+          >
+          <div>
+            <span
+              class="material-symbols-outlined text-on-secondary-fixed text-5xl mb-4 block"
+              >badge</span
+            >
+            <h3
+              class="text-2xl font-bold mb-3 font-headline text-on-secondary-fixed"
+              data-key="services.s3_title"
+            >
+              Servicios profesionales
+            </h3>
+            <p
+              class="text-black/80 text-lg mb-4 leading-relaxed"
+              data-key="services.s3_desc"
+            >
+              La vitrina digital perfecta para consultores y creativos que
+              exigen distinción.
+            </p>
+          </div>
+          <img
+            class="w-full h-28 object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity mt-2"
+            data-alt="3D creative professional branding elements"
+            src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800h=400photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800fit=cropphoto-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800crop=entropy"
+            style=""
+          />
+        </div>
+        <div
+          class="md:col-span-2 md:row-span-2 bg-[#913a00] text-white p-8 rounded-3xl shadow-sm group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
+        >
+          <span
+            class="absolute -top-6 -right-6 text-[12rem] font-black text-white/5 font-headline pointer-events-none transition-all duration-300 group-hover:text-white/30 group-hover:scale-125 group-hover:-translate-x-8 group-hover:translate-y-8"
+            style="">04</span
+          >
+          <div>
+            <span
+              class="material-symbols-outlined text-tertiary-fixed-dim text-5xl mb-4 block"
+              >rocket_launch</span
+            >
+            <h3
+              class="text-2xl font-bold mb-3 font-headline"
+              data-key="services.s4_title"
+            >
+              Aplicaciones web
+            </h3>
+            <p
+              class="text-white/80 text-lg mb-4 leading-relaxed"
+              data-key="services.s4_desc"
+            >
+              Soluciones web modernas con rendimiento excepcional.
+            </p>
+          </div>
+          <img
+            class="w-full h-28 object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity mt-2"
+            data-alt="Modern web application interface"
+            src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=400&fit=crop&crop=entropy"
+            style=""
+          />
+        </div>
+        <div
+          class="md:col-span-2 md:row-span-2 bg-[#4c6700] text-white p-8 rounded-3xl shadow-sm group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
+        >
+          <span
+            class="absolute -top-6 -right-6 text-[12rem] font-black text-white/5 font-headline pointer-events-none transition-all duration-300 group-hover:text-white/30 group-hover:scale-125 group-hover:-translate-x-8 group-hover:translate-y-8"
+            style="">05</span
+          >
+          <div>
+            <span
+              class="material-symbols-outlined text-on-secondary-fixed text-5xl mb-4 block"
+              >support_agent</span
+            >
+            <h3
+              class="text-2xl font-bold mb-3 font-headline"
+              data-key="services.s5_title"
+            >
+              Soporte técnico
+            </h3>
+            <p
+              class="text-white/80 text-lg mb-4 leading-relaxed"
+              data-key="services.s5_desc"
+            >
+              Mantenimiento y soporte continuo para tu presencia digital.
+            </p>
+          </div>
+          <img
+            class="w-full h-28 object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity mt-2"
+            data-alt="Technical support team working"
+            src="https://images.unsplash.com/photo-1573496359142-b8d87729a3f0?w=800&h=400&fit=crop&crop=entropy"
+            style=""
+          />
+        </div>
+      </div>
+        <div
+          class="md:col-span-2 md:row-span-3 bg-[#2D5BFF] text-on-primary p-8 rounded-3xl shadow-lg group hover:scale-[1.02] transition-all relative overflow-hidden flex flex-col"
+        >
+          <span
+            class="absolute -top-10 -right-10 text-[12rem] font-black text-white/10 font-headline pointer-events-none transition-all duration-500 group-hover:text-white/40 group-hover:scale-125 group-hover:-translate-x-12 group-hover:translate-y-8"
+            style="">02</span
+          >
+          <div class="flex-grow">
+            <span
+              class="material-symbols-outlined text-white text-5xl mb-6 block"
+              style="">shopping_bag</span
+            >
+            <h3
+              class="text-3xl font-bold mb-6 font-headline"
+              data-key="services.s2_title"
+            >
+              Tiendas en línea o Ecommerce
+            </h3>
+            <p
+              class="text-white/80 text-lg mb-8 leading-relaxed"
+              data-key="services.s2_desc"
+            >
+              Convertimos visitantes en clientes fieles con embudos de venta
+              optimizados.
+            </p>
+          </div>
+          <img
+            class="w-full h-56 object-cover rounded-2xl opacity-70 group-hover:opacity-100 transition-opacity"
+            data-alt="Modern isometric ecommerce illustration"
+            src="https://images.unsplash.com/photo-1557821552-17105176677c?w=800photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800h=600photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800fit=cropphoto-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800crop=entropy"
+            style=""
+          />
+        </div>
+        <div
+          class="md:col-span-2 md:row-span-2 bg-[#C1FF00] p-8 rounded-3xl group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
+        >
+          <span
+            class="absolute -top-6 -right-6 text-[12rem] font-black text-on-secondary-fixed/5 font-headline pointer-events-none transition-all duration-300 group-hover:text-on-secondary-fixed/40 group-hover:scale-125 group-hover:-translate-x-8 group-hover:translate-y-8"
+            style="">03</span
+          >
+          <div>
+            <span
+              class="material-symbols-outlined text-on-secondary-fixed text-5xl mb-4 block"
+              >badge</span
+            >
+            <h3
+              class="text-2xl font-bold mb-3 font-headline text-on-secondary-fixed"
+              data-key="services.s3_title"
+            >
+              Servicios profesionales
+            </h3>
+            <p
+              class="text-black/80 text-lg mb-4 leading-relaxed"
+              data-key="services.s3_desc"
+            >
+              La vitrina digital perfecta para consultores y creativos que
+              exigen distinción.
+            </p>
+          </div>
+          <img
+            class="w-full h-28 object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity mt-2"
+            data-alt="3D creative professional branding elements"
+            src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800h=400photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800fit=cropphoto-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800crop=entropy"
+            style=""
+          />
+        </div>
+        <div
+          class="md:col-span-2 md:row-span-2 bg-[#FF6B00] p-8 rounded-3xl text-white group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
+        >
+          <span
+            class="absolute -top-6 -right-6 text-[12rem] font-black text-white/10 font-headline pointer-events-none transition-all duration-300 group-hover:text-white/40 group-hover:scale-125 group-hover:-translate-x-8 group-hover:translate-y-8"
+            style="">04</span
+          >
+          <div>
+            <span
+              class="material-symbols-outlined text-white text-5xl mb-4 block"
+              >ads_click</span
+            >
+            <h3
+              class="text-2xl font-bold mb-3 font-headline"
+              data-key="services.s4_title"
+            >
+              Landing Page
+            </h3>
+            <p
+              class="text-white/80 text-lg mb-4 leading-relaxed"
+              data-key="services.s4_desc"
+            >
+              Estructuras de alto impacto diseñadas para campañas y resultados
+              inmediatos.
+            </p>
+          </div>
+          <img
+            class="w-full h-28 object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity mt-2"
+            data-alt="Dynamic 3D marketing conversion elements"
+            src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&q=80&w=800"
+            style=""
+          />
+        </div>
+        <div
+          class="md:col-span-2 md:row-span-2 bg-[#1A1C1C] text-white p-8 rounded-3xl shadow-sm group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
+        >
+          <span
+            class="absolute -top-6 -right-6 text-[12rem] font-black text-white/5 font-headline pointer-events-none transition-all duration-300 group-hover:text-white/30 group-hover:scale-125 group-hover:-translate-x-8 group-hover:translate-y-8"
+            data-key="services.s5_num">05</span
+          >
+          <div>
+            <span
+              class="material-symbols-outlined text-secondary-fixed text-5xl mb-4 block"
+              >search_check</span
+            >
+            <h3
+              class="text-2xl font-bold mb-3 font-headline"
+              data-key="services.s5_title"
+            >
+              SEO &amp; SEM
+            </h3>
+            <p
+              class="text-white/80 text-lg mb-4 leading-relaxed"
+              data-key="services.s5_desc"
+            >
+              Estrategias de visibilidad para atraer tráfico cualificado y
+              maximizar conversiones.
+            </p>
+          </div>
+          <img
+            class="w-full h-28 object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity mt-2"
+            data-alt="Modern 3D data visualization and search icons"
+            src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&q=80&w=800"
+          />
+        </div>
+        <div
+          class="md:col-span-2 md:row-span-2 bg-[#2D5BFF] text-white p-8 rounded-3xl shadow-sm group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
+        >
+          <span
+            class="absolute -top-6 -right-6 text-[12rem] font-black text-white/5 font-headline pointer-events-none transition-all duration-300 group-hover:text-white/30 group-hover:scale-125 group-hover:-translate-x-8 group-hover:translate-y-8"
+            data-key="services.s6_num">06</span
+          >
+          <div>
+            <span
+              class="material-symbols-outlined text-white text-5xl mb-4 block"
+              >mail</span
+            >
+            <h3
+              class="text-2xl font-bold mb-3 font-headline"
+              data-key="services.s6_title"
+            >
+              Email Marketing
+            </h3>
+            <p
+              class="text-white/80 text-lg mb-4 leading-relaxed"
+              data-key="services.s6_desc"
+            >
+              Campañas automatizadas diseñadas para activar audiencias y
+              aumentar ventas.
+            </p>
+          </div>
+          <img
+            class="w-full h-28 object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity mt-2"
+            data-alt="Strategic 3D communication icons"
+            src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80&w=800"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Creativity driven by code -->
+  <section class="py-24 px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1 relative">
+          <div class="grid grid-cols-2 gap-4">
+            <div
+              class="bg-secondary-fixed p-8 rounded-3xl transform -rotate-3 hover:rotate-0 transition-transform dark:text-black dark-text-black"
+            >
+              <div
+                class="text-5xl font-black font-headline mb-2"
+                data-key="about.stat1_val"
+              >
+                +10
+              </div>
+              <div
+                class="font-bold text-sm uppercase tracking-widest opacity-70"
+                data-key="about.stat1_label"
+              >
+                AÑOS DE EXPERIENCIA
+              </div>
+            </div>
+            <div
+              class="bg-primary p-8 rounded-3xl text-white dark:text-black translate-y-8 transform rotate-6 hover:rotate-0 transition-transform"
+            >
+              <div
+                class="text-5xl font-black font-headline mb-2"
+                data-key="about.stat2_val"
+              >
+                99.9%
+              </div>
+              <div
+                class="font-bold text-sm uppercase tracking-widest opacity-70"
+                data-key="about.stat2_label"
+              >
+                Uptime Garantizado
+              </div>
+            </div>
+            <div
+              class="col-span-2 bg-tertiary p-8 rounded-3xl text-white dark:text-black dark-text-black transform -rotate-2 hover:rotate-0 transition-transform"
+            >
+              <div
+                class="text-4xl font-bold font-headline leading-tight"
+                data-key="about.stat3_label"
+              >
+                Creatividad impulsada por el código.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <div
+            class="inline-block px-4 py-1 mb-6 bg-primary-container text-on-primary-container rounded-full text-xs font-bold uppercase tracking-widest font-label"
+            id="sobre-mi"
+            style="width: fit-content"
+            data-key="about.badge"
+          >
+            SOBRE MI / 03
+          </div>
+          <h2
+            class="text-5xl md:text-6xl font-black font-headline tracking-tighter mb-8 leading-tight"
+            data-key="about.title"
+          >
+            No hacemos webs. <br />
+            Creamos
+            <span class="dark-text-black" style="background-color: rgb(184, 243, 0); color: black;">Experiencias</span
+            >.
+          </h2>
+          <p
+            class="text-lg text-on-surface-variant mb-10 leading-relaxed"
+            data-key="about.desc"
+          >
+            En devfhm.com, creemos que cada píxel tiene un propósito. No nos
+            conformamos con lo funcional; perseguimos lo extraordinario mediante
+            la fusión de ingeniería de software de vanguardia y estética
+            editorial.
+          </p>
+          <img
+            class="w-full h-64 object-cover rounded-3xl shadow-xl"
+            data-alt="Abstract 3D digital sculpture with fluid iridescent glass textures"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDEDrgFh_FMsXMZBS0I90yo2svLuov6TZ248GdKt2i_1fBZ6DN-vfjPmBm84bcxRJ4hfkFBrCIZ0ty_rg3-Ub7lzh7i-MEUEHBFC4cRdnFerFVP5lMwd3srCPNQbp_L3PtwIgciNMzQPfJpGeU2pg8JsQQhOQFWmgpQN-W0rQwz_bs6rGvznGaHPXcW66GzirahvsWSogaUILma_ab7qdutWdc-o8i7EbSdLE-Vazzyao10s9N51K42HDgp1sD8mjtlWxoDF2ry8mM"
+            style=""
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Projects Grid -->
+  <section class="py-24 px-6 bg-surface">
+    <div class="max-w-7xl mx-auto">
+      <div
+        class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8"
+      >
+        <div>
+          <div
+            class="inline-block px-4 py-1 mb-6 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold uppercase tracking-widest font-label"
+            id="proyectos"
+            style="width: fit-content"
+          >
+            PROYECTOS / 04
+          </div>
+          <h2
+            class="text-4xl md:text-5xl font-black font-headline tracking-tight"
+            data-key="projects.title"
+          >
+            Proyectos con
+            <span
+              class="text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg"
+              >Impacto</span
+            >
+          </h2>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+        <div class="md:col-span-7 group">
+          <div class="relative overflow-hidden rounded-3xl aspect-[16/10] mb-6">
+            <img
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              data-alt="Minimalist luxury fashion website design"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDohfE06gy2k0FtXyVV5jVhBhqaiUZ4msd1gx-EV6K8qakqieBybYLn1RjyyGC3oVJe8T0Rsiwt8CI1DqicBs-rZboPJHhZVG0msUxC-JDNQSGRykUZep8ZiXHolt6Zh5_DSg5BG-g9SQz3mqD7DNHXf6c7H351fLlpoquVIeIVXVthSj5-zYxKzXofM1lte2Y-KxTPV3ikwZZhHkIrMkyrhLam3_ZoiBIYhvVq7uvjWQ3OZDVRotS4DrMrP1neMZ9vS1P23wQeCFQ9"
+              style=""
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-10"
+            >
+              <div class="flex flex-col gap-2">
+                <span
+                  class="text-white font-bold flex items-center gap-2"
+                  data-key="projects.explore"
+                  >Explorar Proyecto
+                  <span class="material-symbols-outlined">arrow_outward</span
+                  ></span
+                >
+                <p
+                  class="text-white/80 text-sm font-medium leading-tight"
+                  data-key="projects.p1_desc"
+                >
+                  Rediseño completo de la experiencia de compra de lujo con
+                  enfoque en minimalismo y performance.
+                </p>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold font-headline mb-2" style="">
+            Aura Studio - Ecommerce
+          </h3>
+          <p class="text-outline" style="">DISEÑO EDITORIAL / NEXT.JS</p>
+        </div>
+        <div class="md:col-span-5 md:mt-12 group">
+          <div class="relative overflow-hidden rounded-3xl aspect-[4/5] mb-6">
+            <img
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              data-alt="Abstract colorful web interface"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIDdT7tyLwM6ljRHeUgmO51VV_l-YhE14e6XbxiOzsdz9oKaeSzoyCQwsdgKhjh9UVbJXMHdiUiCbNTsYwMeBmM5l2xWzYQW1XEWOZeeEoNnPOq1Wz4vDlvGiy4HbbLTYUNxdK__2wdjtTdYwNtZBPXWYq62QQMXnZK7Xf3sD6nKrs68v4VTqO5P0QFcBy-Am0O6vYDzr0xKXVcqi5m1LtDs2bHbJWk2QKF_TicFyNk9VzrpjWTOTjYUY8Wrub9OTyfuVTT0p_MW7r"
+              style=""
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-10"
+            >
+              <div class="flex flex-col gap-2">
+                <span
+                  class="text-white font-bold flex items-center gap-2"
+                  style=""
+                  >Explorar Proyecto
+                  <span class="material-symbols-outlined" style=""
+                    >arrow_outward</span
+                  ></span
+                >
+                <p
+                  class="text-white/80 text-sm font-medium leading-tight"
+                  style=""
+                >
+                  Plataforma financiera disruptiva con visualización de datos en
+                  tiempo real y UI ultra-fluida.
+                </p>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold font-headline mb-2" style="">
+            Nexus Fintech
+          </h3>
+          <p class="text-outline" style="">SaaS / DASHBOARD UI</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Dudas Comunes -->
+  <section class="py-24 px-6 bg-surface-container-lowest">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <div
+          class="inline-block px-4 py-1 mb-6 bg-[#C1FF00] text-black rounded-full text-xs font-bold uppercase tracking-widest font-label mx-auto"
+          style="width: fit-content"
+          id="faq"
+        >
+          FAQ / 05
+        </div>
+        <h2
+          class="text-5xl font-black font-headline tracking-tight mb-4"
+          data-key="faq.title"
+        >
+          Dudas
+          <span class="text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg"
+            >Comunes</span
+          >
+        </h2>
+        <p class="text-on-surface-variant" data-key="faq.desc">
+          Resolvemos tus inquietudes para que demos el siguiente paso con total
+          confianza.
+        </p>
+      </div>
+      <div class="space-y-4">
+        <div
+          class="bg-surface-container-low rounded-3xl overflow-hidden border border-outline-variant/10 transition-colors"
+        >
+          <button
+            class="w-full flex justify-between items-center p-8 text-left group"
+            onclick="toggleFaq(this)"
+          >
+            <span class="text-xl font-bold font-headline" data-key="faq.q1"
+              >¿Cuánto tiempo toma desarrollar un sitio web?</span
+            >
+            <span
+              class="material-symbols-outlined text-on-surface group-hover:-translate-y-1 transition-transform"
+              >expand_more</span
+            >
+          </button>
+          <div
+            class="px-8 pb-8 text-on-surface-variant leading-relaxed hidden"
+            data-key="faq.a1"
+          >
+            El tiempo de desarrollo varía según el tamaño y la complejidad del
+            proyecto. Para sitios web simples, el proceso puede tardar entre 2 y
+            4 semanas. En cambio, proyectos más complejos, como aquellos que
+            incluyen integraciones de CRM o desarrollos personalizados, pueden
+            requerir de 6 a 12 semanas. Lo más importante es que colaboramos
+            contigo para establecer un cronograma claro desde el principio,
+            asegurando que estés informado en cada etapa del proceso.
+          </div>
+        </div>
+        <div
+          class="bg-surface-container-low rounded-3xl overflow-hidden border border-outline-variant/10 transition-colors"
+        >
+          <button
+            class="w-full flex justify-between items-center p-8 text-left group"
+            onclick="toggleFaq(this)"
+          >
+            <span class="text-xl font-bold font-headline" data-key="faq.q2"
+              >¿Ofrecen soporte después de lanzar el sitio web?</span
+            >
+            <span
+              class="material-symbols-outlined text-on-surface group-hover:-translate-y-1 transition-transform"
+              >expand_more</span
+            >
+          </button>
+          <div
+            class="px-8 pb-8 text-on-surface-variant leading-relaxed hidden"
+            data-key="faq.a2"
+          >
+            Sí, ofrecemos soporte post-lanzamiento para asegurar que tu sitio
+            web funcione sin problemas. Los paquetes de soporte incluyen
+            mantenimiento, actualizaciones y soporte técnico. También ofrecemos
+            planes personalizados según tus necesidades.
+          </div>
+        </div>
+        <div
+          class="bg-surface-container-low rounded-3xl overflow-hidden border border-outline-variant/10 transition-colors"
+        >
+          <button
+            class="w-full flex justify-between items-center p-8 text-left group"
+            onclick="toggleFaq(this)"
+          >
+            <span class="text-xl font-bold font-headline" data-key="faq.q3"
+              >¿El sitio web será responsivo y compatible con dispositivos
+              móviles?</span
+            >
+            <span
+              class="material-symbols-outlined text-on-surface group-hover:-translate-y-1 transition-transform"
+              >expand_more</span
+            >
+          </button>
+          <div
+            class="px-8 pb-8 text-on-surface-variant leading-relaxed hidden"
+            data-key="faq.a3"
+          >
+            Absolutamente. Todos nuestros sitios web están diseñados para ser
+            totalmente responsivos, lo que significa que se adaptarán y
+            funcionarán perfectamente en cualquier dispositivo, ya sea una
+            computadora de escritorio, una tablet o un teléfono móvil.
+          </div>
+        </div>
+        <div
+          class="bg-surface-container-low rounded-3xl overflow-hidden border border-outline-variant/10 transition-colors"
+        >
+          <button
+            class="w-full flex justify-between items-center p-8 text-left group"
+            onclick="toggleFaq(this)"
+          >
+            <span class="text-xl font-bold font-headline" data-key="faq.q4"
+              >¿Puedo actualizar el contenido de mi sitio web por mi cuenta?</span
+            >
+            <span
+              class="material-symbols-outlined text-on-surface group-hover:-translate-y-1 transition-transform"
+              >expand_more</span
+            >
+          </button>
+          <div
+            class="px-8 pb-8 text-on-surface-variant leading-relaxed hidden"
+            data-key="faq.a4"
+          >
+            Sí, ofrecemos sitios web con sistemas de gestión de contenido (CMS)
+            como WordPress, que permiten que edites y actualices el contenido de
+            tu sitio web fácilmente, sin necesidad de conocimientos técnicos.
+            Proporcionamos capacitación para que puedas administrar tu sitio de
+            manera efectiva.
+          </div>
+        </div>
+        <div
+          class="bg-surface-container-low rounded-3xl overflow-hidden border border-outline-variant/10 transition-colors"
+        >
+          <button
+            class="w-full flex justify-between items-center p-8 text-left group"
+            onclick="toggleFaq(this)"
+          >
+            <span class="text-xl font-bold font-headline" data-key="faq.q5"
+              >¿Cómo manejan la seguridad del sitio web?</span
+            >
+            <span
+              class="material-symbols-outlined text-on-surface group-hover:-translate-y-1 transition-transform"
+              >expand_more</span
+            >
+          </button>
+          <div
+            class="px-8 pb-8 text-on-surface-variant leading-relaxed hidden"
+            data-key="faq.a5"
+          >
+            En nuestros sitios web, priorizamos la seguridad implementando las
+            mejores prácticas y tecnologías actuales. Utilizamos certificados
+            SSL para encriptar la información, lo que asegura que los datos
+            entre el usuario y el servidor estén protegidos. Además,
+            implementamos firewalls, autenticación robusta y herramientas de
+            monitoreo para prevenir accesos no autorizados y ataques maliciosos.
+            También mantenemos nuestros sistemas y plugins actualizados, y
+            aplicamos medidas de respaldo regular para garantizar la integridad
+            de los datos. Tu sitio web estará protegido frente a amenazas
+            comunes en la red.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Bloc de Notas -->
+  <section class="py-24 px-6 bg-surface-container-low">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex justify-between items-end mb-16">
+        <div>
+          <div
+            class="inline-block px-4 py-1 mb-6 bg-zinc-200 text-zinc-900 rounded-full text-xs font-bold uppercase tracking-widest font-label"
+            id="blog"
+            style="width: fit-content"
+            data-key="blog_home.badge"
+          >
+            BLOG / 06
+          </div>
+          <h2
+            class="text-4xl md:text-5xl font-black font-headline tracking-tight"
+            data-key="blog_home.title"
+          >
+            Bloc de
+            <span
+              class="text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg"
+              >Notas</span
+            >
+          </h2>
+        </div>
+        <a
+          href="/blog"
+          class="hidden md:block bg-surface-container-lowest border border-outline-variant/20 px-8 py-4 rounded-full font-bold hover:bg-white transition-all"
+          data-key="blog_home.view_all"
+        >
+          Ver todas las entradas
+        </a>
+      </div>
+      <!-- Blog Grid ES -->
+      <div id="blog-grid-es" data-lang="es">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {
+            latestPostsEs.map((post) => (
+              <article class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col group">
+                <a href={`/blog/${post.id}`} class="block flex flex-col h-full">
+                  <div class="relative h-64 overflow-hidden">
+                    <img
+                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      src={post.data.image}
+                    />
+                    <div class="absolute top-4 left-4 flex gap-2">
+                      <span
+                        class="px-3 py-1 bg-primary text-white text-[10px] font-bold uppercase rounded-full"
+                      >
+                        {post.data.category}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="p-8 flex-grow">
+                    <h3
+                      class="text-2xl font-bold font-headline mb-4 group-hover:text-primary transition-colors"
+                    >
+                      {post.data.title}
+                    </h3>
+                    <p
+                      class="text-on-surface-variant text-sm mb-8 leading-relaxed line-clamp-2"
+                    >
+                      {post.data.description}
+                    </p>
+                    <div
+                      class="inline-flex items-center gap-2 text-primary font-bold group"
+                      data-key="blog_home.read_more"
+                    >
+                      Leer más
+                      <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">
+                        arrow_forward
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Blog Grid EN -->
+      <div id="blog-grid-en" data-lang="en" style="display:none">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {
+            latestPostsEn.map((post) => (
+              <article class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col group">
+                <a href={`/blog/${post.id}`} class="block flex flex-col h-full">
+                  <div class="relative h-64 overflow-hidden">
+                    <img
+                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      src={post.data.image}
+                    />
+                    <div class="absolute top-4 left-4 flex gap-2">
+                      <span
+                        class="px-3 py-1 bg-primary text-white text-[10px] font-bold uppercase rounded-full"
+                      >
+                        {post.data.category}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="p-8 flex-grow">
+                    <h3
+                      class="text-2xl font-bold font-headline mb-4 group-hover:text-primary transition-colors"
+                    >
+                      {post.data.title}
+                    </h3>
+                    <p
+                      class="text-on-surface-variant text-sm mb-8 leading-relaxed line-clamp-2"
+                    >
+                      {post.data.description}
+                    </p>
+                    <div
+                      class="inline-flex items-center gap-2 text-primary font-bold group"
+                      data-key="blog_home.read_more"
+                    >
+                      Read more
+                      <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">
+                        arrow_forward
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!-- Legendary Contact -->
+  <section id="contact" class="py-24 px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div
+        class="bg-primary-container text-on-primary rounded-[4rem] p-10 md:p-20 relative overflow-hidden"
+      >
+        <div
+          class="absolute -top-20 -right-20 w-96 h-96 bg-secondary-container/20 rounded-full blur-3xl"
+        >
+        </div>
+        <div
+          class="absolute -bottom-20 -left-20 w-96 h-96 bg-tertiary-container/10 rounded-full blur-3xl"
+        >
+        </div>
+        <div class="grid lg:grid-cols-2 gap-16 relative z-10">
+          <div>
+            <div
+              class="inline-block px-4 py-1 mb-6 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest font-label"
+              id="contacto"
+              style="width: fit-content"
+              data-key="contact.badge"
+            >
+              CONTACTO / 07
+            </div>
+            <h2
+              class="text-5xl md:text-7xl font-black font-headline tracking-tighter mb-8 leading-none"
+              data-key="contact.title"
+            >
+              ¿Listo para <br />
+              <span
+                class="text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg"
+                >innovar?</span
+              >
+            </h2>
+            <p
+              class="text-xl text-on-primary-container/80 mb-12 max-w-md"
+              data-key="contact.desc"
+            >
+              Cuéntanos tu visión. Estamos listos para transformarla en una
+              realidad digital impecable.
+            </p>
+            <div class="space-y-6">
+              <div class="flex items-center gap-4">
+                <span
+                  class="material-symbols-outlined text-secondary-fixed text-3xl"
+                  style="">chat</span
+                >
+                <div>
+                  <div
+                    class="text-sm font-bold opacity-60 uppercase tracking-widest"
+                    style=""
+                  >
+                    WhatsApp
+                  </div>
+                  <div class="text-lg font-bold" style="">(+506) 63089119</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <span
+                  class="material-symbols-outlined text-secondary-fixed text-3xl"
+                  style="">mail</span
+                >
+                <div>
+                  <div
+                    class="text-sm font-bold opacity-60 uppercase tracking-widest"
+                    style=""
+                  >
+                    Email
+                  </div>
+                  <div class="text-lg font-bold" style="">
+                    contacto@devfhm.com
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-surface-container-lowest rounded-3xl p-10 shadow-2xl">
+            <form class="space-y-6">
+              <div class="space-y-2">
+                <label
+                  class="text-sm font-bold font-epilogue text-on-surface uppercase tracking-widest"
+                  for="nombre"
+                  data-key="contact.label_name">Nombre Completo(*)</label
+                >
+                <input
+                  id="nombre"
+                  required
+                  aria-required="true"
+                  class="w-full bg-transparent border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 focus:outline-none px-0 py-3 transition-all text-on-surface"
+                  placeholder="Ej. Juan Pérez"
+                  data-key="contact.placeholder_name"
+                  type="text"
+                />
+              </div>
+              <div class="space-y-2">
+                <label
+                  class="text-sm font-bold font-epilogue text-on-surface uppercase tracking-widest"
+                  for="email"
+                  data-key="contact.label_email">Email Corporativo</label
+                >
+                <input
+                  id="email"
+                  required
+                  aria-required="true"
+                  class="w-full bg-transparent border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 focus:outline-none px-0 py-3 transition-all text-on-surface"
+                  placeholder="tu@empresa.com"
+                  data-key="contact.placeholder_email"
+                  type="email"
+                />
+              </div>
+              <div class="space-y-2">
+                <label
+                  class="text-sm font-bold font-epilogue text-on-surface uppercase tracking-widest"
+                  data-key="contact.label_project">Tipo de Proyecto</label
+                >
+                <input
+                  class="w-full bg-transparent border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 focus:outline-none px-0 py-3 transition-all text-on-surface"
+                  placeholder="Ej. Ecommerce"
+                  data-key="contact.placeholder_project"
+                  type="text"
+                />
+              </div>
+              <div class="space-y-2">
+                <label
+                  class="text-sm font-bold font-epilogue text-on-surface uppercase tracking-widest"
+                  data-key="contact.label_message">Mensaje(*)</label
+                >
+                <textarea
+                  class="w-full bg-transparent border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 focus:outline-none px-0 py-3 transition-all text-on-surface resize-none"
+                  placeholder="Cuéntanos un poco sobre tu proyecto..."
+                  data-key="contact.placeholder_message"
+                  rows="3"></textarea>
+              </div>
+              <button
+                class="w-full bg-primary text-white dark:bg-[#a1a1aa] dark:text-white dark-contact-submit-btn py-4 rounded-full font-bold text-lg hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-primary/30 mt-4"
+                data-key="contact.submit"
+              >
+                Enviar Mensaje
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <Footer />
+  <script is:inline>
+    // Hero Animations
+    gsap.from(".hero-badge", {
+      opacity: 0,
+      y: -20,
+      duration: 1,
+      ease: "power3.out",
+    });
+    gsap.from(".hero-title", {
+      opacity: 0,
+      x: -50,
+      duration: 1.2,
+      delay: 0.2,
+      ease: "power4.out",
+    });
+    gsap.from(".hero-p", {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      delay: 0.5,
+      ease: "power2.out",
+    });
+    gsap.from(".hero-btns", {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      delay: 0.8,
+      ease: "back.out(1.7)",
+    });
+    gsap.from(".hero-image", {
+      opacity: 0,
+      scale: 0.8,
+      duration: 1.5,
+      delay: 0.2,
+      ease: "expo.out",
+    });
+
+    // Premium GSAP Animations
+    // Hero Title Premium Animation
+    gsap.from(".hero-title", {
+      duration: 1.2,
+      y: 100,
+      opacity: 0,
+      ease: "power4.out",
+      stagger: 0.2
+    });
+
+    // Premium Parallax Elements
+    gsap.utils.toArray(".parallax-element").forEach(element => {
+      gsap.to(element, {
+        yPercent: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: element,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
+
+    // Premium Cards Animation
+    gsap.utils.toArray(".premium-card").forEach((card, index) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        },
+        y: 100,
+        opacity: 0,
+        duration: 0.8,
+        delay: index * 0.1,
+        ease: "power3.out"
+      });
+    });
+
+    // Subtle Mouse Parallax Effect
+    document.addEventListener("mousemove", (e) => {
+      const mouseX = (e.clientX / window.innerWidth - 0.5) * 15;
+      const mouseY = (e.clientY / window.innerHeight - 0.5) * 15;
+
+      gsap.to(".hero-image", {
+        x: mouseX,
+        y: mouseY,
+        duration: 1.5,
+        ease: "power2.out",
+      });
+
+      gsap.to(".floating-icon", {
+        x: (i) => mouseX * (1.2 + i * 0.05),
+        y: (i) => mouseY * (1.2 + i * 0.05),
+        duration: 2,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+    });
+  </script>
+</Layout>

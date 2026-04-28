@@ -1,0 +1,231 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+    description?: string;
+    bodyAttrs?: Record<string, string>;
+}
+
+const { title, description, bodyAttrs = {} } = Astro.props;
+---
+
+<!doctype html>
+<html class="scroll-smooth" lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="theme-color" content="#0040df" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+        {description && <meta name="description" content={description} />}
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        
+        <link
+          href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800;900&family=Manrope:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" is:inline></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" is:inline></script>
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.51/build/spline-viewer.js" is:inline></script>
+        <link rel="stylesheet" href="/animations.css" />
+	</head>
+	<body class="bg-background text-on-background font-body antialiased" {...bodyAttrs}>
+		<div id="reading-progress" aria-hidden="true"></div>
+		<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+		<slot />
+        <script src="/animations.js" is:inline></script>
+        <script is:inline>
+          // Premium quality baseline applied globally without removing current content.
+          document.documentElement.classList.add("premium-flat");
+
+          // FAQ Toggle Global Function
+          window.toggleFaq = function(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector(".material-symbols-outlined");
+            const container = btn.closest(".faq-premium-item");
+
+            if (content.classList.contains("hidden")) {
+              content.classList.remove("hidden");
+              icon.style.transform = "rotate(180deg)";
+              if (container) container.classList.add("is-open");
+            } else {
+              content.classList.add("hidden");
+              icon.style.transform = "rotate(0deg)";
+              if (container) container.classList.remove("is-open");
+            }
+          };
+
+          // Navigation Link Highlighting Logic
+          document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            const allLinks = [...navLinks, ...mobileLinks];
+            
+            // Helper to remove active classes
+            function clearActive() {
+              allLinks.forEach(link => {
+                link.classList.remove('nav-link-active', 'text-primary');
+                // For desktop links
+                if (link.classList.contains('nav-link')) {
+                  link.classList.add('text-on-surface-variant');
+                }
+                // For mobile links
+                if (link.classList.contains('mobile-link')) {
+                  link.classList.remove('text-primary', 'opacity-100');
+                  link.classList.add('opacity-60');
+                }
+              });
+            }
+
+            // Helper to set active class
+            function setActive(href) {
+              clearActive();
+              allLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === href || (href === '#' && (linkHref === '/' || linkHref === '#'))) {
+                  link.classList.add('nav-link-active', 'text-primary');
+                  link.classList.remove('text-on-surface-variant', 'opacity-60');
+                  if (link.classList.contains('mobile-link')) {
+                    link.classList.add('opacity-100');
+                  }
+                }
+              });
+            }
+
+            // Intersection Observer for anchor links
+            const observerOptions = {
+              root: null,
+              rootMargin: '-20% 0px -70% 0px',
+              threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  const id = entry.target.getAttribute('id');
+                  if (id) {
+                    const hash = id === 'inicio' ? '#' : `#${id}`;
+                    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                        setActive(hash);
+                    }
+                  }
+                }
+              });
+            }, observerOptions);
+
+            const observedSections = [];
+            allLinks.forEach(link => {
+              const href = link.getAttribute('href');
+              if (href && href.includes('#')) {
+                const id = href.split('#')[1] || 'inicio';
+                const section = document.getElementById(id);
+                if (section && !observedSections.includes(id)) {
+                  observer.observe(section);
+                  observedSections.push(id);
+                }
+              }
+            });
+
+            const currentPath = window.location.pathname;
+            if (currentPath !== '/' && currentPath !== '/index.html') {
+                setActive(currentPath);
+            }
+
+            allLinks.forEach(link => {
+              link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href.startsWith('#')) {
+                  setActive(href);
+                }
+              });
+            });
+
+            // Mobile Menu logic
+            const btn = document.getElementById("mobile-menu-btn");
+            const menu = document.getElementById("mobile-menu");
+            const mobileLinkElems = document.querySelectorAll(".mobile-link");
+
+            if (!btn || !menu) return;
+
+            let isMenuOpen = false;
+
+            function toggleMenu() {
+              isMenuOpen = !isMenuOpen;
+              if (isMenuOpen) {
+                menu.classList.remove("hidden");
+                menu.classList.add("flex");
+                setTimeout(() => {
+                  menu.classList.remove("opacity-0");
+                  menu.classList.add("opacity-100");
+                  btn.innerText = "close";
+                }, 10);
+              } else {
+                menu.classList.remove("opacity-100");
+                menu.classList.add("opacity-0");
+                btn.innerText = "menu";
+                setTimeout(() => {
+                  menu.classList.add("hidden");
+                  menu.classList.remove("flex");
+                }, 300);
+              }
+            }
+
+            btn.addEventListener("click", toggleMenu);
+            mobileLinkElems.forEach((link) =>
+              link.addEventListener("click", () => {
+                if (isMenuOpen) toggleMenu();
+              })
+            );
+          });
+
+          // Reduced motion and basic runtime performance guardrails.
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+          if (reduceMotion.matches) {
+            document.documentElement.classList.add("reduce-motion");
+          }
+
+          // Ensure a main landmark id exists for skip-link.
+          const mainEl = document.querySelector("main");
+          if (mainEl && !mainEl.id) {
+            mainEl.id = "main-content";
+          }
+
+          // Runtime image optimization hints (non-destructive, additive).
+          document.querySelectorAll("img").forEach((img, index) => {
+            if (!img.hasAttribute("decoding")) {
+              img.setAttribute("decoding", "async");
+            }
+            if (!img.hasAttribute("loading")) {
+              img.setAttribute("loading", index < 2 ? "eager" : "lazy");
+            }
+            if (!img.hasAttribute("fetchpriority") && index === 0) {
+              img.setAttribute("fetchpriority", "high");
+            }
+          });
+
+          // Reading progress indicator for long pages.
+          const progressBar = document.getElementById("reading-progress");
+          const updateProgress = () => {
+            if (!progressBar) return;
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const scrollHeight =
+              document.documentElement.scrollHeight - window.innerHeight;
+            const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+          };
+          updateProgress();
+          window.addEventListener("scroll", updateProgress, { passive: true });
+        </script>
+	</body>
+</html>
