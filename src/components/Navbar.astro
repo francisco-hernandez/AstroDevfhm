@@ -298,8 +298,6 @@
 
     // Theme Logic
     const themeToggle = document.getElementById('theme-toggle');
-    
-    // Check system preference and saved theme
     let currentTheme = localStorage.getItem('theme') || 'light';
 
     function updateTheme() {
@@ -320,7 +318,49 @@
       });
     }
 
-    // Initial theme update
     updateTheme();
+
+    // Mobile Menu Logic with GSAP
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    let isMenuOpen = false;
+
+    if (menuBtn && mobileMenu && typeof gsap !== 'undefined') {
+      const menuTl = gsap.timeline({ paused: true });
+
+      menuTl.to(mobileMenu, {
+        display: 'flex',
+        opacity: 1,
+        duration: 0.4,
+        ease: 'power3.out'
+      }).from('.mobile-link', {
+        y: 20,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.4,
+        ease: 'power2.out'
+      }, "-=0.2");
+
+      menuBtn.addEventListener('click', () => {
+        if (!isMenuOpen) {
+          menuBtn.innerText = 'close';
+          menuTl.play();
+        } else {
+          menuBtn.innerText = 'menu';
+          menuTl.reverse();
+        }
+        isMenuOpen = !isMenuOpen;
+      });
+
+      // Close menu on link click
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          menuBtn.innerText = 'menu';
+          menuTl.reverse();
+          isMenuOpen = false;
+        });
+      });
+    }
   });
 </script>

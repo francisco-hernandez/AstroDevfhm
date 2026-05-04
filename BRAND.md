@@ -8,8 +8,8 @@
 ## Color Tokens
 
 - **Background:** #000000 (OLED Black)
-- **Primary:** #0040df (Electric Blue)
-- **Accent:** #C1FF00 (Lime Glow)
+- **Primary:** #0040df (Electric Blue) / #4d7cff (Soft Cobalt in Dark Mode)
+- **Accent:** #C1FF00 (Lime Glow) / #818cf8 (Soft Indigo in Dark Mode)
 
 ## Animation Tone
 

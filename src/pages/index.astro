@@ -10,8 +10,12 @@ const sortedPosts = allPosts.sort((a, b) => {
   const dateB = b.data.pubDate?.valueOf() || 0;
   return dateB - dateA;
 });
-const latestPostsEs = sortedPosts.filter(p => (p.data.lang || 'es') === 'es').slice(0, 3);
-const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
+const latestPostsEs = sortedPosts
+  .filter((p) => (p.data.lang || "es") === "es")
+  .slice(0, 3);
+const latestPostsEn = sortedPosts
+  .filter((p) => p.data.lang === "en")
+  .slice(0, 3);
 ---
 
 <Layout
@@ -20,7 +24,10 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
 >
   <Navbar />
   <!-- Hero Section -->
-  <section id="inicio" class="pt-32 pb-16 px-6 overflow-hidden relative dark:bg-black">
+  <section
+    id="inicio"
+    class="pt-32 pb-16 px-6 overflow-hidden relative dark:bg-black"
+  >
     <!-- Animated Gradient & Blob Background -->
     <div
       class="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-background dark:bg-black"
@@ -39,7 +46,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
       >
       </div>
       <div
-        class="absolute top-[20%] right-[5%] w-[50vw] h-[50vw] max-w-[400px] max-h-[400px] bg-[#C1FF00] rounded-full mix-blend-multiply filter blur-[100px] opacity-14"
+        class="absolute top-[20%] right-[5%] w-[50vw] h-[50vw] max-w-[400px] max-h-[400px] bg-accent rounded-full mix-blend-multiply filter blur-[100px] opacity-14"
         style="
             animation: blob 10s infinite alternate-reverse ease-in-out;
             animation-delay: 2s;
@@ -52,6 +59,11 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             animation: blob 12s infinite alternate ease-in-out;
             animation-delay: 4s;
           "
+      >
+      </div>
+      <!-- Smooth transition to next section -->
+      <div
+        class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent z-10 dark:from-black"
       >
       </div>
     </div>
@@ -197,33 +209,37 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
         padding: 25px 0;
       }
       .marquee-item {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
         flex-shrink: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        background: transparent;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         cursor: pointer;
       }
       :global(.dark) .marquee-item {
-        background: #1a1a1a;
-        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+        background: transparent;
       }
       .marquee-item i {
-        font-size: 5rem;
-        transition: transform 0.4s ease;
+        font-size: 4.5rem;
+        transition: all 0.4s ease;
+        filter: grayscale(1);
+        opacity: 0.6;
       }
-      .marquee-item:hover {
-        transform: scale(1.05) translateY(-5px);
-        box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
-        z-index: 50;
+      .marquee-item:hover i {
+        filter: grayscale(0) drop-shadow(0 8px 12px rgba(59, 130, 246, 0.5));
+        opacity: 1;
+        transform: scale(1.1) translateY(-5px);
       }
-      :global(.dark) .marquee-item:hover {
-        box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+      :global(.dark) .marquee-item:hover i {
+        filter: grayscale(0) drop-shadow(0 8px 15px rgba(59, 130, 246, 0.8));
+      }
+      /* Dark mode color correction for black icons */
+      :global(.dark) .marquee-item i[style*="color: #000"],
+      :global(.dark) .marquee-item i[style*="color: rgb(0, 0, 0)"] {
+        color: #ffffff !important;
       }
       /* Offset animations for organic look */
       .marquee-item:nth-child(even) {
@@ -363,9 +379,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
         <span class="text-on-background text-[1.15em] font-black"
           >Experiencia</span
         >
-        <span style="background-color: #a1a1aa; color: white; padding: 0 10px;"
-          >Tecnológica</span
-        >
+        <span class="highlight-accent">Tecnológica</span>
       </h2>
       <p class="marquee-subtitle" data-key="stack.desc">
         Utilizamos las herramientas más potentes del ecosistema para construir
@@ -493,7 +507,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
         </h2>
       </div>
       <div
-        class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-6 auto-rows-[250px]"
+        class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-6 md:auto-rows-[250px]"
       >
         <div
           class="md:col-span-2 md:row-span-2 bg-[#1A1C1C] text-white p-8 rounded-3xl shadow-sm group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
@@ -522,10 +536,9 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             </p>
           </div>
           <img
-            class="w-full h-28 object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity mt-2"
+            class="w-full aspect-video md:h-28 object-cover rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity mt-4"
             data-alt="High-end 3D architectural web interface mockup"
             src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
-            style=""
           />
         </div>
         <div
@@ -555,14 +568,13 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             </p>
           </div>
           <img
-            class="w-full h-56 object-cover rounded-2xl opacity-70 group-hover:opacity-100 transition-opacity"
+            class="w-full aspect-video md:h-56 object-cover rounded-2xl opacity-70 group-hover:opacity-100 transition-opacity"
             data-alt="Modern isometric ecommerce illustration"
             src="https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800"
-            style=""
           />
         </div>
         <div
-          class="md:col-span-2 md:row-span-2 bg-[#C1FF00] p-8 rounded-3xl group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
+          class="md:col-span-2 md:row-span-2 bg-accent p-8 rounded-3xl group hover:shadow-xl transition-all relative overflow-hidden flex flex-col justify-between"
         >
           <span
             class="absolute -top-6 -right-6 text-[12rem] font-black text-on-secondary-fixed/5 font-headline pointer-events-none transition-all duration-300 group-hover:text-on-secondary-fixed/40 group-hover:scale-125 group-hover:-translate-x-8 group-hover:translate-y-8"
@@ -717,23 +729,23 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
               </div>
             </div>
             <div
-              class="bg-primary p-8 rounded-3xl text-white dark:text-black translate-y-8 transform rotate-6 hover:rotate-0 transition-transform"
+              class="bg-primary p-8 rounded-3xl text-white dark:text-black md:translate-y-8 transform rotate-2 md:rotate-6 hover:rotate-0 transition-transform overflow-hidden"
             >
               <div
-                class="text-5xl font-black font-headline mb-2"
+                class="text-4xl md:text-5xl font-black font-headline mb-2"
                 data-key="about.stat2_val"
               >
                 99.9%
               </div>
               <div
-                class="font-bold text-sm uppercase tracking-widest opacity-70"
+                class="font-bold text-xs md:text-sm uppercase tracking-widest opacity-70"
                 data-key="about.stat2_label"
               >
                 Uptime Garantizado
               </div>
             </div>
             <div
-              class="col-span-2 bg-tertiary p-8 rounded-3xl text-white dark:text-black dark-text-black transform -rotate-2 hover:rotate-0 transition-transform"
+              class="col-span-2 bg-tertiary p-8 rounded-3xl text-white transform -rotate-2 hover:rotate-0 transition-transform"
             >
               <div
                 class="text-4xl font-bold font-headline leading-tight"
@@ -759,8 +771,9 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
           >
             No hacemos webs. <br />
             Creamos
-            <span class="dark-text-black" style="background-color: rgb(184, 243, 0); color: black;">Experiencias</span
-            >.
+            <span class="bg-accent px-4 py-1 italic rounded-lg dark:text-black"
+              >Experiencias</span
+            >
           </h2>
           <p
             class="text-lg text-on-surface-variant mb-10 leading-relaxed"
@@ -771,12 +784,13 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             la fusión de ingeniería de software de vanguardia y estética
             editorial.
           </p>
-          <img
-            class="w-full h-64 object-cover rounded-3xl shadow-xl"
-            data-alt="Abstract 3D digital sculpture with fluid iridescent glass textures"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDEDrgFh_FMsXMZBS0I90yo2svLuov6TZ248GdKt2i_1fBZ6DN-vfjPmBm84bcxRJ4hfkFBrCIZ0ty_rg3-Ub7lzh7i-MEUEHBFC4cRdnFerFVP5lMwd3srCPNQbp_L3PtwIgciNMzQPfJpGeU2pg8JsQQhOQFWmgpQN-W0rQwz_bs6rGvznGaHPXcW66GzirahvsWSogaUILma_ab7qdutWdc-o8i7EbSdLE-Vazzyao10s9N51K42HDgp1sD8mjtlWxoDF2ry8mM"
-            style=""
-          />
+          <div class="px-6 md:px-0">
+            <img
+              class="w-full h-64 object-cover rounded-3xl shadow-xl"
+              data-alt="Abstract 3D digital sculpture with fluid iridescent glass textures"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDEDrgFh_FMsXMZBS0I90yo2svLuov6TZ248GdKt2i_1fBZ6DN-vfjPmBm84bcxRJ4hfkFBrCIZ0ty_rg3-Ub7lzh7i-MEUEHBFC4cRdnFerFVP5lMwd3srCPNQbp_L3PtwIgciNMzQPfJpGeU2pg8JsQQhOQFWmgpQN-W0rQwz_bs6rGvznGaHPXcW66GzirahvsWSogaUILma_ab7qdutWdc-o8i7EbSdLE-Vazzyao10s9N51K42HDgp1sD8mjtlWxoDF2ry8mM"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -800,15 +814,14 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             data-key="projects.title"
           >
             Proyectos con
-            <span
-              class="text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg"
+            <span class="!text-black bg-accent px-4 py-1 italic rounded-lg"
               >Impacto</span
             >
           </h2>
         </div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-        <div class="md:col-span-7 group">
+        <div class="md:col-span-4 group">
           <div class="relative overflow-hidden rounded-3xl aspect-[16/10] mb-6">
             <img
               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
@@ -817,7 +830,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
               style=""
             />
             <div
-              class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-10"
+              class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"
             >
               <div class="flex flex-col gap-2">
                 <span
@@ -827,23 +840,17 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
                   <span class="material-symbols-outlined">arrow_outward</span
                   ></span
                 >
-                <p
-                  class="text-white text-sm font-medium leading-tight"
-                  data-key="projects.p1_desc"
-                >
-                  Rediseño completo de la experiencia de compra de lujo con
-                  enfoque en minimalismo y performance.
-                </p>
               </div>
             </div>
           </div>
-          <h3 class="text-2xl font-bold font-headline mb-2" style="">
+          <h3 class="text-2xl font-bold font-headline mb-2">
             Aura Studio - Ecommerce
           </h3>
-          <p class="text-outline" style="">DISEÑO EDITORIAL / NEXT.JS</p>
+          <p class="text-outline">DISEÑO EDITORIAL / NEXT.JS</p>
         </div>
-        <div class="md:col-span-5 md:mt-12 group">
-          <div class="relative overflow-hidden rounded-3xl aspect-[4/5] mb-6">
+
+        <div class="md:col-span-4 group">
+          <div class="relative overflow-hidden rounded-3xl aspect-[16/10] mb-6">
             <img
               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               data-alt="Abstract colorful web interface"
@@ -851,31 +858,40 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
               style=""
             />
             <div
-              class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-10"
+              class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"
             >
               <div class="flex flex-col gap-2">
-                <span
-                  class="text-white font-bold flex items-center gap-2"
-                  style=""
+                <span class="text-white font-bold flex items-center gap-2"
                   >Explorar Proyecto
-                  <span class="material-symbols-outlined" style=""
-                    >arrow_outward</span
-                  ></span
-                >
-                <p
-                  class="text-white text-sm font-medium leading-tight"
-                  style=""
-                >
-                  Plataforma financiera disruptiva con visualización de datos en
-                  tiempo real y UI ultra-fluida.
-                </p>
+                  <span class="material-symbols-outlined">arrow_outward</span>
+                </span>
               </div>
             </div>
           </div>
-          <h3 class="text-2xl font-bold font-headline mb-2" style="">
-            Nexus Fintech
+          <h3 class="text-2xl font-bold font-headline mb-2">Nexus Fintech</h3>
+          <p class="text-outline">SaaS / DASHBOARD UI</p>
+        </div>
+
+        <div class="md:col-span-4 group">
+          <div class="relative overflow-hidden rounded-3xl aspect-[16/10] mb-6">
+            <img
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              alt="Proyecto Innovación"
+              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200"
+            />
+            <div
+              class="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"
+            >
+              <span class="text-white font-bold flex items-center gap-2">
+                Explorar Proyecto
+                <span class="material-symbols-outlined">arrow_outward</span>
+              </span>
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold font-headline mb-2">
+            Cosmos Digital Architecture
           </h3>
-          <p class="text-outline" style="">SaaS / DASHBOARD UI</p>
+          <p class="text-outline">WEB 3.0 / IMMERSIVE</p>
         </div>
         <div class="md:col-span-4 group">
           <div class="relative overflow-hidden rounded-3xl aspect-[16/10] mb-6">
@@ -893,7 +909,9 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
               </span>
             </div>
           </div>
-          <h3 class="text-2xl font-bold font-headline mb-2">PulseCare Health Platform</h3>
+          <h3 class="text-2xl font-bold font-headline mb-2">
+            PulseCare Health Platform
+          </h3>
           <p class="text-outline">HEALTHTECH / UX SYSTEM</p>
         </div>
         <div class="md:col-span-4 group">
@@ -912,7 +930,9 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
               </span>
             </div>
           </div>
-          <h3 class="text-2xl font-bold font-headline mb-2">LexFlow Client Portal</h3>
+          <h3 class="text-2xl font-bold font-headline mb-2">
+            LexFlow Client Portal
+          </h3>
           <p class="text-outline">LEGALTECH / PRODUCT UI</p>
         </div>
         <div class="md:col-span-4 group">
@@ -931,7 +951,9 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
               </span>
             </div>
           </div>
-          <h3 class="text-2xl font-bold font-headline mb-2">Mentora Learning Hub</h3>
+          <h3 class="text-2xl font-bold font-headline mb-2">
+            Mentora Learning Hub
+          </h3>
           <p class="text-outline">EDTECH / PLATFORM DESIGN</p>
         </div>
       </div>
@@ -942,7 +964,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-16">
         <div
-          class="inline-block px-4 py-1 mb-6 bg-[#C1FF00] text-black rounded-full text-xs font-bold uppercase tracking-widest font-label mx-auto"
+          class="inline-block px-4 py-1 mb-6 bg-accent text-black rounded-full text-xs font-bold uppercase tracking-widest font-label mx-auto"
           style="width: fit-content"
           id="faq"
         >
@@ -953,7 +975,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
           data-key="faq.title"
         >
           Dudas
-          <span class="text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg"
+          <span class="text-[#0a0f00] bg-accent px-4 py-1 italic rounded-lg"
             >Comunes</span
           >
         </h2>
@@ -979,7 +1001,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             >
           </button>
           <div
-            class="px-8 pb-8 text-on-surface-variant leading-relaxed hidden"
+            class="px-8 pb-8 text-on-surface-variant leading-relaxed faq-content"
             data-key="faq.a1"
           >
             El tiempo de desarrollo varía según el tamaño y la complejidad del
@@ -1007,7 +1029,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             >
           </button>
           <div
-            class="px-8 pb-8 text-on-surface-variant leading-relaxed hidden"
+            class="px-8 pb-8 text-on-surface-variant leading-relaxed faq-content"
             data-key="faq.a2"
           >
             Sí, ofrecemos soporte post-lanzamiento para asegurar que tu sitio
@@ -1033,7 +1055,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             >
           </button>
           <div
-            class="px-8 pb-8 text-on-surface-variant leading-relaxed hidden"
+            class="px-8 pb-8 text-on-surface-variant leading-relaxed faq-content"
             data-key="faq.a3"
           >
             Absolutamente. Todos nuestros sitios web están diseñados para ser
@@ -1058,7 +1080,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             >
           </button>
           <div
-            class="px-8 pb-8 text-on-surface-variant leading-relaxed hidden"
+            class="px-8 pb-8 text-on-surface-variant leading-relaxed faq-content"
             data-key="faq.a4"
           >
             Sí, ofrecemos sitios web con sistemas de gestión de contenido (CMS)
@@ -1084,7 +1106,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             >
           </button>
           <div
-            class="px-8 pb-8 text-on-surface-variant leading-relaxed hidden"
+            class="px-8 pb-8 text-on-surface-variant leading-relaxed faq-content"
             data-key="faq.a5"
           >
             En nuestros sitios web, priorizamos la seguridad implementando las
@@ -1120,8 +1142,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
             data-key="blog_home.title"
           >
             Bloc de
-            <span
-              class="text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg"
+            <span class="text-[#0a0f00] bg-accent px-4 py-1 italic rounded-lg"
               >Notas</span
             >
           </h2>
@@ -1147,27 +1168,22 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
                       src={post.data.image}
                     />
                     <div class="absolute top-4 left-4 flex gap-2">
-                      <span
-                        class="px-3 py-1 bg-primary text-white text-[10px] font-bold uppercase rounded-full"
-                      >
+                      <span class="px-3 py-1 bg-primary text-white text-[10px] font-bold uppercase rounded-full">
                         {post.data.category}
                       </span>
                     </div>
                   </div>
-                  <div class="p-8 flex-grow">
-                    <h3
-                      class="text-2xl font-bold font-headline mb-4 group-hover:text-primary transition-colors"
-                    >
+                  <div class="p-8 flex-grow flex flex-col">
+                    <h3 class="text-2xl font-bold font-headline mb-4 group-hover:text-primary transition-colors">
                       {post.data.title}
                     </h3>
-                    <p
-                      class="text-on-surface-variant text-sm mb-8 leading-relaxed line-clamp-2"
-                    >
+                    <p class="text-on-surface-variant text-sm mb-8 leading-relaxed line-clamp-2">
                       {post.data.description}
                     </p>
                     <div
-                      class="inline-flex items-center gap-2 text-primary font-bold group"
+                      class="mt-auto inline-flex items-center gap-2 bg-primary/10 text-primary px-6 py-2 rounded-full font-bold group-hover:bg-primary group-hover:text-white transition-all"
                       data-key="blog_home.read_more"
+                      style="width: fit-content"
                     >
                       Leer más
                       <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">
@@ -1195,27 +1211,22 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
                       src={post.data.image}
                     />
                     <div class="absolute top-4 left-4 flex gap-2">
-                      <span
-                        class="px-3 py-1 bg-primary text-white text-[10px] font-bold uppercase rounded-full"
-                      >
+                      <span class="px-3 py-1 bg-primary text-white text-[10px] font-bold uppercase rounded-full">
                         {post.data.category}
                       </span>
                     </div>
                   </div>
-                  <div class="p-8 flex-grow">
-                    <h3
-                      class="text-2xl font-bold font-headline mb-4 group-hover:text-primary transition-colors"
-                    >
+                  <div class="p-8 flex-grow flex flex-col">
+                    <h3 class="text-2xl font-bold font-headline mb-4 group-hover:text-primary transition-colors">
                       {post.data.title}
                     </h3>
-                    <p
-                      class="text-on-surface-variant text-sm mb-8 leading-relaxed line-clamp-2"
-                    >
+                    <p class="text-on-surface-variant text-sm mb-8 leading-relaxed line-clamp-2">
                       {post.data.description}
                     </p>
                     <div
-                      class="inline-flex items-center gap-2 text-primary font-bold group"
+                      class="mt-auto inline-flex items-center gap-2 bg-primary/10 text-primary px-6 py-2 rounded-full font-bold group-hover:bg-primary group-hover:text-white transition-all"
                       data-key="blog_home.read_more"
+                      style="width: fit-content"
                     >
                       Read more
                       <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">
@@ -1230,7 +1241,6 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
         </div>
       </div>
     </div>
-
   </section>
   <!-- Legendary Contact -->
   <section id="contact" class="py-24 px-6 overflow-hidden">
@@ -1261,8 +1271,7 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
               data-key="contact.title"
             >
               ¿Listo para <br />
-              <span
-                class="text-[#0a0f00] bg-[#C1FF00] px-4 py-1 italic rounded-lg"
+              <span class="text-[#0a0f00] bg-accent px-4 py-1 italic rounded-lg"
                 >innovar?</span
               >
             </h2>
@@ -1379,61 +1388,94 @@ const latestPostsEn = sortedPosts.filter(p => p.data.lang === 'en').slice(0, 3);
   </section>
   <Footer />
   <script is:inline>
-    // Hero Animations
-    gsap.from(".hero-badge", {
-      opacity: 0,
-      y: -20,
-      duration: 1,
-      ease: "power3.out",
-    });
-    gsap.from(".hero-title", {
-      opacity: 0,
-      x: -50,
-      duration: 1.2,
-      delay: 0.2,
-      ease: "power4.out",
-    });
-    gsap.from(".hero-p", {
-      opacity: 0,
-      y: 20,
-      duration: 1,
-      delay: 0.5,
-      ease: "power2.out",
-    });
-    gsap.from(".hero-btns", {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      delay: 0.8,
-      ease: "back.out(1.7)",
-    });
-    gsap.from(".hero-image", {
-      opacity: 0,
-      scale: 0.8,
-      duration: 1.5,
-      delay: 0.2,
-      ease: "expo.out",
-    });
+    // Register ScrollTrigger
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
 
-    // Subtle Mouse Parallax Effect
-    document.addEventListener("mousemove", (e) => {
-      const mouseX = (e.clientX / window.innerWidth - 0.5) * 15;
-      const mouseY = (e.clientY / window.innerHeight - 0.5) * 15;
+      // Hero Animations
+      const tl = gsap.timeline();
+      tl.from(".hero-badge", {
+        opacity: 0,
+        y: -20,
+        duration: 0.8,
+        ease: "power3.out",
+      })
+        .from(
+          ".hero-title",
+          { opacity: 0, x: -30, duration: 1, ease: "power4.out" },
+          "-=0.4",
+        )
+        .from(
+          ".hero-p",
+          { opacity: 0, y: 20, duration: 0.8, ease: "power2.out" },
+          "-=0.6",
+        )
+        .from(
+          ".hero-btns",
+          { opacity: 0, y: 20, duration: 0.6, ease: "back.out(1.7)" },
+          "-=0.4",
+        )
+        .from(
+          ".hero-image",
+          { opacity: 0, scale: 0.9, duration: 1.2, ease: "expo.out" },
+          "-=0.8",
+        );
 
-      gsap.to(".hero-image", {
-        x: mouseX,
-        y: mouseY,
-        duration: 1.5,
-        ease: "power2.out",
+      // Section Reveals
+      const sections = document.querySelectorAll("section");
+      sections.forEach((section) => {
+        if (section.id === "inicio") return; // Skip hero
+
+        gsap.from(section, {
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+          opacity: 0,
+          y: 40,
+          duration: 1,
+          ease: "power3.out",
+        });
       });
 
-      gsap.to(".floating-icon", {
-        x: (i) => mouseX * (1.2 + i * 0.05),
-        y: (i) => mouseY * (1.2 + i * 0.05),
-        duration: 2,
-        ease: "power2.out",
-        overwrite: "auto",
+      // Project Card Parallax & Hover
+      const projectCards = document.querySelectorAll(
+        ".group.relative.overflow-hidden",
+      );
+      projectCards.forEach((card) => {
+        gsap.from(card.querySelector("img"), {
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+          y: 30,
+          ease: "none",
+        });
       });
-    });
+
+      // Subtle Mouse Parallax Effect for Hero
+      document.addEventListener("mousemove", (e) => {
+        const mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
+        const mouseY = (e.clientY / window.innerHeight - 0.5) * 20;
+
+        gsap.to(".hero-image", {
+          x: mouseX,
+          y: mouseY,
+          duration: 1.5,
+          ease: "power2.out",
+        });
+
+        gsap.to(".floating-icon", {
+          x: (i) => mouseX * (1.5 + i * 0.1),
+          y: (i) => mouseY * (1.5 + i * 0.1),
+          duration: 2,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      });
+    }
   </script>
 </Layout>

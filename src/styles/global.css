@@ -59,6 +59,7 @@
   --radius-default: 1rem;
   --radius-lg: 2rem;
   --radius-xl: 3rem;
+  --color-accent: #C1FF00;
 }
 
 @layer base {
@@ -132,7 +133,8 @@
   --color-on-surface-variant: #a1a1aa; /* zinc-400 */
   --color-outline: #52525b; /* zinc-600 */
   --color-on-secondary-container: #000000;
-  --color-primary: #C1FF00;
+  --color-primary: #4d7cff; /* Soft Cobalt */
+  --color-accent: #818cf8; /* Soft Indigo */
   --hero-dots: #ffffff;
 }
 
@@ -144,8 +146,30 @@
   @apply !text-primary;
 }
 
+@layer components {
+  .highlight-accent {
+    @apply bg-accent px-4 py-1 italic rounded-lg font-bold;
+    color: #000000 !important;
+  }
+}
+
 .vertical-rl {
   writing-mode: vertical-rl;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
 }
 
 /* Premium additive layer (no removal of existing content) */
@@ -294,22 +318,34 @@
 
 /* FAQ premium without changing content */
 .faq-premium-item {
-  border: 1px solid color-mix(in oklab, var(--color-outline-variant) 70%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-outline-variant) 20%, transparent);
   transition:
-    border-color var(--premium-timing-base) ease,
+    background-color var(--premium-timing-base) ease,
     box-shadow var(--premium-timing-base) ease,
     transform var(--premium-timing-fast) ease;
 }
 
 .faq-premium-item:hover {
-  border-color: var(--color-primary-container);
-  box-shadow: var(--premium-shadow-sm);
+  border-color: transparent;
+  box-shadow: var(--premium-shadow-md);
   transform: translateY(-2px);
+  background-color: var(--color-surface-container);
 }
 
 .faq-premium-item.is-open {
-  border-color: var(--color-primary);
-  box-shadow: var(--premium-shadow-md);
+  border-color: transparent;
+  box-shadow: var(--premium-shadow-lg);
+  background-color: var(--color-surface-container-high);
+}
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease;
+}
+
+.faq-premium-item.is-open .faq-content {
+  max-height: 500px; /* Adjust as needed */
 }
 
 /* Form focus UX (replace harsh blue look with premium style) */
@@ -329,16 +365,4 @@
 #contact input:focus + label,
 #contact textarea:focus + label {
   color: var(--color-secondary);
-}
-
-/* Cursor experience: keep native pointer for click precision */
-@media (min-width: 1025px) {
-  body,
-  a,
-  button,
-  .cursor-pointer,
-  input,
-  textarea {
-    cursor: auto !important;
-  }
 }

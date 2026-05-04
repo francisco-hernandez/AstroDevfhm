@@ -35,6 +35,34 @@ const { title, description, bodyAttrs = {} } = Astro.props;
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
         />
+        
+        <!-- SEO & Meta Tags -->
+        <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site || 'https://devfhm.com').href} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:site_name" content="DEVFHM" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+
+        <!-- Structured Data (JSON-LD) -->
+        <script type="application/ld+json" is:inline>
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Francisco Hernández",
+            "url": "https://devfhm.com",
+            "jobTitle": "UX/UI Designer & Fullstack Developer",
+            "knowsAbout": ["UX/UI Design", "Frontend Architecture", "Astro", "React", "Digital Craftsmanship"],
+            "sameAs": [
+              "https://github.com/francisco-hernandez",
+              "https://linkedin.com/in/fhernandez"
+            ]
+          }
+        </script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" is:inline></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" is:inline></script>
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.51/build/spline-viewer.js" is:inline></script>
@@ -51,18 +79,12 @@ const { title, description, bodyAttrs = {} } = Astro.props;
 
           // FAQ Toggle Global Function
           window.toggleFaq = function(btn) {
-            const content = btn.nextElementSibling;
-            const icon = btn.querySelector(".material-symbols-outlined");
             const container = btn.closest(".faq-premium-item");
-
-            if (content.classList.contains("hidden")) {
-              content.classList.remove("hidden");
-              icon.style.transform = "rotate(180deg)";
-              if (container) container.classList.add("is-open");
-            } else {
-              content.classList.add("hidden");
-              icon.style.transform = "rotate(0deg)";
-              if (container) container.classList.remove("is-open");
+            const icon = btn.querySelector(".material-symbols-outlined");
+            
+            if (container) {
+              const isOpen = container.classList.toggle("is-open");
+              icon.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
             }
           };
 
