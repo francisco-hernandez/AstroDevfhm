@@ -23,7 +23,7 @@ const d = t(Astro.props.lang).svc;
         </article>
       ))}
     </div>
-    <div class="extra reveal">
+    <div class="extra reveal" data-r="fade">
       <span class="label">{d.extraLabel}</span>
       {d.extra.map((e) => (
         <p><span class="mono">{e.file}</span> <strong>{e.title}.</strong> <span class="muted">{e.text}</span></p>

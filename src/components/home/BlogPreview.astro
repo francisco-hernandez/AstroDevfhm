@@ -20,12 +20,12 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === lang))
   <div class="wrap">
     <div class="top">
       <div class="left">
-        <Scene id="blog" size={140} class="reveal" />
+        <Scene id="blog" size={140} class="reveal" data-r="scale" />
         <SectionHead n={d.n} eyebrow={d.eyebrow} title={d.title} em={d.em} />
       </div>
-      <a href={paths[lang].blog} class="btn btn-outline reveal">{d.all}</a>
+      <a href={paths[lang].blog} class="btn btn-outline reveal" data-r="fade">{d.all}</a>
     </div>
-    {posts.map((post) => <div class="reveal"><PostRow post={post} lang={lang} /></div>)}
+    {posts.map((post) => <div class="reveal" data-r="left"><PostRow post={post} lang={lang} /></div>)}
   </div>
 </section>
 

@@ -14,7 +14,7 @@ const d = t(Astro.props.lang).testi;
     <SectionHead n={d.n} eyebrow={d.eyebrow} title={d.title} em={d.em} center />
     <div class="grid">
       {d.items.map((q) => (
-        <figure class="reveal">
+        <figure class="reveal" data-r="scale">
           <blockquote class="bubble display">{q.quote}</blockquote>
           <figcaption class="mono">
             <span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"></path></svg></span>

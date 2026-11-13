@@ -37,7 +37,7 @@ const date = (dt: Date) => dt.toLocaleDateString(lang === 'es' ? 'es-CR' : 'en-U
 
   {feat && (
     <section class="wrap" style="padding-block: 24px 64px">
-      <article class="feat reveal">
+      <article class="feat reveal" data-r="scale">
         <div class="fimg"><Image src={feat.data.image} alt="" widths={[600, 1000]} sizes="(max-width: 900px) 92vw, 640px" class="fade-img" /></div>
         <div class="ftext">
           <p class="eyebrow" style="margin:0"><b>{b.featured}</b> {d.cats[feat.data.category]}</p>

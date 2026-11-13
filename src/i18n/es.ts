@@ -75,9 +75,9 @@ const es = {
     em: 'hago',
     intro: 'Cada proyecto lleva solo lo que necesita.',
     main: [
-      { file: 'sitios-web.astro', title: 'Sitios corporativos y profesionales', text: 'Para empresas, consultores y creativos. Con un CMS si vas a editar el contenido, o a medida si tu caso lo pide.', scene: 'sitios' },
-      { file: 'landing-page.astro', title: 'Landing pages', text: 'Una página, un objetivo: que el visitante dé el siguiente paso.', scene: 'landing' },
-      { file: 'tienda-en-linea.astro', title: 'Tiendas en línea', text: 'Catálogo, pagos y envíos, con una compra sin fricción.', scene: 'tienda' },
+      { file: 'sitios-web', title: 'Sitios corporativos y profesionales', text: 'Para empresas, consultores y creativos. Con un CMS si vas a editar el contenido, o a medida si tu caso lo pide.', scene: 'sitios' },
+      { file: 'landing-page', title: 'Landing pages', text: 'Una página, un objetivo: que el visitante dé el siguiente paso.', scene: 'landing' },
+      { file: 'tienda-en-linea', title: 'Tiendas en línea', text: 'Catálogo, pagos y envíos, con una compra sin fricción.', scene: 'tienda' },
     ],
     extraLabel: 'Y además',
     extra: [

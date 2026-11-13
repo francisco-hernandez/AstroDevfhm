@@ -11,7 +11,7 @@ const d = t(Astro.props.lang).about;
 
 <section id="sobre" class="section">
   <div class="wrap grid">
-    <div class="photo reveal">
+    <div class="photo reveal" data-r="left">
       {/* shortcut: hueco para tu foto; sustituir por <Image> con tu retrato (B-05) */}
       <div class="ph">
         <svg aria-hidden="true" width="90" height="96" viewBox="0 0 30 32"><circle cx="15" cy="11" r="7" fill="currentColor" opacity=".45"></circle><path d="M2 32c1-8 6-12 13-12s12 4 13 12z" fill="currentColor" opacity=".45"></path></svg>
@@ -19,7 +19,7 @@ const d = t(Astro.props.lang).about;
       </div>
       <div class="peek"><Scene id="sobre" size={150} /></div>
     </div>
-    <div class="text reveal">
+    <div class="text reveal" data-r="right">
       <p class="eyebrow"><b>{d.n}</b> README.md</p>
       <h2 class="display h2">{d.title}</h2>
       <p class="lead">{d.text1}</p>

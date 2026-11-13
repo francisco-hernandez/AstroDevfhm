@@ -14,14 +14,14 @@ const d = t(Astro.props.lang).faq;
 <section id="faq" class="section" style="padding-top: 40px">
   <div class="wrap faq" data-faq>
     <SectionHead n={d.n} eyebrow={d.eyebrow} title={d.title} em={d.em} intro={d.intro} center />
-    <div role="tablist" aria-label={d.tabsLabel} class="tabs reveal">
+    <div role="tablist" aria-label={d.tabsLabel} class="tabs reveal" data-r="fade">
       {d.groups.map((g, gi) => (
         <button type="button" role="tab" id={`faq-tab-${gi}`} aria-controls={`faq-panel-${gi}`} aria-selected={gi === 0 ? 'true' : 'false'} tabindex={gi === 0 ? 0 : -1} class="ftab">
           {g.title}<span class="cnt">{g.items.length}</span>
         </button>
       ))}
     </div>
-    <div class="stage reveal">
+    <div class="stage reveal" data-r="scale">
       <div class="art">
         <Scene id="faq" size={340} alt={d.alt} />
         <span class="q q1 loop" aria-hidden="true">?</span>

@@ -77,9 +77,9 @@ const en: Dict = {
     em: 'do',
     intro: 'Every project gets only what it needs.',
     main: [
-      { file: 'websites.astro', title: 'Business and professional sites', text: "For companies, consultants and creatives. With a CMS if you'll edit the content, or custom-built if your case needs it.", scene: 'sitios' },
-      { file: 'landing-page.astro', title: 'Landing pages', text: 'One page, one goal: getting the visitor to take the next step.', scene: 'landing' },
-      { file: 'online-store.astro', title: 'Online stores', text: "Catalog, payments and shipping, with a checkout that doesn't get in the way.", scene: 'tienda' },
+      { file: 'websites', title: 'Business and professional sites', text: "For companies, consultants and creatives. With a CMS if you'll edit the content, or custom-built if your case needs it.", scene: 'sitios' },
+      { file: 'landing-page', title: 'Landing pages', text: 'One page, one goal: getting the visitor to take the next step.', scene: 'landing' },
+      { file: 'online-store', title: 'Online stores', text: "Catalog, payments and shipping, with a checkout that doesn't get in the way.", scene: 'tienda' },
     ],
     extraLabel: 'Also',
     extra: [

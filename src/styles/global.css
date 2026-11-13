@@ -257,13 +257,21 @@ h1.display,
   border: 1px solid var(--line);
   border-radius: 32px;
   padding: 28px;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.6s ease, box-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-  box-shadow: 0 26px 50px -34px var(--accent);
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  box-shadow: 0 30px 60px -44px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.card .scene img {
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .scene img {
+  transform: scale(1.04);
 }
 
 .zone {
@@ -386,20 +394,29 @@ h1.display,
   border-color: var(--accent);
 }
 
-/* aparición al entrar en pantalla, al estilo de pilateslabv4: sube 24px y se funde con una curva larga.
-   La clase .in y el escalonado (--stagger) los pone src/scripts/reveal.ts */
+/* Apariciones al estilo de pilateslabv4: cada elemento aparece una vez al entrar en pantalla,
+   en 0,75 s con curva suave y escalonado de 0,08 s entre hermanos (la clase .in y --stagger los pone src/scripts/reveal.ts).
+   Formas (data-r): sube (por defecto), fade, scale, left, right, clip.
+   Se usan translate/scale/clip-path (no transform) para no chocar con los efectos de hover. */
 .reveal {
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.9s var(--ease), transform 1.1s var(--ease);
+  translate: 0 24px;
+  transition: opacity 0.75s var(--ease), translate 0.75s var(--ease), scale 0.9s var(--ease), clip-path 1s var(--ease);
   transition-delay: var(--stagger, 0s);
 }
+.reveal[data-r='fade'] { translate: none; }
+.reveal[data-r='scale'] { translate: 0 12px; scale: 0.96; }
+.reveal[data-r='left'] { translate: -32px 0; }
+.reveal[data-r='right'] { translate: 32px 0; }
+.reveal[data-r='clip'] { translate: 0 16px; clip-path: inset(12% 0 0 0); }
 
 .reveal.in,
 .no-js .reveal {
   opacity: 1;
-  transform: none;
+  translate: none;
+  scale: none;
+  clip-path: inset(0);
 }
 
 /* animaciones en bucle (.loop): arrancan cuando la página ha terminado de cargar (html.ready)
@@ -464,10 +481,14 @@ html:not(.ready) .loop,
     animation-iteration-count: 1 !important;
     animation-delay: 0s !important;
   }
-  .reveal {
-    transform: none;
+  .reveal,
+  .reveal[data-r] {
+    translate: none;
+    scale: none;
+    clip-path: none;
     transition: opacity 0.7s ease;
   }
+
   .fade-img {
     transform: none;
     transition: opacity 0.8s ease;

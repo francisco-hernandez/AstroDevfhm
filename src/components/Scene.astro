@@ -8,13 +8,14 @@ interface Props {
   alt?: string;
   class?: string;
   ring?: boolean;
+  [key: `data-${string}`]: string;
 }
 
 // Escena del perezoso en círculo. La imagen sale de src/data/scenes.ts.
-const { id, size = 220, alt = '', class: cls = '', ring = true } = Astro.props;
+const { id, size = 220, alt = '', class: cls = '', ring = true, ...rest } = Astro.props;
 ---
 
-<figure class:list={['scene', cls, { ring }]} style={`--s:${size}px`}>
+<figure class:list={['scene', cls, { ring }]} style={`--s:${size}px`} {...rest}>
   <Image src={scenes[id]} alt={alt} widths={[size, size * 2]} sizes={`${size}px`} class="fade-img" />
 </figure>
 
