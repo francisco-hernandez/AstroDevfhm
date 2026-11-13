@@ -17,7 +17,7 @@ const page = d[kind];
 <Layout lang={lang} title={page.metaTitle} description={page.metaTitle} altHref={paths[otherLang(lang)][kind]}>
   <section class="wrap legal">
     <Scene id="perdido" size={160} />
-    <h1 class="display h2">{page.title} <em>{page.em}</em></h1>
+    <h1 class="display h2">{page.title}{' '}<em>{page.em}</em></h1>
     <p class="note">{d.pending}</p>
     <a href={paths[lang].home} class="btn btn-outline">{d.back}</a>
   </section>

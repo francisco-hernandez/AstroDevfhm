@@ -17,7 +17,7 @@ const action = formspreeId ? `https://formspree.io/f/${formspreeId}` : '';
   <path d="M0 120H1440V64C1300 14 1160 86 1000 50C840 14 700 92 540 56C380 20 220 90 0 30Z" fill="var(--zone)"></path>
 </svg>
 <section id="contacto" class="zone contact">
-  <div class="hang"><Scene id="contacto" size={170} /></div>
+  <div class="hang loop"><Scene id="contacto" size={170} /></div>
   <div class="wrap grid">
     <div class="side">
       <SectionHead n={d.n} eyebrow={d.eyebrow} title={d.title} em={d.em} intro={d.intro} />
@@ -148,7 +148,7 @@ const action = formspreeId ? `https://formspree.io/f/${formspreeId}` : '';
   input,
   select,
   textarea {
-    font: 16px 'Inter', sans-serif;
+    font: 16px 'Inter Variable', sans-serif;
     color: var(--ink);
     background: var(--bg);
     border: 1px solid var(--field-border);

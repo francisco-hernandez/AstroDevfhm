@@ -9,57 +9,67 @@ interface Props {
 
 const { lang } = Astro.props;
 const d = t(lang).hero;
-const sr = t(lang).srDel;
 ---
 
-<section class="zone hero">
+<section class="zone hero" data-hero>
+  <div class="halo-ring r1" aria-hidden="true"></div>
+  <div class="halo-ring r2" aria-hidden="true"></div>
   <div class="wrap grid">
-    <div>
-      <p class="filetag"><span aria-hidden="true"></span>{d.file} · {d.modified}</p>
-      <p class="mono c1">{d.c1}</p>
-      <div class="dels">
-        {d.del.map((line, i) => (
-          <span class="dline"><span aria-hidden="true">−</span><span class="sr-only">{sr}</span><span class={`strike s${i + 1}`}>{line}</span></span>
+    <div class="copy" data-parallax="0.06">
+      <p class="eyebrow-h enter" style="--d: 0.05s">{d.eyebrow}</p>
+      <h1 class="display">
+        {d.lines.map((l, i) => (
+          <span class="line"><span class="word" style={`--d: ${0.12 + i * 0.14}s`}>{l.text}{l.text && l.em ? ' ' : ''}{l.em && <em>{l.em}</em>}</span></span>
         ))}
-      </div>
-      <div class="appear1 add">
-        <span class="addmark" aria-hidden="true">+</span>
-        <h1 class="display">{d.h1}<span class="caret" aria-hidden="true"></span></h1>
-      </div>
-      <p class="appear2 sub"><strong>{d.subStrong}</strong> {d.sub}</p>
-      <p class="mono appear2 sign">— {d.sign}</p>
-      <div class="appear2 ctas">
+      </h1>
+      <p class="sub enter" style="--d: 0.55s"><strong>{d.subStrong}</strong> {d.sub}</p>
+      <p class="sign enter" style="--d: 0.68s"><span aria-hidden="true">—</span> {d.sign}</p>
+      <div class="ctas enter" style="--d: 0.8s">
         <a href="#contacto" class="btn">
           {d.cta}
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
         </a>
-        <a href="#como" class="link2">{d.cta2}</a>
+        <a href="#como" class="btn btn-ghost">{d.cta2}</a>
       </div>
-      <p class="mono appear2 stats">
-        <span class="st del">− 3</span><span class="st add">+ 1</span><span class="st">{d.status}</span>
-      </p>
+      <ul class="trust enter" style="--d: 0.92s">
+        {d.trust.map((x) => <li>{x}</li>)}
+      </ul>
     </div>
-    <div class="art">
+
+    <div class="art" data-parallax="0.14">
       <div class="glow" aria-hidden="true"></div>
-      <Image src={scenes.hero} alt={d.alt} widths={[400, 800]} sizes="(max-width: 980px) 70vw, 400px" loading="eager" fetchpriority="high" class="sloth" />
+      <div class="focus">
+        <Image src={scenes.hero} alt={d.alt} widths={[300, 420, 600, 840]} sizes="(max-width: 980px) 60vw, 380px" loading="eager" fetchpriority="high" class="sloth" />
+      </div>
       <p class="sr-only">{d.stack}: HTML5, CSS3, JavaScript, WordPress, Astro, PHP, Tailwind CSS, Figma.</p>
       {/* shortcut: logos simplificados dibujados a mano; cambiar por los oficiales (p. ej. Simple Icons) antes de producción */}
-      <ul class="orbit o1" aria-hidden="true">
-        <li class="sat a0"><span class="sat-in"><svg viewBox="0 0 24 24"><path d="M4 2.5h16l-1.5 17L12 21.5l-6.5-2z" fill="#E34F26"></path><path d="M12 4.2v15.6l5.2-1.5 1.3-14.1z" fill="#F06529"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#fff">5</text></svg></span></li>
-        <li class="sat a180"><span class="sat-in"><svg viewBox="0 0 24 24"><path d="M4 2.5h16l-1.5 17L12 21.5l-6.5-2z" fill="#1572B6"></path><path d="M12 4.2v15.6l5.2-1.5 1.3-14.1z" fill="#33A9DC"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#fff">3</text></svg></span></li>
-      </ul>
-      <ul class="orbit o2" aria-hidden="true">
-        <li class="sat a60"><span class="sat-in"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="4" fill="#F7DF1E"></rect><text x="16.5" y="19" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#1C1C1C">JS</text></svg></span></li>
-        <li class="sat a180"><span class="sat-in"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#21759B"></circle><circle cx="12" cy="12" r="8.2" fill="none" stroke="#fff" stroke-width="1"></circle><text x="12" y="16.3" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="12" fill="#fff">W</text></svg></span></li>
-        <li class="sat a300"><span class="sat-in"><svg viewBox="0 0 24 24"><path d="M9.2 3h5.6l4.7 13.6c-1.9-.9-4-1.4-6.2-1.5L12 8.5l-1.4 6.6c-2.2.1-4.3.6-6.1 1.5z" fill="var(--ink)"></path><path d="M8.6 18.2c.8 1.7 2 2.8 3.4 2.8s2.6-1 3.4-2.7c-1.1-.5-2.2-.7-3.4-.7s-2.3.2-3.4.6z" fill="#FF5D01"></path></svg></span></li>
-      </ul>
-      <ul class="orbit o3" aria-hidden="true">
-        <li class="sat a30"><span class="sat-in"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="11" ry="6.5" fill="#777BB4"></ellipse><text x="12" y="14.6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-style="italic" font-size="7.5" fill="#fff">php</text></svg></span></li>
-        <li class="sat a150"><span class="sat-in"><svg viewBox="0 0 24 24"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.7 1.9 1.3 1 1 2 2.2 4.6 2.2 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.7-1.9-1.3C15.6 7.2 14.6 6 12 6zM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.7 1.9 1.3 1 1 2 2.2 4.6 2.2 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.7-1.9-1.3C10.6 13.2 9.6 12 7 12z" fill="#38BDF8"></path></svg></span></li>
-        <li class="sat a270"><span class="sat-in"><svg viewBox="0 0 24 24"><path d="M8.5 2h3.5v6.5H8.5a3.25 3.25 0 0 1 0-6.5z" fill="#F24E1E"></path><path d="M12 2h3.5a3.25 3.25 0 0 1 0 6.5H12z" fill="#FF7262"></path><path d="M8.5 8.5H12V15H8.5a3.25 3.25 0 0 1 0-6.5z" fill="#A259FF"></path><circle cx="15.5" cy="11.75" r="3.25" fill="#1ABCFE"></circle><path d="M8.5 15H12v3.25A3.25 3.25 0 1 1 8.5 15z" fill="#0ACF83"></path></svg></span></li>
-      </ul>
+      <div class="orbit-w w1" aria-hidden="true">
+        <ul class="orbit o1 loop">
+          <li class="sat a0"><span class="sat-in loop"><svg viewBox="0 0 24 24"><path d="M4 2.5h16l-1.5 17L12 21.5l-6.5-2z" fill="#E34F26"></path><path d="M12 4.2v15.6l5.2-1.5 1.3-14.1z" fill="#F06529"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#fff">5</text></svg></span></li>
+          <li class="sat a180"><span class="sat-in loop"><svg viewBox="0 0 24 24"><path d="M4 2.5h16l-1.5 17L12 21.5l-6.5-2z" fill="#1572B6"></path><path d="M12 4.2v15.6l5.2-1.5 1.3-14.1z" fill="#33A9DC"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#fff">3</text></svg></span></li>
+        </ul>
+      </div>
+      <div class="orbit-w w2" aria-hidden="true">
+        <ul class="orbit o2 loop">
+          <li class="sat a60"><span class="sat-in loop"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="4" fill="#F7DF1E"></rect><text x="16.5" y="19" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#1C1C1C">JS</text></svg></span></li>
+          <li class="sat a180"><span class="sat-in loop"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#21759B"></circle><circle cx="12" cy="12" r="8.2" fill="none" stroke="#fff" stroke-width="1"></circle><text x="12" y="16.3" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="12" fill="#fff">W</text></svg></span></li>
+          <li class="sat a300"><span class="sat-in loop"><svg viewBox="0 0 24 24"><path d="M9.2 3h5.6l4.7 13.6c-1.9-.9-4-1.4-6.2-1.5L12 8.5l-1.4 6.6c-2.2.1-4.3.6-6.1 1.5z" fill="var(--ink)"></path><path d="M8.6 18.2c.8 1.7 2 2.8 3.4 2.8s2.6-1 3.4-2.7c-1.1-.5-2.2-.7-3.4-.7s-2.3.2-3.4.6z" fill="#FF5D01"></path></svg></span></li>
+        </ul>
+      </div>
+      <div class="orbit-w w3" aria-hidden="true">
+        <ul class="orbit o3 loop">
+          <li class="sat a30"><span class="sat-in loop"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="11" ry="6.5" fill="#777BB4"></ellipse><text x="12" y="14.6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-style="italic" font-size="7.5" fill="#fff">php</text></svg></span></li>
+          <li class="sat a150"><span class="sat-in loop"><svg viewBox="0 0 24 24"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.7 1.9 1.3 1 1 2 2.2 4.6 2.2 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.7-1.9-1.3C15.6 7.2 14.6 6 12 6zM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.7 1.9 1.3 1 1 2 2.2 4.6 2.2 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.7-1.9-1.3C10.6 13.2 9.6 12 7 12z" fill="#38BDF8"></path></svg></span></li>
+          <li class="sat a270"><span class="sat-in loop"><svg viewBox="0 0 24 24"><path d="M8.5 2h3.5v6.5H8.5a3.25 3.25 0 0 1 0-6.5z" fill="#F24E1E"></path><path d="M12 2h3.5a3.25 3.25 0 0 1 0 6.5H12z" fill="#FF7262"></path><path d="M8.5 8.5H12V15H8.5a3.25 3.25 0 0 1 0-6.5z" fill="#A259FF"></path><circle cx="15.5" cy="11.75" r="3.25" fill="#1ABCFE"></circle><path d="M8.5 15H12v3.25A3.25 3.25 0 1 1 8.5 15z" fill="#0ACF83"></path></svg></span></li>
+        </ul>
+      </div>
+      <button type="button" class="pause" data-pause data-label-pause={d.pause} data-label-play={d.play} aria-label={d.pause} aria-pressed="false">
+        <svg class="i-pause" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.5"></rect><rect x="14" y="5" width="4" height="14" rx="1.5"></rect></svg>
+        <svg class="i-play" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10-6.5a1 1 0 0 0 0-1.7l-10-6.5A1 1 0 0 0 8 5.5z"></path></svg>
+      </button>
     </div>
   </div>
+  <a href="#como" class="cue enter" style="--d: 1.4s" aria-hidden="true" tabindex="-1"><span>{d.scroll}</span><i></i></a>
 </section>
 <svg class="wave" aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none">
   <path d="M0 0H1440V52C1320 104 1190 34 1030 70C870 106 730 30 570 72C410 114 250 46 0 92Z" fill="var(--zone)"></path>
@@ -67,159 +77,160 @@ const sr = t(lang).srDel;
 
 <style>
   .hero {
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
+    overflow: hidden;
     margin-top: -80px;
-    padding-top: 120px;
-    padding-bottom: 24px;
+    padding-top: 110px;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   @media (max-width: 1100px) {
     .hero {
-      padding-top: 170px;
+      padding-top: 160px;
+      min-height: auto;
+      padding-bottom: 40px;
     }
   }
+  .halo-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    pointer-events: none;
+    animation: ring-in 2.4s var(--ease) 0.4s both;
+  }
+  .r1 {
+    width: clamp(280px, 34vw, 520px);
+    aspect-ratio: 1;
+    right: -8vw;
+    top: -10vw;
+  }
+  .r2 {
+    width: clamp(160px, 16vw, 260px);
+    aspect-ratio: 1;
+    left: -6vw;
+    bottom: 6vw;
+    border-color: color-mix(in srgb, var(--glow) 40%, transparent);
+    animation-delay: 0.8s;
+  }
+  @keyframes ring-in {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: none; }
+  }
   .grid {
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    gap: 24px;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 32px;
     align-items: center;
+    width: 100%;
   }
   @media (max-width: 980px) {
     .grid {
       grid-template-columns: minmax(0, 1fr);
     }
   }
-  .filetag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font: 500 13px 'JetBrains Mono', monospace;
-    color: var(--zone-muted);
-    background: var(--zone-2);
-    border: 1px solid var(--zone-line);
-    border-radius: 999px;
-    padding: 5px 14px;
-    margin: 0 0 18px;
+  .copy,
+  .art {
+    will-change: transform;
   }
-  .filetag span {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--glow);
-  }
-  .c1 {
-    margin: 0 0 12px;
-    font-size: 14px;
-    color: var(--zone-muted);
-  }
-  .dels {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .dline {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    border-radius: 999px;
-    padding: 4px 18px 4px 14px;
-    font: 15px 'JetBrains Mono', monospace;
-    background: var(--del-bg);
-    color: var(--del);
-    margin: 0 0 8px;
-  }
-  .strike {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-repeat: no-repeat;
-    background-position: 0 56%;
-    background-size: 0% 2px;
-    animation: strike 0.55s ease-out forwards;
-  }
-  .s1 { animation-delay: 0.5s; }
-  .s2 { animation-delay: 0.85s; }
-  .s3 { animation-delay: 1.2s; }
-  @keyframes strike {
-    to { background-size: 100% 2px; }
-  }
-  .add {
-    margin-top: 22px;
-  }
-  .appear1 { animation: appear 0.8s ease-out 1.6s both; }
-  .appear2 { animation: appear 0.8s ease-out 2s both; }
-  .addmark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: var(--add-bg);
-    color: var(--add);
-    font: 500 18px 'JetBrains Mono', monospace;
-    margin-bottom: 12px;
+  .eyebrow-h {
+    margin: 0 0 22px;
+    font: 600 12px 'Inter Variable', sans-serif;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
   }
   h1 {
     margin: 0;
-    font-size: clamp(36px, 5.2vw, 72px);
+    font-size: clamp(40px, 6vw, 84px);
     font-weight: 800;
+    line-height: 1;
     color: var(--zone-ink);
   }
-  .caret {
-    display: inline-block;
-    width: 0.07em;
-    height: 0.85em;
-    background: var(--accent);
-    margin-left: 0.1em;
-    vertical-align: -0.05em;
-    border-radius: 4px;
-    animation: blink 1s steps(1) 2.4s 6;
+  .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
   }
-  @keyframes blink {
-    50% { opacity: 0; }
+  .word {
+    display: inline-block;
+    animation: word-up 1.1s var(--ease) var(--d) both;
+  }
+  @keyframes word-up {
+    from { transform: translateY(105%); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  .enter {
+    animation: fade-up 1s var(--ease) var(--d) both;
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
   }
   .sub {
-    margin: 22px 0 0;
+    margin: 28px 0 0;
     font-size: clamp(17px, 1.5vw, 20px);
     color: var(--zone-muted);
-    max-width: 600px;
+    max-width: 580px;
   }
   .sub strong {
     color: var(--zone-ink);
   }
   .sign {
-    margin: 14px 0 0;
-    font-size: 14px;
+    margin: 12px 0 0;
+    font: 400 italic 22px 'Instrument Serif', Georgia, serif;
     color: var(--sign);
   }
   .ctas {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 22px;
+    gap: 12px;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 32px;
   }
-  .link2 {
-    font-weight: 500;
-    padding: 12px 0;
+  .btn:active {
+    transform: scale(0.96);
   }
-  .stats {
-    margin: 26px 0 0;
-    font-size: 13px;
-    color: var(--zone-muted);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .st {
-    border-radius: 999px;
-    padding: 4px 12px;
+  .btn-ghost {
+    background: transparent;
+    color: var(--zone-ink) !important;
     border: 1px solid var(--zone-line);
   }
-  .st.del { background: var(--del-bg); color: var(--del); border-color: transparent; }
-  .st.add { background: var(--add-bg); color: var(--add); border-color: transparent; }
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent) !important;
+    filter: none;
+  }
+  .trust {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    font: 500 13px 'JetBrains Mono Variable', monospace;
+    color: var(--zone-muted);
+  }
+  .trust li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .trust li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
   .art {
     position: relative;
     aspect-ratio: 1;
-    max-width: 560px;
+    max-width: 540px;
     width: 100%;
     justify-self: center;
   }
@@ -227,41 +238,57 @@ const sr = t(lang).srDel;
     position: absolute;
     inset: 8%;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(227, 160, 102, 0.45), rgba(227, 160, 102, 0) 68%);
-    filter: blur(6px);
-    animation: breathe 7s ease-in-out infinite;
+    background: radial-gradient(circle, rgba(227, 160, 102, 0.45), rgba(227, 160, 102, 0) 70%);
+    will-change: transform, opacity;
+    animation: glow-in 2s var(--ease) 0.3s both, breathe 7s ease-in-out 2.3s infinite;
   }
-  .art :global(.sloth) {
+  @keyframes glow-in {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 0.9; transform: none; }
+  }
+  .focus {
     position: absolute;
-    left: 15%;
-    top: 15%;
-    width: 70%;
-    height: 70%;
+    inset: 15%;
+    animation: focus-in 1.6s var(--ease) 0.2s both;
+  }
+  @keyframes focus-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: none; }
+  }
+  .focus :global(.sloth) {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    background: #000;
     box-shadow: 0 0 0 1px rgba(236, 230, 217, 0.14), 0 30px 90px -30px rgba(227, 160, 102, 0.65);
+  }
+  .orbit-w {
+    position: absolute;
+    animation: ring-in 1.6s var(--ease) both;
+  }
+  .w1 { inset: 7%; animation-delay: 0.6s; }
+  .w2 { inset: -2%; animation-delay: 0.8s; }
+  .w3 { inset: -11%; animation-delay: 1s; }
+  @media (max-width: 600px) {
+    .w2 { inset: 1%; }
+    .w3 { inset: -5%; }
   }
   .orbit {
     position: absolute;
+    inset: 0;
     margin: 0;
     padding: 0;
     list-style: none;
     border-radius: 50%;
     border: 1.5px solid var(--orbit1);
     box-shadow: 0 0 14px -2px rgba(227, 160, 102, 0.22), inset 0 0 14px -2px rgba(227, 160, 102, 0.12);
+    will-change: transform;
     animation: spin linear infinite;
   }
-  .o1 { inset: 7%; animation-duration: 38s; }
-  .o2 { inset: -2%; animation-duration: 66s; border-color: var(--orbit2); }
-  .o3 { inset: -11%; animation-duration: 104s; border-color: var(--orbit3); }
-  @media (max-width: 600px) {
-    .o2 { inset: 1%; }
-    .o3 { inset: -5%; }
-  }
-  .art:hover .orbit,
-  .art:hover .sat-in {
-    animation-play-state: paused;
-  }
+  .o1 { animation-duration: 60s; }
+  .o2 { animation-duration: 95s; border-color: var(--orbit2); animation-direction: reverse; }
+  .o3 { animation-duration: 140s; border-color: var(--orbit3); }
   .sat {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -274,12 +301,17 @@ const sr = t(lang).srDel;
     align-items: center;
     justify-content: center;
     box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.45), 0 0 18px -6px rgba(227, 160, 102, 0.35);
-    animation: spin linear infinite reverse;
+    animation: spin linear infinite reverse, float 6s ease-in-out infinite;
+    transition: transform 0.4s var(--ease);
   }
   .sat-in svg { width: 58%; height: 58%; }
-  .o1 .sat-in { width: clamp(36px, 7vw, 46px); height: clamp(36px, 7vw, 46px); animation-duration: 38s; }
-  .o2 .sat-in { width: clamp(40px, 8vw, 54px); height: clamp(40px, 8vw, 54px); animation-duration: 66s; }
-  .o3 .sat-in { width: clamp(42px, 8.5vw, 60px); height: clamp(42px, 8.5vw, 60px); animation-duration: 104s; }
+  .o1 .sat-in { width: clamp(36px, 7vw, 46px); height: clamp(36px, 7vw, 46px); animation-duration: 60s, 6s; }
+  .o2 .sat-in { width: clamp(40px, 8vw, 54px); height: clamp(40px, 8vw, 54px); animation-duration: 95s, 7s; animation-direction: normal, normal; }
+  .o3 .sat-in { width: clamp(42px, 8.5vw, 60px); height: clamp(42px, 8.5vw, 60px); animation-duration: 140s, 8s; }
+  @keyframes float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -5px; }
+  }
   .a0 { left: 100%; top: 50%; }
   .a180 { left: 0%; top: 50%; }
   .a60 { left: 75%; top: 93.3%; }
@@ -287,7 +319,107 @@ const sr = t(lang).srDel;
   .a30 { left: 93.3%; top: 75%; }
   .a150 { left: 6.7%; top: 75%; }
   .a270 { left: 50%; top: 0%; }
+  .art.paused .orbit,
+  .art.paused .sat-in,
+  .art.paused .glow {
+    animation-play-state: paused;
+  }
+  .pause {
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--zone-line);
+    background: color-mix(in srgb, var(--surface) 80%, transparent);
+    color: var(--zone-ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  .pause:hover,
+  .pause:focus-visible {
+    opacity: 1;
+  }
+  .pause .i-play,
+  .pause[aria-pressed='true'] .i-pause {
+    display: none;
+  }
+  .pause[aria-pressed='true'] .i-play {
+    display: block;
+  }
+  .cue {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    translate: -50% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font: 600 10px 'Inter Variable', sans-serif;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--zone-muted);
+    text-decoration: none;
+  }
+  .cue i {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(var(--zone-muted), transparent);
+    animation: cue 2.4s var(--ease) infinite;
+    transform-origin: top;
+  }
+  @keyframes cue {
+    0% { transform: scaleY(0); opacity: 1; }
+    60% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(1); opacity: 0; }
+  }
+  @media (max-width: 1100px) {
+    .cue {
+      display: none;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .strike { background-size: 100% 2px; }
+    .pause {
+      display: none;
+    }
   }
 </style>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  const art = hero?.querySelector<HTMLElement>('.art');
+  const btn = hero?.querySelector<HTMLButtonElement>('[data-pause]');
+  btn?.addEventListener('click', () => {
+    const paused = art!.classList.toggle('paused');
+    btn.setAttribute('aria-pressed', String(paused));
+    btn.setAttribute('aria-label', paused ? btn.dataset.labelPlay! : btn.dataset.labelPause!);
+  });
+
+  // fuera de pantalla, las órbitas se paran
+  if (hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => hero.classList.toggle('offscreen', !e.isIntersecting)).observe(hero);
+  }
+
+  // paralaje suave del hero al hacer scroll (desactivado con "reducir movimiento")
+  const items = hero ? [...hero.querySelectorAll<HTMLElement>('[data-parallax]')] : [];
+  if (items.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let ticking = false;
+    const apply = () => {
+      ticking = false;
+      const y = Math.min(scrollY, innerHeight);
+      for (const el of items) el.style.transform = `translate3d(0, ${(y * Number(el.dataset.parallax)).toFixed(1)}px, 0)`;
+    };
+    addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(apply);
+      }
+    }, { passive: true });
+  }
+</script>

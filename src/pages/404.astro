@@ -11,13 +11,13 @@ const en = t('en').notFound;
   <section class="wrap nf">
     <Scene id="perdido" size={260} />
     <p class="eyebrow"><b>404</b> {d.metaTitle.split('|')[0].trim()}</p>
-    <h1 class="display h2">{d.title} <em>{d.em}</em></h1>
+    <h1 class="display h2">{d.title}{' '}<em>{d.em}</em></h1>
     <p class="text">{d.text}</p>
     <div class="ctas">
       <a href={paths.es.home} class="btn">{d.home}</a>
       <a href={paths.es.blog} class="btn btn-outline">{d.blog}</a>
     </div>
-    <p class="en" lang="en">{en.title} <em>{en.em}</em> <a href={paths.en.home}>{en.home}</a></p>
+    <p class="en" lang="en">{en.title}{' '}<em>{en.em}</em> <a href={paths.en.home}>{en.home}</a></p>
   </section>
 </Layout>
 

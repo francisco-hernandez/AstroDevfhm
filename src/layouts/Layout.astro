@@ -1,4 +1,9 @@
 ---
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
 import '../styles/global.css';
 import { getImage } from 'astro:assets';
 import Header from '../components/Header.astro';
@@ -46,12 +51,6 @@ const ogUrl = new URL(og.src, Astro.site);
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <meta name="theme-color" content="#f4efe6" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#111915" media="(prefers-color-scheme: dark)" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-    />
     <script is:inline>
       // tema antes de pintar: preferencia guardada o la del sistema
       (function () {
@@ -74,6 +73,10 @@ const ogUrl = new URL(og.src, Astro.site);
     <Footer lang={lang} wave={footerWave} />
     <script>
       import '../scripts/reveal.ts';
+      const ready = () => document.documentElement.classList.add('ready');
+      const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(ready, { timeout: 1500 }) : setTimeout(ready, 300));
+      if (document.readyState === 'complete') idle();
+      else addEventListener('load', idle, { once: true });
     </script>
   </body>
 </html>

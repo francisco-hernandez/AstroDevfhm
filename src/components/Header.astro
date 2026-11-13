@@ -25,9 +25,9 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
       <a href={p.home} class="logo display">devfhm<span>.</span></a>
       <nav class="tabs tabs-in" aria-label={d.nav.label}>
         {tabs.map((tab) => (
-          <a class="tab" href={tab.href} aria-label={tab.a} data-section={page === 'home' ? tab.id : undefined}>{tab.f}</a>
+          <a class="tab" href={tab.href} aria-label={`${tab.f} · ${tab.a}`} data-section={page === 'home' ? tab.id : undefined}>{tab.f}</a>
         ))}
-        <a class="tab" href={p.blog} aria-label={d.nav.blogTab.a} aria-current={blogCurrent ? 'page' : undefined}>{d.nav.blogTab.f}</a>
+        <a class="tab" href={p.blog} aria-label={`${d.nav.blogTab.f} · ${d.nav.blogTab.a}`} aria-current={blogCurrent ? 'page' : undefined}>{d.nav.blogTab.f}</a>
       </nav>
       <div class="controls">
         <div class="seg" role="group" aria-label={d.nav.lang}>
@@ -43,9 +43,9 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     </div>
     <nav class="tabs tabs-out" aria-label={d.nav.label}>
       {tabs.map((tab) => (
-        <a class="tab" href={tab.href} aria-label={tab.a} data-section={page === 'home' ? tab.id : undefined}>{tab.f}</a>
+        <a class="tab" href={tab.href} aria-label={`${tab.f} · ${tab.a}`} data-section={page === 'home' ? tab.id : undefined}>{tab.f}</a>
       ))}
-      <a class="tab" href={p.blog} aria-label={d.nav.blogTab.a} aria-current={blogCurrent ? 'page' : undefined}>{d.nav.blogTab.f}</a>
+      <a class="tab" href={p.blog} aria-label={`${d.nav.blogTab.f} · ${d.nav.blogTab.a}`} aria-current={blogCurrent ? 'page' : undefined}>{d.nav.blogTab.f}</a>
     </nav>
   </div>
 </header>
@@ -61,8 +61,7 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     display: flex;
     align-items: center;
     gap: 12px;
-    background: color-mix(in srgb, var(--surface) 88%, transparent);
-    backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--surface) 95%, transparent);
     border: 1px solid var(--line);
     border-radius: 999px;
     padding: 6px 6px 6px 22px;
@@ -95,7 +94,7 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     align-items: center;
     min-height: 40px;
     padding: 0 14px;
-    font: 500 13px 'JetBrains Mono', monospace;
+    font: 500 13px 'JetBrains Mono Variable', monospace;
     color: var(--muted);
     text-decoration: none;
     border-radius: 999px;
@@ -109,9 +108,14 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     color: var(--ink);
     background: var(--ph);
   }
-  .tab[aria-current] {
+  .tab[aria-current],
+  .tabs-out .tab[aria-current] {
     color: var(--on-accent);
     background: var(--accent);
+  }
+  .tabs-out {
+    -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
+    mask-image: linear-gradient(to right, #000 85%, transparent);
   }
   .controls {
     display: flex;
@@ -133,7 +137,7 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     justify-content: center;
     border-radius: 999px;
     color: var(--muted);
-    font: 500 13px 'JetBrains Mono', monospace;
+    font: 500 13px 'JetBrains Mono Variable', monospace;
     text-decoration: none;
   }
   .seg a[aria-current] {
@@ -195,15 +199,24 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     const ids = [...new Set([...links].map((a) => a.dataset.section!))];
     const setCurrent = (id: string) =>
       links.forEach((a) => (a.dataset.section === id ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current')));
-    const onScroll = () => {
-      let cur = 'top';
-      for (const id of ids) {
-        const el = id === 'top' ? null : document.getElementById(id);
-        if (el && el.getBoundingClientRect().top < 160) cur = id;
-      }
-      setCurrent(cur);
-    };
-    addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    // sección activa = la última cuya parte superior ha pasado bajo la cabecera (sin medir en cada scroll)
+    const passed = new Set<string>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const id = (e.target as HTMLElement).id;
+          if (e.boundingClientRect.top < 160) passed.add(id);
+          else passed.delete(id);
+        }
+        const cur = [...ids].reverse().find((id) => passed.has(id)) ?? 'top';
+        setCurrent(cur);
+      },
+      { rootMargin: '-160px 0px 0px 0px', threshold: [0, 1] },
+    );
+    ids.forEach((id) => {
+      const el = id === 'top' ? null : document.getElementById(id);
+      if (el) io.observe(el);
+    });
+    setCurrent('top');
   }
 </script>

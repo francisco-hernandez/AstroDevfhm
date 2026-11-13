@@ -94,14 +94,14 @@ const jsonLd = {
 
   <section class="wrap" style="padding-top: clamp(56px, 7vw, 96px)" aria-labelledby="rel-title">
     <p class="eyebrow"><b>02</b> {p.relEyebrow}</p>
-    <h2 id="rel-title" class="display h2" style="margin-bottom: 28px">{p.relTitle} <em>{p.relEm}</em></h2>
+    <h2 id="rel-title" class="display h2" style="margin-bottom: 28px">{p.relTitle}{' '}<em>{p.relEm}</em></h2>
     {related.map((r) => <PostRow post={r} lang={lang} showDate={false} />)}
   </section>
 
   <section class="wrap" style="padding-block: clamp(56px, 7vw, 96px)">
     <div class="band reveal">
       <div>
-        <h2 class="display">{p.ctaTitle} <em>{p.ctaEm}</em></h2>
+        <h2 class="display">{p.ctaTitle}{' '}<em>{p.ctaEm}</em></h2>
         <p>{p.ctaText}</p>
       </div>
       <a href={`${paths[lang].home}#contacto`} class="btn btn-inv">{p.ctaBtn}</a>
@@ -167,7 +167,7 @@ const jsonLd = {
     border-color: var(--accent);
   }
   .cat {
-    font: 600 12px 'Inter', sans-serif;
+    font: 600 12px 'Inter Variable', sans-serif;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--accent);
@@ -258,7 +258,7 @@ const jsonLd = {
     color: var(--accent);
   }
   .prose :global(h2) {
-    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-family: 'Bricolage Grotesque Variable', system-ui, sans-serif;
     letter-spacing: -0.02em;
     font-size: clamp(28px, 3vw, 36px);
     line-height: 1.15;

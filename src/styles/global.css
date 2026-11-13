@@ -82,7 +82,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter Variable', system-ui, sans-serif;
   font-size: 17px;
   line-height: 1.6;
   overflow-x: clip;
@@ -119,9 +119,14 @@ section[id] {
 }
 
 .display {
-  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-family: 'Bricolage Grotesque Variable', system-ui, sans-serif;
   letter-spacing: -0.02em;
   line-height: 1.05;
+}
+
+/* equilibrar líneas solo en titulares grandes: en muchos elementos es costoso para el navegador */
+h1.display,
+.h2 {
   text-wrap: balance;
 }
 
@@ -134,7 +139,7 @@ section[id] {
 }
 
 .mono {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
 }
 
 .h2 {
@@ -186,7 +191,7 @@ section[id] {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font: 600 12px 'Inter', sans-serif;
+  font: 600 12px 'Inter Variable', sans-serif;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
@@ -213,7 +218,7 @@ section[id] {
   background: var(--accent);
   color: var(--on-accent) !important;
   text-decoration: none;
-  font: 600 16px 'Inter', sans-serif;
+  font: 600 16px 'Inter Variable', sans-serif;
   border: 0;
   cursor: pointer;
   transition: transform 0.2s ease, filter 0.2s ease;
@@ -366,7 +371,7 @@ section[id] {
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--ink);
-  font: 500 14px 'Inter', sans-serif;
+  font: 500 14px 'Inter Variable', sans-serif;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
@@ -381,15 +386,38 @@ section[id] {
   border-color: var(--accent);
 }
 
-/* aparición al entrar en pantalla (la clase .in la pone src/scripts/reveal.ts) */
+/* aparición al entrar en pantalla, al estilo de pilateslabv4: sube 24px y se funde con una curva larga.
+   La clase .in y el escalonado (--stagger) los pone src/scripts/reveal.ts */
 .reveal {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transform: translateY(24px);
+  transition: opacity 0.9s var(--ease), transform 1.1s var(--ease);
+  transition-delay: var(--stagger, 0s);
 }
 
 .reveal.in,
 .no-js .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* animaciones en bucle (.loop): arrancan cuando la página ha terminado de cargar (html.ready)
+   y se paran fuera de pantalla (.offscreen), para no cargar el navegador */
+html:not(.ready) .loop,
+.offscreen .loop {
+  animation-play-state: paused !important;
+}
+
+/* imágenes: se enfocan suavemente cuando terminan de cargar (nunca aparecen de golpe) */
+.fade-img {
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-img.is-loaded,
+.no-js .fade-img {
   opacity: 1;
   transform: none;
 }
@@ -423,6 +451,8 @@ section[id] {
   }
 }
 
+/* "Reducir movimiento" (por ejemplo, animaciones de Windows desactivadas): nada se desplaza ni gira,
+   pero los contenidos siguen apareciendo con fundidos suaves en lugar de saltar. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -430,11 +460,22 @@ section[id] {
   *,
   *::before,
   *::after {
-    animation: none !important;
-    transition: none !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
   }
   .reveal {
-    opacity: 1;
     transform: none;
+    transition: opacity 0.7s ease;
   }
+  .fade-img {
+    transform: none;
+    transition: opacity 0.8s ease;
+  }
+}
+
+/* las secciones fuera de pantalla no se maquetan hasta que se acercan (carga inicial más ligera en móvil) */
+main > section.section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }

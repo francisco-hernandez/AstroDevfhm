@@ -15,7 +15,7 @@ const { id, size = 220, alt = '', class: cls = '', ring = true } = Astro.props;
 ---
 
 <figure class:list={['scene', cls, { ring }]} style={`--s:${size}px`}>
-  <Image src={scenes[id]} alt={alt} widths={[size, size * 2]} sizes={`${size}px`} />
+  <Image src={scenes[id]} alt={alt} widths={[size, size * 2]} sizes={`${size}px`} class="fade-img" />
 </figure>
 
 <style>
