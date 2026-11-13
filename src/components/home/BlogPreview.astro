@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHead from '../SectionHead.astro';
+import Scene from '../Scene.astro';
+import PostRow from '../PostRow.astro';
+import { t, paths, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const d = t(lang).blogPreview;
+const posts = (await getCollection('blog', ({ data }) => data.lang === lang))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+---
+
+<section id="blog" class="section" style="padding-top: 40px">
+  <div class="wrap">
+    <div class="top">
+      <div class="left">
+        <Scene id="blog" size={140} class="reveal" />
+        <SectionHead n={d.n} eyebrow={d.eyebrow} title={d.title} em={d.em} />
+      </div>
+      <a href={paths[lang].blog} class="btn btn-outline reveal">{d.all}</a>
+    </div>
+    {posts.map((post) => <div class="reveal"><PostRow post={post} lang={lang} /></div>)}
+  </div>
+</section>
+
+<style>
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 8px;
+  }
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+</style>

@@ -1,0 +1,398 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Scene from '../components/Scene.astro';
+import PostRow from '../components/PostRow.astro';
+import slothdev from '../assets/slothdev.png';
+import { t, paths, otherLang, type Lang } from '../i18n';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  lang: Lang;
+}
+
+const { post, lang } = Astro.props;
+const d = t(lang);
+const p = d.post;
+const { Content } = await render(post);
+const words = (post.body ?? '').split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(1, Math.round(words / 200));
+const date = post.data.pubDate.toLocaleDateString(lang === 'es' ? 'es-CR' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+const colon = post.data.title.indexOf(':');
+const titleA = colon > 0 ? post.data.title.slice(0, colon + 1) : post.data.title;
+const titleB = colon > 0 ? post.data.title.slice(colon + 1).trim() : '';
+const altHref = post.data.translationSlug ? paths[otherLang(lang)].post(post.data.translationSlug) : paths[otherLang(lang)].blog;
+const others = (await getCollection('blog', ({ data, id }) => data.lang === lang && id !== post.id)).sort(
+  (a, b) => Number(b.data.category === post.data.category) - Number(a.data.category === post.data.category) || b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+const related = others.slice(0, 3);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  inLanguage: lang,
+  author: { '@type': 'Person', name: 'Francisco Hernández' },
+};
+---
+
+<Layout lang={lang} title={`${post.data.title} | DEVFHM`} description={post.data.description} altHref={altHref} page="blog" jsonLd={jsonLd}>
+  <progress class="readbar" max="100" value="0" aria-hidden="true"></progress>
+  <article>
+    <header class="zone phero">
+      <div class="wrap narrow">
+        <nav aria-label={p.crumb} class="crumb">
+          <a href={paths[lang].blog} class="back">
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>
+            {p.back}
+          </a>
+          <span class="cat">{d.cats[post.data.category]}</span>
+        </nav>
+        <h1 class="display">{titleA} {titleB && <em>{titleB}</em>}</h1>
+        <p class="lead">{post.data.description}</p>
+        <div class="author">
+          <Image src={slothdev} alt="" width={52} height={52} class="avatar" />
+          <div>
+            <p class="name">Francisco Hernández</p>
+            <p class="mono meta"><time datetime={post.data.pubDate.toISOString()}>{date}</time> · {minutes} {d.blogPage.minRead}</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap cover">
+      <div class="cover-in"><Image src={post.data.image} alt="" widths={[800, 1400]} sizes="(max-width: 1240px) 94vw, 1150px" loading="eager" /></div>
+    </div>
+
+    <div class="wrap grid">
+      <div class="prose">
+        <Content />
+      </div>
+      <aside class="aside" aria-label={p.asideLabel}>
+        <Scene id="blog" size={200} />
+        <div class="acard">
+          <p class="display at">{p.asideCtaTitle}</p>
+          <p class="atext">{p.asideCtaText}</p>
+          <a href={`${paths[lang].home}#contacto`} class="btn btn-sm btn-inv">{p.ctaBtn}</a>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="wrap">
+      <div class="bio reveal">
+        <Image src={slothdev} alt="" width={96} height={96} class="bavatar" />
+        <div>
+          <p class="eyebrow" style="margin:0 0 6px">{p.by}</p>
+          <p class="display bname">Francisco Hernández</p>
+          <p class="muted">{p.bio}</p>
+        </div>
+      </div>
+    </footer>
+  </article>
+
+  <section class="wrap" style="padding-top: clamp(56px, 7vw, 96px)" aria-labelledby="rel-title">
+    <p class="eyebrow"><b>02</b> {p.relEyebrow}</p>
+    <h2 id="rel-title" class="display h2" style="margin-bottom: 28px">{p.relTitle} <em>{p.relEm}</em></h2>
+    {related.map((r) => <PostRow post={r} lang={lang} showDate={false} />)}
+  </section>
+
+  <section class="wrap" style="padding-block: clamp(56px, 7vw, 96px)">
+    <div class="band reveal">
+      <div>
+        <h2 class="display">{p.ctaTitle} <em>{p.ctaEm}</em></h2>
+        <p>{p.ctaText}</p>
+      </div>
+      <a href={`${paths[lang].home}#contacto`} class="btn btn-inv">{p.ctaBtn}</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .readbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    z-index: 40;
+    border: 0;
+    background: transparent;
+    appearance: none;
+  }
+  .readbar::-webkit-progress-bar {
+    background: transparent;
+  }
+  .readbar::-webkit-progress-value {
+    background: var(--accent);
+    border-radius: 0 999px 999px 0;
+  }
+  .readbar::-moz-progress-bar {
+    background: var(--accent);
+  }
+  .phero {
+    margin-top: -80px;
+    padding-top: 150px;
+    padding-bottom: clamp(120px, 14vw, 200px);
+  }
+  @media (max-width: 1100px) {
+    .phero {
+      padding-top: 190px;
+    }
+  }
+  .narrow {
+    max-width: 980px;
+  }
+  .crumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+  }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 999px;
+    padding: 8px 16px;
+    border: 1px solid var(--zone-line);
+    color: var(--zone-ink);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .back:hover {
+    border-color: var(--accent);
+  }
+  .cat {
+    font: 600 12px 'Inter', sans-serif;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 800;
+    color: var(--zone-ink);
+  }
+  .lead {
+    margin: 24px 0 0;
+    font-size: clamp(18px, 1.7vw, 22px);
+    color: var(--zone-muted);
+    max-width: 720px;
+  }
+  .author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 32px;
+  }
+  .author :global(.avatar) {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #000;
+    box-shadow: 0 0 0 3px var(--zone), 0 0 0 4px var(--zone-line);
+  }
+  .name {
+    margin: 0;
+    font-weight: 600;
+  }
+  .meta {
+    margin: 0;
+    font-size: 13px;
+    color: var(--zone-muted);
+  }
+  .cover {
+    margin-top: clamp(-170px, -12vw, -100px);
+    position: relative;
+    z-index: 2;
+  }
+  .cover-in {
+    border-radius: clamp(28px, 4vw, 48px);
+    overflow: hidden;
+    aspect-ratio: 16 / 8;
+    box-shadow: 0 40px 80px -50px rgba(17, 25, 21, 0.6);
+  }
+  .cover-in :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    animation: settle 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes settle {
+    from { transform: scale(1.08); filter: grayscale(0.6); }
+    to { transform: none; filter: none; }
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: clamp(40px, 6vw, 88px);
+    align-items: start;
+    padding-block: clamp(56px, 7vw, 96px);
+  }
+  @media (max-width: 1000px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .prose {
+    max-width: 700px;
+  }
+  .prose :global(p) {
+    margin: 0 0 26px;
+    font-size: 19px;
+    line-height: 1.75;
+  }
+  .prose :global(p:first-child::first-letter) {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 4.2em;
+    line-height: 0.8;
+    float: left;
+    padding: 0.08em 0.12em 0 0;
+    color: var(--accent);
+  }
+  .prose :global(h2) {
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-size: clamp(28px, 3vw, 36px);
+    line-height: 1.15;
+    margin: 56px 0 18px;
+  }
+  .prose :global(ul) {
+    list-style: none;
+    margin: 0 0 30px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .prose :global(li) {
+    display: flex;
+    gap: 14px;
+    font-size: 18px;
+  }
+  .prose :global(li)::before {
+    content: '';
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 0.6em;
+  }
+  .prose :global(blockquote) {
+    position: relative;
+    margin: 56px 0;
+    padding: clamp(28px, 4vw, 48px);
+    border-radius: 44px;
+    background: var(--quote-bg);
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.25;
+  }
+  .prose :global(blockquote p) {
+    font-size: inherit;
+    margin: 0;
+  }
+  .aside {
+    position: sticky;
+    top: 130px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+  @media (max-width: 1000px) {
+    .aside {
+      position: static;
+    }
+  }
+  .acard {
+    background: var(--accent);
+    color: var(--on-accent);
+    border-radius: 36px;
+    padding: 26px;
+    width: 100%;
+  }
+  .at {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .atext {
+    margin: 0 0 18px;
+    font-size: 15px;
+  }
+  .bio {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+    max-width: 900px;
+    border-radius: 44px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: clamp(22px, 3vw, 32px);
+  }
+  .bio :global(.bavatar) {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #000;
+  }
+  .bio > div {
+    flex: 1 1 300px;
+  }
+  .bname {
+    margin: 0 0 6px;
+    font-size: 26px;
+    font-weight: 700;
+  }
+  .muted {
+    margin: 0;
+    color: var(--muted);
+  }
+  .band {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--accent);
+    color: var(--on-accent);
+    border-radius: clamp(36px, 5vw, 64px);
+    padding: clamp(32px, 5vw, 64px);
+  }
+  .band h2 {
+    margin: 0 0 10px;
+    font-size: clamp(30px, 3.6vw, 46px);
+    font-weight: 700;
+  }
+  .band h2 em {
+    color: var(--on-accent);
+  }
+  .band p {
+    margin: 0;
+    font-size: 18px;
+  }
+</style>
+
+<script>
+  const bar = document.querySelector<HTMLProgressElement>('.readbar');
+  if (bar) {
+    const update = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      bar.value = max > 0 ? Math.min(100, (scrollY / max) * 100) : 0;
+    };
+    addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>

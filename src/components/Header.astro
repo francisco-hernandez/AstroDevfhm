@@ -1,0 +1,209 @@
+---
+import { t, paths, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  page: 'home' | 'blog' | 'other';
+  altHref: string;
+}
+
+const { lang, page, altHref } = Astro.props;
+const d = t(lang);
+const p = paths[lang];
+const tabs = d.nav.tabs.map((tab) => ({
+  ...tab,
+  href: page === 'home' ? (tab.id === 'top' ? '#top' : `#${tab.id}`) : `${p.home}${tab.id === 'top' ? '' : '#' + tab.id}`,
+}));
+const blogCurrent = page === 'blog';
+const esHref = lang === 'es' ? Astro.url.pathname : altHref;
+const enHref = lang === 'en' ? Astro.url.pathname : altHref;
+---
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="capsule">
+      <a href={p.home} class="logo display">devfhm<span>.</span></a>
+      <nav class="tabs tabs-in" aria-label={d.nav.label}>
+        {tabs.map((tab) => (
+          <a class="tab" href={tab.href} aria-label={tab.a} data-section={page === 'home' ? tab.id : undefined}>{tab.f}</a>
+        ))}
+        <a class="tab" href={p.blog} aria-label={d.nav.blogTab.a} aria-current={blogCurrent ? 'page' : undefined}>{d.nav.blogTab.f}</a>
+      </nav>
+      <div class="controls">
+        <div class="seg" role="group" aria-label={d.nav.lang}>
+          <a href={esHref} hreflang="es" lang="es" aria-current={lang === 'es' ? 'true' : undefined}>ES</a>
+          <a href={enHref} hreflang="en" lang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
+        </div>
+        <button type="button" class="iconbtn theme-toggle" data-label-dark={d.nav.themeDark} data-label-light={d.nav.themeLight} aria-label={d.nav.themeDark}>
+          <svg class="i-sun" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+          <svg class="i-moon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+        </button>
+        <a href={page === 'home' ? '#contacto' : `${p.home}#contacto`} class="btn btn-sm hdr-cta">{d.nav.cta}</a>
+      </div>
+    </div>
+    <nav class="tabs tabs-out" aria-label={d.nav.label}>
+      {tabs.map((tab) => (
+        <a class="tab" href={tab.href} aria-label={tab.a} data-section={page === 'home' ? tab.id : undefined}>{tab.f}</a>
+      ))}
+      <a class="tab" href={p.blog} aria-label={d.nav.blogTab.a} aria-current={blogCurrent ? 'page' : undefined}>{d.nav.blogTab.f}</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 12px;
+    z-index: 20;
+    padding-top: 12px;
+  }
+  .capsule {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 6px 6px 22px;
+    box-shadow: 0 18px 40px -30px rgba(17, 25, 21, 0.5);
+  }
+  .logo {
+    font-size: 22px;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo span {
+    color: var(--ochre);
+  }
+  .tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 6px 0;
+  }
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .tabs-in {
+    margin-left: 8px;
+  }
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 14px;
+    font: 500 13px 'JetBrains Mono', monospace;
+    color: var(--muted);
+    text-decoration: none;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .tabs-out .tab {
+    background: var(--surface);
+  }
+  .tab:hover {
+    color: var(--ink);
+    background: var(--ph);
+  }
+  .tab[aria-current] {
+    color: var(--on-accent);
+    background: var(--accent);
+  }
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+  .seg {
+    display: inline-flex;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 3px;
+  }
+  .seg a {
+    min-width: 44px;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    color: var(--muted);
+    font: 500 13px 'JetBrains Mono', monospace;
+    text-decoration: none;
+  }
+  .seg a[aria-current] {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .iconbtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  :global([data-theme='dark']) .i-moon,
+  :global([data-theme='light']) .i-sun {
+    display: none;
+  }
+  @media (max-width: 1100px) {
+    .tabs-in {
+      display: none;
+    }
+  }
+  @media (min-width: 1101px) {
+    .tabs-out {
+      display: none;
+    }
+  }
+  @media (max-width: 700px) {
+    .hdr-cta {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const label = () => {
+    if (!btn) return;
+    btn.setAttribute('aria-label', root.dataset.theme === 'dark' ? btn.dataset.labelLight! : btn.dataset.labelDark!);
+  };
+  label();
+  btn?.addEventListener('click', () => {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try {
+      localStorage.setItem('theme', root.dataset.theme);
+    } catch {}
+    label();
+  });
+
+  // pestaña de la sección visible (solo en la home)
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-section]');
+  if (links.length) {
+    const ids = [...new Set([...links].map((a) => a.dataset.section!))];
+    const setCurrent = (id: string) =>
+      links.forEach((a) => (a.dataset.section === id ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current')));
+    const onScroll = () => {
+      let cur = 'top';
+      for (const id of ids) {
+        const el = id === 'top' ? null : document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < 160) cur = id;
+      }
+      setCurrent(cur);
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+</script>

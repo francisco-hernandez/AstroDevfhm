@@ -1,0 +1,115 @@
+---
+import SectionHead from '../SectionHead.astro';
+import Scene from '../Scene.astro';
+import { t, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const d = t(Astro.props.lang).vs;
+---
+
+<section class="section" style="padding-top: 40px">
+  <div class="wrap">
+    <div class="pod reveal">
+      <SectionHead n={d.n} eyebrow={d.eyebrow} title={d.title} em={d.em} intro={d.intro} center />
+      <div class="vs">
+        <div class="panel ai">
+          <p class="mono file">{d.aiFile}</p>
+          {d.ai.map((x) => <p class="pline"><span aria-hidden="true" class="mono">~</span>{x}</p>)}
+        </div>
+        <div class="mid"><Scene id="iaYYo" size={260} /></div>
+        <div class="panel me">
+          <p class="mono file">{d.meFile}</p>
+          {d.me.map((x) => <p class="pline"><span aria-hidden="true" class="mono">+</span>{x}</p>)}
+        </div>
+      </div>
+      <div class="prompt">
+        <p class="mono"><span>$</span> {d.prompt}</p>
+        <a href="#contacto" class="btn">{d.btn}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pod {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: clamp(32px, 5vw, 64px);
+    padding: clamp(28px, 5vw, 64px);
+  }
+  .vs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 260px) minmax(0, 1fr);
+    gap: 24px;
+    align-items: center;
+  }
+  @media (max-width: 980px) {
+    .vs {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .mid {
+      order: -1;
+      justify-self: center;
+    }
+  }
+  .panel {
+    border-radius: 32px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ai {
+    background: var(--bg);
+  }
+  .me {
+    background: var(--add-bg);
+  }
+  .file {
+    margin: 0 0 6px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .me .file {
+    color: var(--add);
+  }
+  .pline {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    border-radius: 999px;
+    padding: 8px 18px;
+    margin: 0;
+    font-size: 16px;
+  }
+  .ai .pline {
+    background: var(--ph);
+    color: var(--muted);
+  }
+  .me .pline {
+    background: var(--surface);
+    font-weight: 500;
+  }
+  .me .pline span {
+    color: var(--add);
+  }
+  .prompt {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  .prompt p {
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+  }
+  .prompt p span {
+    color: var(--accent);
+  }
+</style>

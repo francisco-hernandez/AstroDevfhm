@@ -1,11 +1,9 @@
 ---
 title: "Brutalist Structures in modern interfaces"
-description: "Why 'raw' and honest layouts are trending again in 2024."
-category: "DESIGN"
+description: "Why 'raw' and honest layouts are trending again."
+category: "design"
 pubDate: 2024-03-15
-image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAIE0v0pPVDjGbB25owMC4UlRBlX_DM4WQOZ8Y9SKaut9fVskdV6AbPjQwLYmMzzk0YbYbjy7mE9TfmWpljhFkMEuktuGu-Ok7JzDPuFCLgghvQ75jQ9318L7eNTzQjzQG1Zg1VVkf7WiL8Av47E6bdnvWSNRTkEav-Jx09sHdTFpOFc4Z_1jDXpGZB1-IvuOZrMraLoMdL3BECo3vkqm9AnZ5hjlaUvm1Y9sROYf0eHiJiJQiHRhiwoEiM3lQh4G9syWuhIfmyg2cm"
-readTime: "10 MIN READ"
-authorRole: "Visual Artist"
+image: "../../assets/blog/brutal.png"
 lang: "en"
 translationSlug: "estructuras-brutalistas-interfaces-modernas"
 ---

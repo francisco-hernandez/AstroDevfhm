@@ -1,0 +1,82 @@
+---
+import SectionHead from '../SectionHead.astro';
+import { t, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const d = t(Astro.props.lang).testi;
+---
+
+<section class="section" style="padding-top: 24px">
+  <div class="wrap">
+    <SectionHead n={d.n} eyebrow={d.eyebrow} title={d.title} em={d.em} center />
+    <div class="grid">
+      {d.items.map((q) => (
+        <figure class="reveal">
+          <blockquote class="bubble display">{q.quote}</blockquote>
+          <figcaption class="mono">
+            <span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"></path></svg></span>
+            {q.who} {d.approved}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 48px 28px;
+  }
+  figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+  .bubble {
+    position: relative;
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 36px;
+    padding: 32px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .bubble::after {
+    content: '';
+    position: absolute;
+    left: 48px;
+    bottom: -14px;
+    width: 28px;
+    height: 28px;
+    background: var(--surface);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    transform: rotate(45deg);
+    border-radius: 0 0 8px 0;
+  }
+  figcaption {
+    font-size: 13px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 28px;
+  }
+  figcaption span {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--add-bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

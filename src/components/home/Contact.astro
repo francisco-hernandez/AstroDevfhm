@@ -1,0 +1,288 @@
+---
+import SectionHead from '../SectionHead.astro';
+import Scene from '../Scene.astro';
+import { t, paths, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const d = t(lang).contact;
+const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID ?? '';
+const action = formspreeId ? `https://formspree.io/f/${formspreeId}` : '';
+---
+
+<svg class="wave" aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" style="margin-bottom:-2px">
+  <path d="M0 120H1440V64C1300 14 1160 86 1000 50C840 14 700 92 540 56C380 20 220 90 0 30Z" fill="var(--zone)"></path>
+</svg>
+<section id="contacto" class="zone contact">
+  <div class="hang"><Scene id="contacto" size={170} /></div>
+  <div class="wrap grid">
+    <div class="side">
+      <SectionHead n={d.n} eyebrow={d.eyebrow} title={d.title} em={d.em} intro={d.intro} />
+      <div class="direct">
+        <a href="https://wa.me/50663089119" rel="noopener">WhatsApp · +506 6308 9119</a>
+        <a href="mailto:contacto@devfhm.com">contacto@devfhm.com</a>
+      </div>
+    </div>
+    <div class="box" data-contact data-action={action} data-err-summary={d.errSummary} data-err-config={d.errConfig} data-err-send={d.errSend} data-sending={d.sending} data-send={d.send}>
+      <div class="ok" role="status" tabindex="-1" hidden>
+        <p class="mono tag">✓ {d.okTag}</p>
+        <h3 class="display">{d.okTitle}</h3>
+        <p class="muted">{d.okText}</p>
+        <button type="button" class="btn btn-sm again">{d.again}</button>
+      </div>
+      <form method="POST" action={action || undefined} novalidate>
+        <p class="mono note">{d.file} · {d.reqNote}</p>
+        <p class="alert" role="alert" hidden></p>
+        <div class="field">
+          <label for="c-name">{d.name} *</label>
+          <input id="c-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name" />
+          <p id="e-name" class="err" hidden>{d.errName}</p>
+        </div>
+        <div class="field">
+          <label for="c-email">{d.email} *</label>
+          <input id="c-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email" />
+          <p id="e-email" class="err" hidden>{d.errEmail}</p>
+        </div>
+        <div class="field">
+          <label for="c-type">{d.type}</label>
+          <select id="c-type" name="tipo">{d.opts.map((o) => <option>{o}</option>)}</select>
+        </div>
+        <div class="field">
+          <label for="c-msg">{d.msg} *</label>
+          <textarea id="c-msg" name="message" required aria-describedby="e-msg"></textarea>
+          <p id="e-msg" class="err" hidden>{d.errMsg}</p>
+        </div>
+        {/* trampa para bots (Formspree descarta los envíos que la rellenan) */}
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="trap" aria-hidden="true" />
+        <input type="hidden" name="_language" value={lang} />
+        <p class="privacy">{d.privacy} <a href={paths[lang].privacy}>{d.privacyLink}</a>.</p>
+        <button type="submit" class="btn">{d.send}</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    position: relative;
+    padding-block: clamp(40px, 6vw, 80px) 40px;
+  }
+  .hang {
+    position: absolute;
+    left: clamp(8px, 4vw, 64px);
+    top: clamp(-150px, -10vw, -90px);
+    z-index: 2;
+    transform-origin: top center;
+    animation: sway 7s ease-in-out infinite;
+  }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 48px;
+    align-items: start;
+    padding-top: 60px;
+  }
+  .side :global(.head) {
+    margin-bottom: 24px;
+  }
+  .side :global(.intro) {
+    color: var(--zone-muted);
+    font-size: 19px;
+  }
+  .direct {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .direct a {
+    color: var(--zone-ink);
+    border: 1px solid var(--zone-line);
+    border-radius: 999px;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .direct a:hover {
+    border-color: var(--accent);
+  }
+  .box {
+    background: var(--surface);
+    color: var(--ink);
+    border-radius: 36px;
+    padding: clamp(24px, 3vw, 36px);
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .note {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .alert {
+    margin: 0;
+    padding: 12px 18px;
+    border-radius: 20px;
+    background: var(--del-bg);
+    color: var(--del);
+    font-size: 15px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  input,
+  select,
+  textarea {
+    font: 16px 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--field-border);
+    border-radius: 18px;
+    padding: 12px 16px;
+    min-height: 48px;
+  }
+  textarea {
+    min-height: 130px;
+    resize: vertical;
+  }
+  [aria-invalid='true'] {
+    border-color: var(--del);
+    border-width: 2px;
+  }
+  .err {
+    color: var(--del);
+    font-size: 14px;
+    margin: 0;
+  }
+  .trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+  }
+  .privacy {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  form .btn {
+    align-self: flex-start;
+  }
+  .ok {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .ok[hidden] {
+    display: none;
+  }
+  .tag {
+    margin: 0;
+    font-size: 14px;
+    color: var(--add);
+    background: var(--add-bg);
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+  .ok h3 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .muted {
+    margin: 0;
+    color: var(--muted);
+  }
+</style>
+
+<script>
+  const box = document.querySelector<HTMLElement>('[data-contact]');
+  const form = box?.querySelector('form');
+  if (box && form) {
+    const alertEl = form.querySelector<HTMLElement>('.alert')!;
+    const okEl = box.querySelector<HTMLElement>('.ok')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const fields = ['name', 'email', 'message'] as const;
+    let tried = false;
+
+    const invalid = (name: string, value: string) => {
+      const v = value.trim();
+      return name === 'email' ? !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) : v.length === 0;
+    };
+    const mark = (name: string) => {
+      const el = form.elements.namedItem(name) as HTMLInputElement;
+      const bad = invalid(name, el.value);
+      el.setAttribute('aria-invalid', String(bad));
+      (document.getElementById(el.getAttribute('aria-describedby')!) as HTMLElement).hidden = !bad;
+      return bad;
+    };
+    const showAlert = (msg: string) => {
+      alertEl.textContent = msg;
+      alertEl.hidden = false;
+    };
+
+    fields.forEach((name) =>
+      (form.elements.namedItem(name) as HTMLInputElement).addEventListener('blur', (e) => {
+        if (tried || (e.target as HTMLInputElement).value) mark(name);
+      }),
+    );
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      tried = true;
+      alertEl.hidden = true;
+      const bad = fields.filter((name) => mark(name));
+      if (bad.length) {
+        showAlert(box.dataset.errSummary!);
+        (form.elements.namedItem(bad[0]) as HTMLElement).focus();
+        return;
+      }
+      if (!box.dataset.action) {
+        showAlert(box.dataset.errConfig!);
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = box.dataset.sending!;
+      try {
+        const res = await fetch(box.dataset.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        form.hidden = true;
+        okEl.hidden = false;
+        okEl.focus();
+      } catch {
+        showAlert(box.dataset.errSend!);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = box.dataset.send!;
+      }
+    });
+
+    okEl.querySelector('.again')?.addEventListener('click', () => {
+      form.reset();
+      tried = false;
+      fields.forEach((name) => {
+        const el = form.elements.namedItem(name) as HTMLInputElement;
+        el.removeAttribute('aria-invalid');
+        (document.getElementById(el.getAttribute('aria-describedby')!) as HTMLElement).hidden = true;
+      });
+      okEl.hidden = true;
+      form.hidden = false;
+    });
+  }
+</script>

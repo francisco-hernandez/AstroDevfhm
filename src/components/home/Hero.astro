@@ -1,0 +1,293 @@
+---
+import { Image } from 'astro:assets';
+import { scenes } from '../../data/scenes';
+import { t, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const d = t(lang).hero;
+const sr = t(lang).srDel;
+---
+
+<section class="zone hero">
+  <div class="wrap grid">
+    <div>
+      <p class="filetag"><span aria-hidden="true"></span>{d.file} · {d.modified}</p>
+      <p class="mono c1">{d.c1}</p>
+      <div class="dels">
+        {d.del.map((line, i) => (
+          <span class="dline"><span aria-hidden="true">−</span><span class="sr-only">{sr}</span><span class={`strike s${i + 1}`}>{line}</span></span>
+        ))}
+      </div>
+      <div class="appear1 add">
+        <span class="addmark" aria-hidden="true">+</span>
+        <h1 class="display">{d.h1}<span class="caret" aria-hidden="true"></span></h1>
+      </div>
+      <p class="appear2 sub"><strong>{d.subStrong}</strong> {d.sub}</p>
+      <p class="mono appear2 sign">— {d.sign}</p>
+      <div class="appear2 ctas">
+        <a href="#contacto" class="btn">
+          {d.cta}
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+        <a href="#como" class="link2">{d.cta2}</a>
+      </div>
+      <p class="mono appear2 stats">
+        <span class="st del">− 3</span><span class="st add">+ 1</span><span class="st">{d.status}</span>
+      </p>
+    </div>
+    <div class="art">
+      <div class="glow" aria-hidden="true"></div>
+      <Image src={scenes.hero} alt={d.alt} widths={[400, 800]} sizes="(max-width: 980px) 70vw, 400px" loading="eager" fetchpriority="high" class="sloth" />
+      <p class="sr-only">{d.stack}: HTML5, CSS3, JavaScript, WordPress, Astro, PHP, Tailwind CSS, Figma.</p>
+      {/* shortcut: logos simplificados dibujados a mano; cambiar por los oficiales (p. ej. Simple Icons) antes de producción */}
+      <ul class="orbit o1" aria-hidden="true">
+        <li class="sat a0"><span class="sat-in"><svg viewBox="0 0 24 24"><path d="M4 2.5h16l-1.5 17L12 21.5l-6.5-2z" fill="#E34F26"></path><path d="M12 4.2v15.6l5.2-1.5 1.3-14.1z" fill="#F06529"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#fff">5</text></svg></span></li>
+        <li class="sat a180"><span class="sat-in"><svg viewBox="0 0 24 24"><path d="M4 2.5h16l-1.5 17L12 21.5l-6.5-2z" fill="#1572B6"></path><path d="M12 4.2v15.6l5.2-1.5 1.3-14.1z" fill="#33A9DC"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#fff">3</text></svg></span></li>
+      </ul>
+      <ul class="orbit o2" aria-hidden="true">
+        <li class="sat a60"><span class="sat-in"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="4" fill="#F7DF1E"></rect><text x="16.5" y="19" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#1C1C1C">JS</text></svg></span></li>
+        <li class="sat a180"><span class="sat-in"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#21759B"></circle><circle cx="12" cy="12" r="8.2" fill="none" stroke="#fff" stroke-width="1"></circle><text x="12" y="16.3" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="12" fill="#fff">W</text></svg></span></li>
+        <li class="sat a300"><span class="sat-in"><svg viewBox="0 0 24 24"><path d="M9.2 3h5.6l4.7 13.6c-1.9-.9-4-1.4-6.2-1.5L12 8.5l-1.4 6.6c-2.2.1-4.3.6-6.1 1.5z" fill="var(--ink)"></path><path d="M8.6 18.2c.8 1.7 2 2.8 3.4 2.8s2.6-1 3.4-2.7c-1.1-.5-2.2-.7-3.4-.7s-2.3.2-3.4.6z" fill="#FF5D01"></path></svg></span></li>
+      </ul>
+      <ul class="orbit o3" aria-hidden="true">
+        <li class="sat a30"><span class="sat-in"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="11" ry="6.5" fill="#777BB4"></ellipse><text x="12" y="14.6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-style="italic" font-size="7.5" fill="#fff">php</text></svg></span></li>
+        <li class="sat a150"><span class="sat-in"><svg viewBox="0 0 24 24"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.7 1.9 1.3 1 1 2 2.2 4.6 2.2 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.7-1.9-1.3C15.6 7.2 14.6 6 12 6zM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.7 1.9 1.3 1 1 2 2.2 4.6 2.2 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.7-1.9-1.3C10.6 13.2 9.6 12 7 12z" fill="#38BDF8"></path></svg></span></li>
+        <li class="sat a270"><span class="sat-in"><svg viewBox="0 0 24 24"><path d="M8.5 2h3.5v6.5H8.5a3.25 3.25 0 0 1 0-6.5z" fill="#F24E1E"></path><path d="M12 2h3.5a3.25 3.25 0 0 1 0 6.5H12z" fill="#FF7262"></path><path d="M8.5 8.5H12V15H8.5a3.25 3.25 0 0 1 0-6.5z" fill="#A259FF"></path><circle cx="15.5" cy="11.75" r="3.25" fill="#1ABCFE"></circle><path d="M8.5 15H12v3.25A3.25 3.25 0 1 1 8.5 15z" fill="#0ACF83"></path></svg></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+<svg class="wave" aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none">
+  <path d="M0 0H1440V52C1320 104 1190 34 1030 70C870 106 730 30 570 72C410 114 250 46 0 92Z" fill="var(--zone)"></path>
+</svg>
+
+<style>
+  .hero {
+    position: relative;
+    margin-top: -80px;
+    padding-top: 120px;
+    padding-bottom: 24px;
+  }
+  @media (max-width: 1100px) {
+    .hero {
+      padding-top: 170px;
+    }
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: center;
+  }
+  @media (max-width: 980px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .filetag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 13px 'JetBrains Mono', monospace;
+    color: var(--zone-muted);
+    background: var(--zone-2);
+    border: 1px solid var(--zone-line);
+    border-radius: 999px;
+    padding: 5px 14px;
+    margin: 0 0 18px;
+  }
+  .filetag span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--glow);
+  }
+  .c1 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: var(--zone-muted);
+  }
+  .dels {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 999px;
+    padding: 4px 18px 4px 14px;
+    font: 15px 'JetBrains Mono', monospace;
+    background: var(--del-bg);
+    color: var(--del);
+    margin: 0 0 8px;
+  }
+  .strike {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 56%;
+    background-size: 0% 2px;
+    animation: strike 0.55s ease-out forwards;
+  }
+  .s1 { animation-delay: 0.5s; }
+  .s2 { animation-delay: 0.85s; }
+  .s3 { animation-delay: 1.2s; }
+  @keyframes strike {
+    to { background-size: 100% 2px; }
+  }
+  .add {
+    margin-top: 22px;
+  }
+  .appear1 { animation: appear 0.8s ease-out 1.6s both; }
+  .appear2 { animation: appear 0.8s ease-out 2s both; }
+  .addmark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--add-bg);
+    color: var(--add);
+    font: 500 18px 'JetBrains Mono', monospace;
+    margin-bottom: 12px;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(36px, 5.2vw, 72px);
+    font-weight: 800;
+    color: var(--zone-ink);
+  }
+  .caret {
+    display: inline-block;
+    width: 0.07em;
+    height: 0.85em;
+    background: var(--accent);
+    margin-left: 0.1em;
+    vertical-align: -0.05em;
+    border-radius: 4px;
+    animation: blink 1s steps(1) 2.4s 6;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  .sub {
+    margin: 22px 0 0;
+    font-size: clamp(17px, 1.5vw, 20px);
+    color: var(--zone-muted);
+    max-width: 600px;
+  }
+  .sub strong {
+    color: var(--zone-ink);
+  }
+  .sign {
+    margin: 14px 0 0;
+    font-size: 14px;
+    color: var(--sign);
+  }
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 22px;
+    align-items: center;
+    margin-top: 30px;
+  }
+  .link2 {
+    font-weight: 500;
+    padding: 12px 0;
+  }
+  .stats {
+    margin: 26px 0 0;
+    font-size: 13px;
+    color: var(--zone-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .st {
+    border-radius: 999px;
+    padding: 4px 12px;
+    border: 1px solid var(--zone-line);
+  }
+  .st.del { background: var(--del-bg); color: var(--del); border-color: transparent; }
+  .st.add { background: var(--add-bg); color: var(--add); border-color: transparent; }
+  .art {
+    position: relative;
+    aspect-ratio: 1;
+    max-width: 560px;
+    width: 100%;
+    justify-self: center;
+  }
+  .glow {
+    position: absolute;
+    inset: 8%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(227, 160, 102, 0.45), rgba(227, 160, 102, 0) 68%);
+    filter: blur(6px);
+    animation: breathe 7s ease-in-out infinite;
+  }
+  .art :global(.sloth) {
+    position: absolute;
+    left: 15%;
+    top: 15%;
+    width: 70%;
+    height: 70%;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(236, 230, 217, 0.14), 0 30px 90px -30px rgba(227, 160, 102, 0.65);
+  }
+  .orbit {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-radius: 50%;
+    border: 1.5px solid var(--orbit1);
+    box-shadow: 0 0 14px -2px rgba(227, 160, 102, 0.22), inset 0 0 14px -2px rgba(227, 160, 102, 0.12);
+    animation: spin linear infinite;
+  }
+  .o1 { inset: 7%; animation-duration: 38s; }
+  .o2 { inset: -2%; animation-duration: 66s; border-color: var(--orbit2); }
+  .o3 { inset: -11%; animation-duration: 104s; border-color: var(--orbit3); }
+  @media (max-width: 600px) {
+    .o2 { inset: 1%; }
+    .o3 { inset: -5%; }
+  }
+  .art:hover .orbit,
+  .art:hover .sat-in {
+    animation-play-state: paused;
+  }
+  .sat {
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  .sat-in {
+    border-radius: 50%;
+    background: var(--sat-bg);
+    border: 1px solid var(--sat-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.45), 0 0 18px -6px rgba(227, 160, 102, 0.35);
+    animation: spin linear infinite reverse;
+  }
+  .sat-in svg { width: 58%; height: 58%; }
+  .o1 .sat-in { width: clamp(36px, 7vw, 46px); height: clamp(36px, 7vw, 46px); animation-duration: 38s; }
+  .o2 .sat-in { width: clamp(40px, 8vw, 54px); height: clamp(40px, 8vw, 54px); animation-duration: 66s; }
+  .o3 .sat-in { width: clamp(42px, 8.5vw, 60px); height: clamp(42px, 8.5vw, 60px); animation-duration: 104s; }
+  .a0 { left: 100%; top: 50%; }
+  .a180 { left: 0%; top: 50%; }
+  .a60 { left: 75%; top: 93.3%; }
+  .a300 { left: 75%; top: 6.7%; }
+  .a30 { left: 93.3%; top: 75%; }
+  .a150 { left: 6.7%; top: 75%; }
+  .a270 { left: 50%; top: 0%; }
+  @media (prefers-reduced-motion: reduce) {
+    .strike { background-size: 100% 2px; }
+  }
+</style>

@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { t, paths, type Lang } from '../i18n';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  lang: Lang;
+  showDate?: boolean;
+}
+
+const { post, lang, showDate = true } = Astro.props;
+const d = t(lang);
+const date = post.data.pubDate.toLocaleDateString(lang === 'es' ? 'es-CR' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+
+<article class="clrow" data-cat={post.data.category}>
+  <Image class="climg" src={post.data.image} alt="" widths={[480, 800]} sizes="(max-width: 760px) 0px, 42vw" />
+  {showDate && <time class="mono date" datetime={post.data.pubDate.toISOString()}>{date}</time>}
+  <span class="cat">{d.cats[post.data.category]}</span>
+  <div>
+    <h3 class="display"><a class="stretch" href={paths[lang].post(post.id)}>{post.data.title}</a></h3>
+    <p>{post.data.description}</p>
+  </div>
+  <span class="clarrow" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+  </span>
+</article>
+
+<style>
+  .date {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .cat {
+    font: 600 11px 'Inter', sans-serif;
+    color: var(--ochre);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+  h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  p {
+    margin: 6px 0 0;
+    font-size: 15px;
+    color: var(--muted);
+  }
+</style>

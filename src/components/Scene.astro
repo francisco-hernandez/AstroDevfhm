@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import { scenes } from '../data/scenes';
+
+interface Props {
+  id: keyof typeof scenes;
+  size?: number;
+  alt?: string;
+  class?: string;
+  ring?: boolean;
+}
+
+// Escena del perezoso en círculo. La imagen sale de src/data/scenes.ts.
+const { id, size = 220, alt = '', class: cls = '', ring = true } = Astro.props;
+---
+
+<figure class:list={['scene', cls, { ring }]} style={`--s:${size}px`}>
+  <Image src={scenes[id]} alt={alt} widths={[size, size * 2]} sizes={`${size}px`} />
+</figure>
+
+<style>
+  .scene {
+    margin: 0;
+    width: min(var(--s), 100%);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .scene::before {
+    content: '';
+    position: absolute;
+    inset: -8%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(227, 160, 102, 0.35), rgba(227, 160, 102, 0) 68%);
+    z-index: 0;
+  }
+  .scene img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    background: #000;
+    display: block;
+  }
+  .ring img {
+    box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--line);
+  }
+</style>

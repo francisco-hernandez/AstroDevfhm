@@ -1,11 +1,10 @@
 ---
 title: "The Psychology of Color in Luxury Branding"
 description: "Exploring why saturated minimalism is winning the battle in the premium sector."
-category: "IDENTITY"
+category: "identity"
 pubDate: 2024-03-24
-image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCUByVYjvG5TIpZKU2IKyXyqbVJ7saVBe9WigZANDbJBGzWnu0rvypoDiO3aDcelBGm0JJ3QKhg41ZwY96Ka2dc0tgnJBlVE7RaWAFcD3RPQybKQmnJsZdQbnAXXigjBkEbIeae8wCaoLTSMLN7174dBEhXHssO1zsiaqCyp4zk5CwF6J_s3sbBIm70Cj3TIUbvxZYQmyT5pSloM54rj-Zr5MNNYGJ1ZOmcoaSLyWTDH1Hhwbv8S-exQ6DhqRckZN8vxyPvRg_mz51-"
-readTime: "5 MIN READ"
-authorRole: "Design Disruptor & Lead Dev"
+image: "../../assets/blog/color.png"
+featured: true
 lang: "en"
 translationSlug: "psicologia-color-branding-lujo"
 ---

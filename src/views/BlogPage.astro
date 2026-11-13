@@ -1,0 +1,218 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Scene from '../components/Scene.astro';
+import PostRow from '../components/PostRow.astro';
+import { t, paths, otherLang, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const d = t(lang);
+const b = d.blogPage;
+const posts = (await getCollection('blog', ({ data }) => data.lang === lang)).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const feat = posts.find((p) => p.data.featured) ?? posts[0];
+const rest = posts.filter((p) => p !== feat);
+const cats = [...new Set(rest.map((p) => p.data.category))];
+const date = (dt: Date) => dt.toLocaleDateString(lang === 'es' ? 'es-CR' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Layout lang={lang} title={b.metaTitle} description={b.metaDescription} altHref={paths[otherLang(lang)].blog} page="blog">
+  <section class="zone phero">
+    <div class="wrap top">
+      <div>
+        <p class="eyebrow"><b>blog/</b> {b.eyebrow}</p>
+        <h1 class="display">{b.title} <em>{b.em}</em></h1>
+        <p class="intro">{b.intro}</p>
+      </div>
+      <Scene id="blog" size={260} />
+    </div>
+  </section>
+  <svg class="wave" aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path d="M0 0H1440V52C1320 104 1190 34 1030 70C870 106 730 30 570 72C410 114 250 46 0 92Z" fill="var(--zone)"></path>
+  </svg>
+
+  {feat && (
+    <section class="wrap" style="padding-block: 24px 64px">
+      <article class="feat reveal">
+        <div class="fimg"><Image src={feat.data.image} alt="" widths={[600, 1000]} sizes="(max-width: 900px) 92vw, 640px" /></div>
+        <div class="ftext">
+          <p class="eyebrow" style="margin:0"><b>{b.featured}</b> {d.cats[feat.data.category]}</p>
+          <h2 class="display"><a class="stretch" href={paths[lang].post(feat.id)}>{feat.data.title}</a></h2>
+          <p class="muted big">{feat.data.description}</p>
+          <p class="mono small"><time datetime={feat.data.pubDate.toISOString()}>{date(feat.data.pubDate)}</time></p>
+          <span class="btn" aria-hidden="true">{b.read}</span>
+        </div>
+      </article>
+    </section>
+  )}
+
+  <section class="wrap list" aria-labelledby="all-title" data-blog-filter>
+    <div class="lhead reveal">
+      <div>
+        <p class="eyebrow"><b>02</b> {b.allEyebrow}</p>
+        <h2 id="all-title" class="display h2">{b.allTitle} <em>{b.allEm}</em></h2>
+      </div>
+      <div role="group" aria-label={b.filterLabel} class="filters">
+        <button type="button" class="chip" aria-pressed="true" data-cat="all">{b.all}</button>
+        {cats.map((c) => <button type="button" class="chip" aria-pressed="false" data-cat={c}>{d.cats[c]}</button>)}
+      </div>
+    </div>
+    <p class="mono count" aria-live="polite" data-one={b.count1} data-many={b.countN}>{rest.length === 1 ? b.count1 : `${rest.length} ${b.countN}`}</p>
+    {rest.map((post) => <PostRow post={post} lang={lang} />)}
+  </section>
+</Layout>
+
+<style>
+  .phero {
+    margin-top: -80px;
+    padding-top: 140px;
+  }
+  @media (max-width: 1100px) {
+    .phero {
+      padding-top: 180px;
+    }
+  }
+  .top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+    padding-bottom: 32px;
+    justify-items: start;
+  }
+  .top :global(.scene) {
+    justify-self: center;
+  }
+  @media (max-width: 760px) {
+    .top {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .phero .eyebrow {
+    color: var(--accent);
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 800;
+    color: var(--zone-ink);
+  }
+  .intro {
+    margin: 22px 0 0;
+    max-width: 560px;
+    font-size: clamp(17px, 1.5vw, 20px);
+    color: var(--zone-muted);
+  }
+  .feat {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: clamp(32px, 4vw, 48px);
+    padding: clamp(16px, 2vw, 24px);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .feat:hover,
+  .feat:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 30px 60px -40px var(--accent);
+  }
+  @media (max-width: 900px) {
+    .feat {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .fimg {
+    border-radius: clamp(24px, 3vw, 36px);
+    overflow: hidden;
+    aspect-ratio: 16 / 11;
+  }
+  .fimg :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.35);
+    transform: scale(1.03);
+    transition: filter 0.6s ease, transform 0.8s ease;
+  }
+  .feat:hover .fimg :global(img),
+  .feat:focus-within .fimg :global(img) {
+    filter: none;
+    transform: none;
+  }
+  .ftext {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    padding: clamp(8px, 2vw, 24px);
+  }
+  .ftext h2 {
+    margin: 0;
+    font-size: clamp(30px, 3.4vw, 46px);
+    font-weight: 700;
+  }
+  .muted {
+    margin: 0;
+    color: var(--muted);
+  }
+  .big {
+    font-size: 18px;
+  }
+  .small {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .list {
+    padding-bottom: clamp(72px, 9vw, 120px);
+  }
+  .lhead {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .count {
+    margin: 0 0 16px 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-blog-filter]');
+  if (root) {
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('.chip')];
+    const rows = [...root.querySelectorAll<HTMLElement>('.clrow')];
+    const count = root.querySelector<HTMLElement>('.count')!;
+    chips.forEach((chip) =>
+      chip.addEventListener('click', () => {
+        const cat = chip.dataset.cat!;
+        chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+        let n = 0;
+        rows.forEach((r) => {
+          const show = cat === 'all' || r.dataset.cat === cat;
+          r.hidden = !show;
+          if (show) n++;
+        });
+        count.textContent = n === 1 ? count.dataset.one! : `${n} ${count.dataset.many}`;
+      }),
+    );
+  }
+</script>

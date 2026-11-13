@@ -1,0 +1,35 @@
+---
+interface Props {
+  n: string;
+  eyebrow: string;
+  title: string;
+  em: string;
+  intro?: string;
+  center?: boolean;
+  id?: string;
+  level?: 'h1' | 'h2';
+}
+
+const { n, eyebrow, title, em, intro, center = false, id, level = 'h2' } = Astro.props;
+const H = level;
+---
+
+<div class:list={['head reveal', { center }]}>
+  <p class="eyebrow"><b>{n}</b> {eyebrow}</p>
+  <H class="display h2" id={id}>{title} <em>{em}</em></H>
+  {intro && <p class="intro">{intro}</p>}
+</div>
+
+<style>
+  .head {
+    margin-bottom: 44px;
+  }
+  .intro {
+    margin: 18px 0 0;
+    color: var(--muted);
+    max-width: 560px;
+  }
+  .center .intro {
+    margin-inline: auto;
+  }
+</style>

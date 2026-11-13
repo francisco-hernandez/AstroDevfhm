@@ -1,0 +1,83 @@
+---
+import Scene from '../Scene.astro';
+import { t, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const d = t(Astro.props.lang).about;
+---
+
+<section id="sobre" class="section">
+  <div class="wrap grid">
+    <div class="photo reveal">
+      {/* shortcut: hueco para tu foto; sustituir por <Image> con tu retrato (B-05) */}
+      <div class="ph">
+        <svg aria-hidden="true" width="90" height="96" viewBox="0 0 30 32"><circle cx="15" cy="11" r="7" fill="currentColor" opacity=".45"></circle><path d="M2 32c1-8 6-12 13-12s12 4 13 12z" fill="currentColor" opacity=".45"></path></svg>
+        <span class="mono">{d.photo}</span>
+      </div>
+      <div class="peek"><Scene id="sobre" size={150} /></div>
+    </div>
+    <div class="text reveal">
+      <p class="eyebrow"><b>{d.n}</b> README.md</p>
+      <h2 class="display h2">{d.title}</h2>
+      <p class="lead">{d.text1}</p>
+      <p class="muted">{d.text2}</p>
+      <p class="mono fact">{d.fact}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 56px;
+    align-items: center;
+  }
+  .photo {
+    position: relative;
+    max-width: 440px;
+    width: 100%;
+    justify-self: center;
+  }
+  .ph {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--muted);
+    background: radial-gradient(circle at 32% 28%, rgba(227, 160, 102, 0.32), transparent 58%), var(--ph);
+    font-size: 13px;
+  }
+  .peek {
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+  }
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .text .eyebrow {
+    margin: 0;
+  }
+  .lead {
+    margin: 0;
+    font-size: 19px;
+  }
+  .muted {
+    margin: 0;
+    color: var(--muted);
+  }
+  .fact {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+</style>

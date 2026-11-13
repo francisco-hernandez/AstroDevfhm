@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Scene from '../components/Scene.astro';
+import { t, paths, otherLang, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  kind: 'privacy' | 'terms';
+}
+
+const { lang, kind } = Astro.props;
+const d = t(lang).legal;
+const page = d[kind];
+// shortcut: texto legal pendiente (C-08); redactarlo antes de activar el formulario
+---
+
+<Layout lang={lang} title={page.metaTitle} description={page.metaTitle} altHref={paths[otherLang(lang)][kind]}>
+  <section class="wrap legal">
+    <Scene id="perdido" size={160} />
+    <h1 class="display h2">{page.title} <em>{page.em}</em></h1>
+    <p class="note">{d.pending}</p>
+    <a href={paths[lang].home} class="btn btn-outline">{d.back}</a>
+  </section>
+</Layout>
+
+<style>
+  .legal {
+    padding-block: clamp(72px, 9vw, 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 820px;
+  }
+  .note {
+    margin: 0;
+    padding: 18px 24px;
+    border-radius: 28px;
+    background: var(--surface);
+    border: 1px dashed var(--line);
+    color: var(--muted);
+  }
+</style>

@@ -1,53 +1,83 @@
 ---
+import Scene from './Scene.astro';
+import { t, paths, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  wave?: boolean;
+}
+
+const { lang, wave = true } = Astro.props;
+const d = t(lang);
+const p = paths[lang];
 ---
-<footer
-  class="relative overflow-hidden w-full pt-24 pb-12 bg-surface-container-lowest dark:bg-zinc-950 border-t border-outline-variant/20 dark:border-zinc-800/50"
->
-  <div
-    class="text-[7rem] md:text-[14rem] font-black tracking-tighter text-zinc-200/20 dark:text-white/10 absolute bottom-0 md:bottom-[-2%] left-1/2 -translate-x-1/2 select-none font-headline z-0 whitespace-nowrap overflow-hidden leading-none"
-  >
-    devfhm
-  </div>
-  <div
-    class="flex flex-col items-center justify-center space-y-12 px-8 relative z-10"
-  >
-    <div class="flex flex-wrap justify-center gap-12">
-      <a
-        class="text-on-surface-variant dark:text-white font-['Epilogue'] uppercase tracking-widest font-bold hover:text-primary transition-colors"
-        href="#"
-        data-key="footer.github">Github</a
-      >
-      <a
-        class="text-on-surface-variant dark:text-white font-['Epilogue'] uppercase tracking-widest font-bold hover:text-primary transition-colors"
-        href="#"
-        data-key="footer.terms">Términos y Condiciones</a
-      >
-      <a
-        class="text-on-surface-variant dark:text-white font-['Epilogue'] uppercase tracking-widest font-bold hover:text-primary transition-colors"
-        href="#"
-        data-key="footer.privacy">Política de Privacidad</a
-      >
-      <a
-        class="text-on-surface-variant dark:text-white font-['Epilogue'] uppercase tracking-widest font-bold hover:text-primary transition-colors"
-        href="#"
-        data-key="footer.social">RRSS</a
-      >
-    </div>
-    <div class="text-center">
-      <p
-        class="text-on-surface-variant dark:text-white font-['Epilogue'] uppercase tracking-widest text-sm"
-        data-key="footer.copyright"
-      >
-        © 2026 DEVFHM. Todos los derechos reservados. Diseñado y desarrollado
-        con pasión por disruptores digitales.
-      </p>
-      <div class="mt-4 flex items-center justify-center gap-2 text-primary dark:text-white">
-        <span class="material-symbols-outlined text-sm">favorite</span>
-        <span
-          class="font-label text-xs font-bold uppercase tracking-[0.2em] dark:text-white"
-          data-key="footer.designed">Diseñado por y para la web</span
-        >
-      </div>
+
+{wave && (
+  <svg class="wave" aria-hidden="true" viewBox="0 0 1440 120" preserveAspectRatio="none" style="margin-bottom:-2px">
+    <path d="M0 120H1440V64C1300 14 1160 86 1000 50C840 14 700 92 540 56C380 20 220 90 0 30Z" fill="var(--zone)"></path>
+  </svg>
+)}
+<footer class="zone site-footer">
+  <div class="wrap inner">
+    <Scene id="pie" size={120} />
+    <div class="statuscap">
+      <span>⎇ main</span>
+      <span>✓ {d.foot.reviewed}</span>
+      <nav aria-label={d.foot.label}>
+        <a href={p.privacy}>{d.foot.privacy}</a>
+        <a href={p.terms}>{d.foot.terms}</a>
+        <a href="https://github.com/francisco-hernandez" rel="me noopener">GitHub</a>
+      </nav>
+      <span>© {new Date().getFullYear()} Francisco Hernández</span>
     </div>
   </div>
 </footer>
+
+<style>
+  .site-footer {
+    padding: 24px 0 32px;
+  }
+  .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .statuscap {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 22px;
+    align-items: center;
+    background: var(--accent);
+    color: var(--on-accent);
+    border-radius: 999px;
+    padding: 8px 26px;
+    font: 500 13px 'JetBrains Mono', monospace;
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 20px;
+    margin-left: auto;
+  }
+  a {
+    color: var(--on-accent);
+    text-decoration: none;
+    padding: 10px 0;
+    display: inline-block;
+  }
+  a:hover {
+    color: var(--on-accent);
+    text-decoration: underline;
+  }
+  @media (max-width: 760px) {
+    .statuscap {
+      border-radius: 28px;
+      padding: 14px 22px;
+    }
+    nav {
+      margin-left: 0;
+    }
+  }
+</style>
