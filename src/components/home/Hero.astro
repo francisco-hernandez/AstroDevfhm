@@ -286,9 +286,9 @@ const d = t(lang).hero;
     will-change: transform;
     animation: spin linear infinite;
   }
-  .o1 { animation-duration: 60s; }
-  .o2 { animation-duration: 95s; border-color: var(--orbit2); animation-direction: reverse; }
-  .o3 { animation-duration: 140s; border-color: var(--orbit3); }
+  .o1 { animation-duration: 60s; --rm: 120s; }
+  .o2 { animation-duration: 95s; --rm: 190s; border-color: var(--orbit2); animation-direction: reverse; }
+  .o3 { animation-duration: 140s; --rm: 280s; border-color: var(--orbit3); }
   .sat {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -384,9 +384,19 @@ const d = t(lang).hero;
       display: none;
     }
   }
+  /* Con "reducir movimiento" las órbitas siguen girando (son la personalidad del hero), pero la mitad de rápido,
+     sin flotado, y con el botón de pausa siempre disponible (WCAG 2.2.2). */
   @media (prefers-reduced-motion: reduce) {
-    .pause {
-      display: none;
+    .orbit {
+      animation-duration: var(--rm) !important;
+      animation-iteration-count: infinite !important;
+    }
+    .sat-in {
+      animation: spin linear infinite reverse !important;
+      animation-duration: var(--rm) !important;
+    }
+    .o2 .sat-in {
+      animation-direction: normal !important;
     }
   }
 </style>
