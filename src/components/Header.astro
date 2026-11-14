@@ -24,6 +24,7 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     <div class="capsule">
       <a href={p.home} class="logo display">devfhm<span>.</span></a>
       <nav class="tabs tabs-in" aria-label={d.nav.label}>
+        <span class="pill" aria-hidden="true"></span>
         {tabs.map((tab) => (
           <a class="tab" href={tab.href} aria-label={`${tab.f} · ${tab.a}`} data-section={page === 'home' ? tab.id : undefined}>{tab.f}</a>
         ))}
@@ -42,6 +43,7 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
       </div>
     </div>
     <nav class="tabs tabs-out" aria-label={d.nav.label}>
+      <span class="pill" aria-hidden="true"></span>
       {tabs.map((tab) => (
         <a class="tab" href={tab.href} aria-label={`${tab.f} · ${tab.a}`} data-section={page === 'home' ? tab.id : undefined}>{tab.f}</a>
       ))}
@@ -77,6 +79,7 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     color: var(--ochre);
   }
   .tabs {
+    position: relative;
     display: flex;
     gap: 4px;
     overflow-x: auto;
@@ -90,6 +93,8 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     margin-left: 8px;
   }
   .tab {
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     align-items: center;
     min-height: 40px;
@@ -99,19 +104,40 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     text-decoration: none;
     border-radius: 999px;
     white-space: nowrap;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.25s ease, color 0.3s ease;
   }
   .tabs-out .tab {
     background: var(--surface);
   }
-  .tab:hover {
+  .tabs .tab:hover {
     color: var(--ink);
     background: var(--ph);
   }
-  .tab[aria-current],
-  .tabs-out .tab[aria-current] {
+  .tabs .tab[aria-current] {
     color: var(--on-accent);
     background: var(--accent);
+  }
+  /* con JS, el fondo activo es una sola píldora que se desliza entre pestañas */
+  .tabs.has-pill .tab[aria-current] {
+    background: transparent;
+  }
+  .pill {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    height: 40px;
+    border-radius: 999px;
+    background: var(--accent);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .pill-ready .pill {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), width 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pill-ready .pill {
+      transition: opacity 0.3s ease;
+    }
   }
   .tabs-out {
     -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
@@ -193,30 +219,69 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     label();
   });
 
-  // pestaña de la sección visible (solo en la home)
-  const links = document.querySelectorAll<HTMLAnchorElement>('[data-section]');
-  if (links.length) {
-    const ids = [...new Set([...links].map((a) => a.dataset.section!))];
-    const setCurrent = (id: string) =>
-      links.forEach((a) => (a.dataset.section === id ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current')));
-    // sección activa = la última cuya parte superior ha pasado bajo la cabecera (sin medir en cada scroll)
-    const passed = new Set<string>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          const id = (e.target as HTMLElement).id;
-          if (e.boundingClientRect.top < 160) passed.add(id);
-          else passed.delete(id);
-        }
-        const cur = [...ids].reverse().find((id) => passed.has(id)) ?? 'top';
-        setCurrent(cur);
-      },
-      { rootMargin: '-160px 0px 0px 0px', threshold: [0, 1] },
-    );
-    ids.forEach((id) => {
-      const el = id === 'top' ? null : document.getElementById(id);
-      if (el) io.observe(el);
+  // píldora deslizante bajo la pestaña activa
+  const navs = [...document.querySelectorAll<HTMLElement>('.tabs')];
+  const place = () =>
+    navs.forEach((nav) => {
+      const pill = nav.querySelector<HTMLElement>('.pill')!;
+      const cur = nav.querySelector<HTMLElement>('.tab[aria-current]');
+      const visible = !!cur && cur.offsetWidth > 0;
+      pill.style.opacity = visible ? '1' : '0';
+      if (!visible) return;
+      pill.style.width = `${cur.offsetWidth}px`;
+      pill.style.transform = `translateX(${cur.offsetLeft}px)`;
+      // en la barra móvil desplazable, que la pestaña activa no quede fuera de vista
+      if (cur.offsetLeft < nav.scrollLeft || cur.offsetLeft + cur.offsetWidth > nav.scrollLeft + nav.clientWidth) {
+        nav.scrollTo({ left: cur.offsetLeft - 16, behavior: 'smooth' });
+      }
     });
-    setCurrent('top');
+  navs.forEach((n) => n.classList.add('has-pill'));
+
+  // pestaña de la sección visible (solo en la home): la última cuya parte superior pasó bajo la cabecera
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-section]')];
+  if (links.length) {
+    const sections = [...new Set(links.map((a) => a.dataset.section!))]
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => !!el && el.id !== 'top');
+    let current = '';
+    let locked = false;
+    let ticking = false;
+    const setCurrent = (id: string) => {
+      if (id === current) return;
+      current = id;
+      links.forEach((a) => (a.dataset.section === id ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current')));
+      place();
+    };
+    const update = () => {
+      ticking = false;
+      if (locked) return;
+      let id = 'top';
+      for (const el of sections) if (el.getBoundingClientRect().top < 160) id = el.id;
+      setCurrent(id);
+    };
+    addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    // al hacer clic, la píldora va directo al destino sin pasar por las secciones intermedias
+    links.forEach((a) =>
+      a.addEventListener('click', () => {
+        setCurrent(a.dataset.section!);
+        locked = true;
+        const unlock = () => {
+          locked = false;
+          update();
+        };
+        addEventListener('scrollend', unlock, { once: true });
+        setTimeout(unlock, 1200); // navegadores sin scrollend
+      }),
+    );
+    update();
   }
+  place();
+  requestAnimationFrame(() => navs.forEach((n) => n.classList.add('pill-ready')));
+  addEventListener('resize', place);
+  document.fonts?.ready.then(place);
 </script>

@@ -38,6 +38,7 @@ const d = t(lang).hero;
 
     <div class="art" data-parallax="0.14">
       <div class="glow" aria-hidden="true"></div>
+      <div class="scene">
       <div class="focus">
         <Image src={scenes.hero} alt={d.alt} widths={[300, 420, 600, 840]} sizes="(max-width: 980px) 60vw, 380px" loading="eager" fetchpriority="high" class="sloth" />
       </div>
@@ -62,6 +63,7 @@ const d = t(lang).hero;
           <li class="sat a150"><span class="sat-in loop"><svg viewBox="0 0 24 24"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.7 1.9 1.3 1 1 2 2.2 4.6 2.2 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.7-1.9-1.3C15.6 7.2 14.6 6 12 6zM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.8.2 1.3.7 1.9 1.3 1 1 2 2.2 4.6 2.2 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.8-.2-1.3-.7-1.9-1.3C10.6 13.2 9.6 12 7 12z" fill="#38BDF8"></path></svg></span></li>
           <li class="sat a270"><span class="sat-in loop"><svg viewBox="0 0 24 24"><path d="M8.5 2h3.5v6.5H8.5a3.25 3.25 0 0 1 0-6.5z" fill="#F24E1E"></path><path d="M12 2h3.5a3.25 3.25 0 0 1 0 6.5H12z" fill="#FF7262"></path><path d="M8.5 8.5H12V15H8.5a3.25 3.25 0 0 1 0-6.5z" fill="#A259FF"></path><circle cx="15.5" cy="11.75" r="3.25" fill="#1ABCFE"></circle><path d="M8.5 15H12v3.25A3.25 3.25 0 1 1 8.5 15z" fill="#0ACF83"></path></svg></span></li>
         </ul>
+      </div>
       </div>
       <button type="button" class="pause" data-pause data-label-pause={d.pause} data-label-play={d.play} aria-label={d.pause} aria-pressed="false">
         <svg class="i-pause" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.5"></rect><rect x="14" y="5" width="4" height="14" rx="1.5"></rect></svg>
@@ -229,6 +231,7 @@ const d = t(lang).hero;
 
   .art {
     position: relative;
+    perspective: 1100px;
     aspect-ratio: 1;
     max-width: 540px;
     width: 100%;
@@ -245,6 +248,15 @@ const d = t(lang).hero;
   @keyframes glow-in {
     from { opacity: 0; transform: scale(0.7); }
     to { opacity: 0.9; transform: none; }
+  }
+  /* escena 3D: el disco del perezoso de frente y las órbitas inclinadas a su alrededor;
+     los iconos de atrás quedan tapados por el disco y los de delante pasan por encima */
+  .scene {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.9s var(--ease);
   }
   .focus {
     position: absolute;
@@ -265,11 +277,17 @@ const d = t(lang).hero;
   }
   .orbit-w {
     position: absolute;
-    animation: ring-in 1.6s var(--ease) both;
+    transform-style: preserve-3d;
+    transform: rotateZ(var(--tz)) rotateX(var(--tx));
+    animation: ring-grow 1.8s var(--ease) both;
   }
-  .w1 { inset: 7%; animation-delay: 0.6s; }
-  .w2 { inset: -2%; animation-delay: 0.8s; }
-  .w3 { inset: -11%; animation-delay: 1s; }
+  /* sin opacity en la entrada: aplanaría la escena 3D mientras dura */
+  @keyframes ring-grow {
+    from { scale: 0.4; }
+  }
+  .w1 { inset: 7%; --tx: 66deg; --tz: -18deg; animation-delay: 0.6s; }
+  .w2 { inset: -2%; --tx: 72deg; --tz: 10deg; animation-delay: 0.8s; }
+  .w3 { inset: -11%; --tx: 62deg; --tz: -4deg; animation-delay: 1s; }
   @media (max-width: 600px) {
     .w2 { inset: 1%; }
     .w3 { inset: -5%; }
@@ -280,6 +298,7 @@ const d = t(lang).hero;
     margin: 0;
     padding: 0;
     list-style: none;
+    transform-style: preserve-3d;
     border-radius: 50%;
     border: 1.5px solid var(--orbit1);
     box-shadow: 0 0 14px -2px rgba(227, 160, 102, 0.22), inset 0 0 14px -2px rgba(227, 160, 102, 0.12);
@@ -291,6 +310,7 @@ const d = t(lang).hero;
   .o3 { animation-duration: 140s; --rm: 280s; border-color: var(--orbit3); }
   .sat {
     position: absolute;
+    transform-style: preserve-3d;
     transform: translate(-50%, -50%);
   }
   .sat-in {
@@ -301,13 +321,18 @@ const d = t(lang).hero;
     align-items: center;
     justify-content: center;
     box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.45), 0 0 18px -6px rgba(227, 160, 102, 0.35);
-    animation: spin linear infinite reverse, float 6s ease-in-out infinite;
+    animation: billboard linear infinite, float 6s ease-in-out infinite;
     transition: transform 0.4s var(--ease);
   }
   .sat-in svg { width: 58%; height: 58%; }
   .o1 .sat-in { width: clamp(36px, 7vw, 46px); height: clamp(36px, 7vw, 46px); animation-duration: 60s, 6s; }
-  .o2 .sat-in { width: clamp(40px, 8vw, 54px); height: clamp(40px, 8vw, 54px); animation-duration: 95s, 7s; animation-direction: normal, normal; }
+  .o2 .sat-in { width: clamp(40px, 8vw, 54px); height: clamp(40px, 8vw, 54px); animation-duration: 95s, 7s; animation-direction: reverse, normal; }
   .o3 .sat-in { width: clamp(42px, 8.5vw, 60px); height: clamp(42px, 8.5vw, 60px); animation-duration: 140s, 8s; }
+  /* deshace el giro de la órbita y su inclinación, para que cada icono mire siempre de frente */
+  @keyframes billboard {
+    from { transform: rotateZ(0deg) rotateX(calc(var(--tx) * -1)) rotateZ(calc(var(--tz) * -1)); }
+    to { transform: rotateZ(-360deg) rotateX(calc(var(--tx) * -1)) rotateZ(calc(var(--tz) * -1)); }
+  }
   @keyframes float {
     0%, 100% { translate: 0 0; }
     50% { translate: 0 -5px; }
@@ -392,11 +417,11 @@ const d = t(lang).hero;
       animation-iteration-count: infinite !important;
     }
     .sat-in {
-      animation: spin linear infinite reverse !important;
+      animation: billboard linear infinite !important;
       animation-duration: var(--rm) !important;
     }
     .o2 .sat-in {
-      animation-direction: normal !important;
+      animation-direction: reverse !important;
     }
   }
 </style>
@@ -416,20 +441,37 @@ const d = t(lang).hero;
     new IntersectionObserver(([e]) => hero.classList.toggle('offscreen', !e.isIntersecting)).observe(hero);
   }
 
-  // paralaje suave del hero al hacer scroll (desactivado con "reducir movimiento")
+  // paralaje suave del hero al hacer scroll, y la escena 3D se inclina con el puntero y al bajar
+  // (todo desactivado con "reducir movimiento")
   const items = hero ? [...hero.querySelectorAll<HTMLElement>('[data-parallax]')] : [];
-  if (items.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const scene = hero?.querySelector<HTMLElement>('.scene');
+  if (items.length && scene && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     let ticking = false;
+    let px = 0;
+    let py = 0;
     const apply = () => {
       ticking = false;
       const y = Math.min(scrollY, innerHeight);
       for (const el of items) el.style.transform = `translate3d(0, ${(y * Number(el.dataset.parallax)).toFixed(1)}px, 0)`;
+      scene.style.setProperty('--rx', `${(y / innerHeight * 22 - py * 14).toFixed(2)}deg`);
+      scene.style.setProperty('--ry', `${(px * 18).toFixed(2)}deg`);
     };
-    addEventListener('scroll', () => {
+    const queue = () => {
       if (!ticking) {
         ticking = true;
         requestAnimationFrame(apply);
       }
-    }, { passive: true });
+    };
+    addEventListener('scroll', queue, { passive: true });
+    hero!.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      px = e.clientX / innerWidth - 0.5;
+      py = e.clientY / innerHeight - 0.5;
+      queue();
+    });
+    hero!.addEventListener('pointerleave', () => {
+      px = py = 0;
+      queue();
+    });
   }
 </script>
