@@ -272,6 +272,11 @@ const d = t(lang).hero;
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    /* modo claro: disco arena cálido a juego con el halo; el negro queda solo para el modo oscuro */
+    background: radial-gradient(circle at 50% 38%, #fdf7ec 0%, #f1e3cb 62%, #e5cdaa 100%);
+    box-shadow: 0 0 0 1px rgba(122, 86, 44, 0.16), 0 30px 90px -30px rgba(227, 160, 102, 0.65);
+  }
+  :global([data-theme='dark']) .focus :global(.sloth) {
     background: #000;
     box-shadow: 0 0 0 1px rgba(236, 230, 217, 0.14), 0 30px 90px -30px rgba(227, 160, 102, 0.65);
   }
