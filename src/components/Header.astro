@@ -40,15 +40,40 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
           <svg class="i-moon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
         </button>
         <a href={page === 'home' ? '#contacto' : `${p.home}#contacto`} class="btn btn-sm hdr-cta">{d.nav.cta}</a>
+        <button type="button" class="iconbtn menu-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-movil" aria-label={d.nav.menu}>
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"></path></svg>
+        </button>
       </div>
     </div>
-    <nav class="tabs tabs-out" aria-label={d.nav.label}>
-      <span class="pill" aria-hidden="true"></span>
-      {tabs.map((tab) => (
-        <a class="tab" href={tab.href} aria-label={`${tab.f} · ${tab.a}`} data-section={page === 'home' ? tab.id : undefined}>{tab.f}</a>
-      ))}
-      <a class="tab" href={p.blog} aria-label={`${d.nav.blogTab.f} · ${d.nav.blogTab.a}`} aria-current={blogCurrent ? 'page' : undefined}>{d.nav.blogTab.f}</a>
-    </nav>
+    <dialog id="menu-movil" class="mmenu" aria-label={d.nav.label}>
+      <div class="mm-top">
+        <a href={p.home} class="logo display">devfhm<span>.</span></a>
+        <button type="button" class="iconbtn mm-close" autofocus aria-label={d.nav.close}>
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+      <nav aria-label={d.nav.label}>
+        <ol class="mm-list">
+          {tabs.map((tab, i) => (
+            <li style={`--i:${i}`}>
+              <a class="mm-link" href={tab.href} data-section={page === 'home' ? tab.id : undefined}>
+                <span class="mm-n">{String(i + 1).padStart(2, '0')}</span>
+                <span class="mm-a display">{tab.a}</span>
+                <span class="mm-f">{tab.f}</span>
+              </a>
+            </li>
+          ))}
+          <li style={`--i:${tabs.length}`}>
+            <a class="mm-link" href={p.blog} aria-current={blogCurrent ? 'page' : undefined}>
+              <span class="mm-n">{String(tabs.length + 1).padStart(2, '0')}</span>
+              <span class="mm-a display">{d.nav.blogTab.a}</span>
+              <span class="mm-f">{d.nav.blogTab.f}</span>
+            </a>
+          </li>
+        </ol>
+      </nav>
+      <a href={page === 'home' ? '#contacto' : `${p.home}#contacto`} class="btn mm-cta">{d.nav.cta}</a>
+    </dialog>
   </div>
 </header>
 
@@ -106,9 +131,6 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     white-space: nowrap;
     transition: background 0.25s ease, color 0.3s ease;
   }
-  .tabs-out .tab {
-    background: var(--surface);
-  }
   .tabs .tab:hover {
     color: var(--ink);
     background: var(--ph);
@@ -138,10 +160,6 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     .pill-ready .pill {
       transition: opacity 0.3s ease;
     }
-  }
-  .tabs-out {
-    -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
-    mask-image: linear-gradient(to right, #000 85%, transparent);
   }
   .controls {
     display: flex;
@@ -186,15 +204,108 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
   :global([data-theme='light']) .i-sun {
     display: none;
   }
+  /* menú móvil: panel a pantalla completa con <dialog> (foco atrapado, Esc y fondo inerte de serie) */
+  .menu-btn {
+    display: none;
+  }
   @media (max-width: 1100px) {
     .tabs-in {
       display: none;
     }
-  }
-  @media (min-width: 1101px) {
-    .tabs-out {
-      display: none;
+    .menu-btn {
+      display: inline-flex;
     }
+  }
+  :global(html:has(.mmenu[open])) {
+    overflow: hidden;
+  }
+  .mmenu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 18px 20px calc(24px + env(safe-area-inset-bottom));
+    border: 0;
+    background: radial-gradient(ellipse at 85% 0%, var(--tint), transparent 60%), var(--bg);
+    color: var(--ink);
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+  }
+  .mmenu[open] {
+    display: flex;
+    animation: mm-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .mmenu::backdrop {
+    background: transparent;
+  }
+  @keyframes mm-in {
+    from { opacity: 0; transform: translateY(-14px); }
+  }
+  .mm-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 8px;
+  }
+  .mm-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mmenu[open] .mm-list li {
+    animation: mm-item 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i) * 45ms + 90ms);
+  }
+  @keyframes mm-item {
+    from { opacity: 0; transform: translateY(12px); }
+  }
+  .mm-link {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    align-items: baseline;
+    padding: 14px;
+    border-bottom: 1px solid var(--line);
+    border-radius: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .mm-link:hover {
+    background: var(--ph);
+  }
+  .mm-n {
+    font: 500 12px 'JetBrains Mono Variable', monospace;
+    color: var(--ochre);
+  }
+  .mm-a {
+    font-size: clamp(26px, 7vw, 34px);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+  .mm-f {
+    grid-column: 2;
+    font: 500 12px 'JetBrains Mono Variable', monospace;
+    color: var(--muted);
+  }
+  .mm-link[aria-current] {
+    background: var(--accent);
+    color: var(--on-accent);
+    border-bottom-color: transparent;
+  }
+  .mm-link[aria-current] .mm-n,
+  .mm-link[aria-current] .mm-f {
+    color: var(--on-accent);
+    opacity: 0.75;
+  }
+  .mm-cta {
+    margin-top: auto;
+    justify-content: center;
+    min-height: 54px;
   }
   @media (max-width: 700px) {
     .hdr-cta {
@@ -220,7 +331,7 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
   });
 
   // píldora deslizante bajo la pestaña activa
-  const navs = [...document.querySelectorAll<HTMLElement>('.tabs')];
+  const navs = [...document.querySelectorAll<HTMLElement>('.site-header .tabs')];
   const place = () =>
     navs.forEach((nav) => {
       const pill = nav.querySelector<HTMLElement>('.pill')!;
@@ -230,10 +341,6 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
       if (!visible) return;
       pill.style.width = `${cur.offsetWidth}px`;
       pill.style.transform = `translateX(${cur.offsetLeft}px)`;
-      // en la barra móvil desplazable, que la pestaña activa no quede fuera de vista
-      if (cur.offsetLeft < nav.scrollLeft || cur.offsetLeft + cur.offsetWidth > nav.scrollLeft + nav.clientWidth) {
-        nav.scrollTo({ left: cur.offsetLeft - 16, behavior: 'smooth' });
-      }
     });
   navs.forEach((n) => n.classList.add('has-pill'));
 
@@ -280,6 +387,21 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     );
     update();
   }
+  // menú móvil
+  const menu = document.querySelector<HTMLDialogElement>('#menu-movil');
+  const menuBtn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  if (menu && menuBtn) {
+    menuBtn.addEventListener('click', () => {
+      menu.showModal();
+      menuBtn.setAttribute('aria-expanded', 'true');
+    });
+    menu.addEventListener('close', () => menuBtn.setAttribute('aria-expanded', 'false'));
+    menu.querySelector('.mm-close')!.addEventListener('click', () => menu.close());
+    // al elegir un destino se cierra y la página se desplaza hasta él
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => menu.close()));
+    matchMedia('(min-width: 1101px)').addEventListener('change', (e) => e.matches && menu.close());
+  }
+
   place();
   requestAnimationFrame(() => navs.forEach((n) => n.classList.add('pill-ready')));
   addEventListener('resize', place);

@@ -11,6 +11,8 @@ const es = {
     lang: 'Idioma',
     themeDark: 'Activar modo oscuro',
     themeLight: 'Activar modo claro',
+    menu: 'Abrir menú',
+    close: 'Cerrar menú',
     tabs: [
       { f: 'inicio.astro', id: 'top', a: 'Inicio' },
       { f: 'como-trabajo.md', id: 'como', a: 'Cómo trabajo' },

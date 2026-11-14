@@ -13,6 +13,8 @@ const en: Dict = {
     lang: 'Language',
     themeDark: 'Switch to dark mode',
     themeLight: 'Switch to light mode',
+    menu: 'Open menu',
+    close: 'Close menu',
     tabs: [
       { f: 'home.astro', id: 'top', a: 'Home' },
       { f: 'how-i-work.md', id: 'como', a: 'How I work' },
