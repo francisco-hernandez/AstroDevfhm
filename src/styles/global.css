@@ -3,6 +3,8 @@
 :root,
 [data-theme='light'] {
   color-scheme: light;
+  /* fondo del disco de las escenas del perezoso (el PNG es transparente) */
+  --disc: radial-gradient(circle at 50% 38%, #fdf7ec 0%, #f1e3cb 62%, #e5cdaa 100%);
   --bg: #f4efe6;
   --surface: #fbf8f2;
   --ink: #1c2620;
@@ -35,6 +37,7 @@
 
 [data-theme='dark'] {
   color-scheme: dark;
+  --disc: #000;
   --bg: #111915;
   --surface: #18221c;
   --ink: #ece6d9;
