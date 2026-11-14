@@ -416,6 +416,10 @@ h1.display,
   opacity: 1;
   translate: none;
   scale: none;
+}
+/* solo los de recorte: en el resto, clip-path cortaría lo que sobresale (p. ej. las escenas de servicios) */
+.reveal[data-r='clip'].in,
+.no-js .reveal[data-r='clip'] {
   clip-path: inset(0);
 }
 
