@@ -103,6 +103,7 @@ const en: Dict = {
       { name: 'Media Maratón Murcia', url: 'media-maraton-murcia.vercel.app', tech: 'Bootstrap · JavaScript', desc: 'Web app with a personal training plan for the 2027 Murcia Half Marathon: workouts, meals, analysis and progress.' },
       { name: 'Pilates Lab', url: 'pilateslabv4.vercel.app', tech: 'React · Tailwind CSS', desc: 'Website for a boutique pilates studio in Santa Ana, Costa Rica: method, sessions and booking.' },
       { name: 'Solar Reiki', url: 'svetlana-v3.vercel.app', tech: 'Bootstrap · JavaScript', desc: 'Website for a Reiki therapist offering remote sessions, built to lead to a first conversation.' },
+      { name: 'Slow Costa Rica', url: 'slowcostarica.com', tech: 'WordPress · Elementor', desc: 'French-language website for planning a slow-travel trip to Costa Rica: regions, wildlife, car rental and an animal guide.' },
       { name: 'Sociedad Murciana del Dolor', url: 'smdolor.com', tech: 'WordPress · Elementor', agency: true, desc: 'Website for a professional association devoted to pain treatment: news, meetings, videos and a private area for members.' },
       { name: 'Oro Bann', url: 'orobann.com', tech: 'WordPress · WPBakery', agency: true, desc: 'Website for a business that buys and sells gold and silver jewellery in Murcia, Spain.' },
       { name: 'Palacio del Oro', url: 'palaciodeloro.es', tech: 'WordPress · Elementor · WooCommerce', agency: true, desc: 'Online jewellery and watch store for a gold-buying business in Murcia, Spain, with gold and silver prices.' },
