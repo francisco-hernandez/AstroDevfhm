@@ -7,7 +7,7 @@ const d = t('es').notFound;
 const en = t('en').notFound;
 ---
 
-<Layout lang="es" title={d.metaTitle} description={d.text} altHref={paths.en.home}>
+<Layout lang="es" title={d.metaTitle} description={d.text} altHref={paths.en.home} noindex>
   <section class="wrap nf">
     <Scene id="perdido" size={260} />
     <p class="eyebrow"><b>404</b> {d.metaTitle.split('|')[0].trim()}</p>
