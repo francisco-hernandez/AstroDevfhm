@@ -51,6 +51,7 @@ const ogUrl = new URL(og.src, Astro.site);
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <meta name="theme-color" content="#f4efe6" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#111915" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
     <script is:inline>
       // tema antes de pintar: preferencia guardada o la del sistema
       (function () {
@@ -60,6 +61,7 @@ const ogUrl = new URL(og.src, Astro.site);
         try { saved = localStorage.getItem('theme'); } catch (e) {}
         var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
         d.dataset.theme = dark ? 'dark' : 'light';
+        if (saved) document.querySelector('meta[name="color-scheme"]').content = saved;
       })();
     </script>
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

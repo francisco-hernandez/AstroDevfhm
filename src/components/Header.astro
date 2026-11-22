@@ -324,6 +324,7 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
   label();
   btn?.addEventListener('click', () => {
     root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]')!.content = root.dataset.theme;
     try {
       localStorage.setItem('theme', root.dataset.theme);
     } catch {}

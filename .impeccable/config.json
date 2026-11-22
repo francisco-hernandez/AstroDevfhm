@@ -1,0 +1,66 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "italic-serif-display",
+        "value": "*",
+        "files": [
+          "src/**"
+        ],
+        "createdAt": "2026-11-22T00:03:11.688Z",
+        "reason": "user confirmed: acento en cursiva serif es parte de la línea visual (01 §8, opción b)"
+      },
+      {
+        "rule": "kicker-above-heading",
+        "value": "*",
+        "files": [
+          "src/**"
+        ],
+        "createdAt": "2026-11-22T00:03:16.350Z",
+        "reason": "user confirmed: secciones numeradas tipo commit/pilateslabv4 (01 §8, opción b)"
+      },
+      {
+        "rule": "hero-eyebrow-chip",
+        "value": "*",
+        "files": [
+          "src/**"
+        ],
+        "createdAt": "2026-11-22T00:03:19.939Z",
+        "reason": "decisión documentada: pre-titular con nombre y palabras clave para SEO (01 §7)"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "src/**"
+        ],
+        "createdAt": "2026-11-22T00:03:23.163Z",
+        "reason": "decisión documentada: paleta arena/selva del modo claro (01 §8)"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-22T00:03:26.588Z",
+        "reason": "texto corrido; la identidad la llevan Instrument Serif y JetBrains Mono"
+      },
+      {
+        "rule": "overused-font",
+        "value": "instrument serif",
+        "createdAt": "2026-11-22T00:03:30.643Z",
+        "reason": "user confirmed: acento en cursiva serif (opción b)"
+      },
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "src/components/home/Blog.astro",
+          "src/views/BlogPage.astro"
+        ],
+        "createdAt": "2026-11-22T00:03:33.973Z",
+        "reason": "falso positivo: imágenes que aparecen al pasar el cursor"
+      }
+    ]
+  }
+}
