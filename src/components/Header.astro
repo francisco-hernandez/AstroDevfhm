@@ -106,7 +106,7 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
   .tabs {
     position: relative;
     display: flex;
-    gap: 4px;
+    gap: 2px;
     overflow-x: auto;
     scrollbar-width: none;
     padding: 6px 0;
@@ -123,7 +123,7 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
     display: inline-flex;
     align-items: center;
     min-height: 40px;
-    padding: 0 14px;
+    padding: 0 9px;
     font: 500 13px 'JetBrains Mono Variable', monospace;
     color: var(--muted);
     text-decoration: none;
@@ -208,7 +208,8 @@ const enHref = lang === 'en' ? Astro.url.pathname : altHref;
   .menu-btn {
     display: none;
   }
-  @media (max-width: 1100px) {
+  /* por debajo de 1240 px las pestañas en español no caben: menú a pantalla completa */
+  @media (max-width: 1239px) {
     .tabs-in {
       display: none;
     }
