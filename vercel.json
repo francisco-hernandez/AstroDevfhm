@@ -1,0 +1,11 @@
+{
+  "redirects": [
+    { "source": "/articulo{/}?", "destination": "/blog/inteligencia-artificial-aliada-enemiga-diseno/", "permanent": true },
+    { "source": "/blog/artificial-intelligence-ally-or-enemy-design{/}?", "destination": "/en/blog/artificial-intelligence-ally-or-enemy-design/", "permanent": true },
+    { "source": "/blog/brutalist-structures-modern-interfaces{/}?", "destination": "/en/blog/brutalist-structures-modern-interfaces/", "permanent": true },
+    { "source": "/blog/designing-for-web-3-visual-challenges{/}?", "destination": "/en/blog/designing-for-web-3-visual-challenges/", "permanent": true },
+    { "source": "/blog/micro-interactions-macro-conversions{/}?", "destination": "/en/blog/micro-interactions-macro-conversions/", "permanent": true },
+    { "source": "/blog/paradox-of-choice-product-design{/}?", "destination": "/en/blog/paradox-of-choice-product-design/", "permanent": true },
+    { "source": "/blog/psychology-of-color-luxury-branding{/}?", "destination": "/en/blog/psychology-of-color-luxury-branding/", "permanent": true }
+  ]
+}
